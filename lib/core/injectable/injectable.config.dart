@@ -23,9 +23,6 @@ import '../../feature/contacts/domain/repository/contacts_repository.dart'
 import '../../feature/main/data/repository/main_repository_impl.dart' as _i268;
 import '../../feature/main/domain/interactor/main_interactor.dart' as _i332;
 import '../../feature/main/domain/repository/main_repository.dart' as _i234;
-import '../../feature/news/data/repository/news_repository_impl.dart' as _i145;
-import '../../feature/news/domain/interactor/news_interactor.dart' as _i1017;
-import '../../feature/news/domain/repository/news_repository.dart' as _i727;
 import '../../feature/settings/data/repository/settings_repository_impl.dart'
     as _i993;
 import '../../feature/settings/domain/interactor/settings_interactor.dart'
@@ -64,9 +61,6 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i361.Dio>(
     () => registerModule.dio(gh<String>(instanceName: 'BaseUrl')),
   );
-  gh.singleton<_i727.NewsRepository>(
-    () => _i145.NewsRepositoryImpl(gh<_i361.Dio>()),
-  );
   gh.singleton<_i234.MainRepository>(
     () => _i268.MainRepositoryImpl(gh<_i361.Dio>()),
   );
@@ -81,9 +75,6 @@ _i174.GetIt $initGetIt(
   );
   gh.singleton<_i332.MainInteractor>(
     () => _i332.MainInteractor(gh<_i234.MainRepository>()),
-  );
-  gh.singleton<_i1017.NewsInteractor>(
-    () => _i1017.NewsInteractor(gh<_i727.NewsRepository>()),
   );
   gh.singleton<_i459.ContactsInteractor>(
     () => _i459.ContactsInteractor(gh<_i384.ContactsRepository>()),

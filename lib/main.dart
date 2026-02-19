@@ -51,6 +51,7 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
 
       supportedLocales: context.supportedLocales,
       darkTheme: AppThemes.mainThemeDark,
+      themeMode: ThemeMode.dark,
       theme: AppThemes.isLightTheme,
     );
   }

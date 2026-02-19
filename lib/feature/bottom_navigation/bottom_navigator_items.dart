@@ -31,7 +31,6 @@ class _BottomNavigatorItemState extends State<BottomNavigatorItem> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      backgroundColor: AppColors.mainWhite,
       currentIndex: _initialIndex ?? widget.tabsRouter.activeIndex,
       selectedItemColor: AppColors.bottomNavigationColor,
       unselectedItemColor: AppColors.grey,
@@ -41,10 +40,6 @@ class _BottomNavigatorItemState extends State<BottomNavigatorItem> {
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: context.tr(LocaleKeys.bottomNavText1),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.article_outlined),
-          label: context.tr(LocaleKeys.bottomNavText2),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.perm_contact_calendar_outlined),

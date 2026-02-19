@@ -20,7 +20,6 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
       key: _scaffoldKey,
       routes: const [
         MainRoute(),
-        NewsRoute(),
         ContactsRoute(),
         SettingsRoute(),
       ],

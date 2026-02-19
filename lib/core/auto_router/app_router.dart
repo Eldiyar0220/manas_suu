@@ -13,7 +13,6 @@ class AppRouter extends RootStackRouter {
       page: BottomNavigationRoute.page,
       children: [
         CupertinoRoute(page: MainRoute.page),
-        CupertinoRoute(page: NewsRoute.page),
         CupertinoRoute(page: ContactsRoute.page),
         CupertinoRoute(page: SettingsRoute.page),
       ],

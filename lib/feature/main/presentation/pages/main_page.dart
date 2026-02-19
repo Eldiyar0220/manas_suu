@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
-import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_button_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_header_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_info_contaiiner_widget.dart';
@@ -18,11 +17,8 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //Убрать колор, Султан сделает тему
-      backgroundColor: AppColors.background,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: const Color(0xFFF5F7F6),
         centerTitle: true,
         title: Text(
           context.tr(LocaleKeys.mainPageTitle),

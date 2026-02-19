@@ -4,15 +4,15 @@ import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 abstract class AppThemes {
   static ThemeData mainThemeDark = ThemeData(
     brightness: Brightness.dark,
-    scaffoldBackgroundColor: AppColors.mainColor,
+    scaffoldBackgroundColor: AppColors.backgroundBlack,
     appBarTheme: AppBarTheme(
       iconTheme: const IconThemeData(color: Colors.white),
-      backgroundColor: AppColors.mainColor,
+      backgroundColor: AppColors.backgroundBlack,
       // titleTextStyle: AppTextDark.text20W500,
     ),
     textTheme: TextTheme(),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: AppColors.mainColor,
+      backgroundColor: AppColors.backgroundBlack,
       selectedItemColor: AppColors.mainColor,
       unselectedItemColor: AppColors.mainColor,
       // selectedLabelStyle: AppTextDark.textBNB,
@@ -33,17 +33,17 @@ abstract class AppThemes {
 
   static ThemeData isLightTheme = ThemeData(
     brightness: Brightness.light,
-    scaffoldBackgroundColor: AppColors.mainColor,
+    scaffoldBackgroundColor: AppColors.backgroundWhite,
     appBarTheme: AppBarTheme(
       iconTheme: const IconThemeData(color: Colors.black),
-      backgroundColor: AppColors.mainColor,
+      backgroundColor: AppColors.backgroundWhite,
       // titleTextStyle: AppTextsLight.text20W500,
     ),
     textTheme: TextTheme(),
     inputDecorationTheme: InputDecorationTheme(),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       elevation: 5,
-      backgroundColor: AppColors.mainColor,
+      backgroundColor: AppColors.backgroundWhite,
       selectedItemColor: AppColors.mainColor,
       unselectedItemColor: AppColors.mainColor,
       // selectedLabelStyle: AppTextsLight.textBNB,
