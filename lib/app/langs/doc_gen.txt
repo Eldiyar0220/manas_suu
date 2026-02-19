@@ -1,0 +1,7 @@
+dart run easy_localization:generate -S lib/app/langs/langs -O lib/app/langs/lang_gen
+
+dart run easy_localization:generate \
+  -S lib/app/langs/langs \
+  -O lib/app/langs/lang_gen \
+  -f keys \
+  -o locale_keys.g.dart

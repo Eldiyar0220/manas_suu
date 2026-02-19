@@ -1,0 +1,13 @@
+{
+  "bottomNavText1": "Башкы",
+  "bottomNavText2": "Жаңылыктар",
+  "bottomNavText3": "Байланыштар",
+  "bottomNavText4": "Жөндөөлөр",
+  "mainPageTitle": "Менин эсептерим",
+  "mainPageNoCheck": "Кошулган эсептер жок",
+  "mainPageNoCheckDesc": "Эсептерди көрүү жана кызматтарды башкаруу үчүн жеке эсепти кошуңуз",
+  "mainPageAddCheck": "Эсеп кошуу",
+  "mainPageWhereToFind": "Жеке эсеп номерин кайдан табууга болот?",
+  "mainPageShowed": "Жеке эсеп номери квитанцияда көрсөтүлгөн",
+  "activate": "Иштетүү"
+}

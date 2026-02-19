@@ -1,0 +1,182 @@
+
+# **************************************************************************
+# * ArchitectureGenerator - Simpler FLutter Generator -
+# **************************************************************************
+
+dataSource: false
+
+dataModel: false
+
+dataRepository: false
+
+entityModel: false
+
+domainRepository: false
+
+usecase: false
+
+#!/bin/bash
+# ----M.V.P-------------------------------------------------------> start
+generate:
+# ---Data------------------------------------------------------
+  - category: data
+    contents:
+      - folder: models
+        contents:
+          - file: NAME_model.dart
+            code: |
+              import 'package:json_annotation/json_annotation.dart';
+
+              part 'LOWER_CASE_model.g.dart';
+
+              @JsonSerializable()
+              class NAMEModel {
+                final int id;
+                final String name;
+                final String email;
+                final bool isActive;
+
+                NAMEModel({
+                  required this.id,
+                  required this.name,
+                  required this.email,
+                  required this.isActive,
+                });
+
+                factory NAMEModel.fromJson(Map<String, dynamic> json) =>
+                    _$NAMEModelFromJson(json);
+
+                Map<String, dynamic> toJson() => _$NAMEModelToJson(this);
+              }
+      - folder: repository
+        contents:
+          - file: NAME_repository_impl.dart
+            code: |
+              import 'package:dio/dio.dart';
+              import 'package:injectable/injectable.dart';
+
+              @Singleton(as: NAMERepository)
+              class NAMERepositoryImpl implements NAMERepository {
+                NAMERepositoryImpl(this._dio);
+                final Dio _dio;
+                
+                final String _getList = ' API ';
+
+                @override
+                Future<String> exampleFuncRepo() async {
+                  final response = await _dio.get(_getList);
+                  return NAMEModel.fromJson(response.data).name;
+                }
+              }
+
+# ---Domain----------------------------------------------------          
+  - category: domain
+    contents:
+      - folder: interactor
+        contents:
+          - file: NAME_interactor.dart
+            code: | 
+              import 'package:injectable/injectable.dart';
+
+              @singleton
+              class NAMEInteractor {
+                NAMEInteractor(this._repository);
+                final NAMERepository _repository;
+
+                @override
+                Future<void> exampleFunc() async {
+                  try {
+                    await _repository.exampleFuncRepo();
+                  } catch (e) {
+                    rethrow;
+                  }
+                }
+              }
+      - folder: repository
+        contents:
+          - file: NAME_repository.dart
+            code: | 
+              abstract class NAMERepository {
+                Future<void> exampleFuncRepo();
+              }
+# ---Presentation----------------------------------------------
+  - category: presentation
+    contents:
+      - folder: widgets
+      - folder: bloc
+        contents:
+          - file: NAME_bloc.dart
+            code: | 
+              import 'package:equatable/equatable.dart';
+              import 'package:flutter_bloc/flutter_bloc.dart';
+
+              part 'LOWER_CASE_event.dart';
+              part 'LOWER_CASE_state.dart';
+
+              class NAMEBloc extends Bloc<NAMEEvent, NAMEState> {
+              NAMEBloc(this._interactor) : super(NAMELoadingState()) {
+                on<NAMEEvent>((event, emit) async {
+                  switch (event) {
+                    case ToNAMEEvent(:final model):
+                      {
+                        await onToNAMEEvent(model: model, emit: emit);
+                        break;
+                      }
+                  }
+                });
+              }
+
+                final NAMEInteractor _interactor;
+
+                Future<void> onToNAMEEvent({
+                  required NAMEModel model,
+                  required Emitter<NAMEState> emit,
+                }) async {
+                  emit(NAMELoadingState());
+                  final result = await _interactor.exampleFunc();
+                }
+              }
+
+          - file: NAME_event.dart
+            code: |   
+              part of 'LOWER_CASE_bloc.dart';
+              sealed class NAMEEvent extends Equatable {}
+
+              class ToNAMEEvent extends NAMEEvent {
+                ToNAMEEvent({required this.model});
+                final NAMEModel model;
+
+                @override
+                List<Object?> get props => [model];
+              }
+          - file: NAME_state.dart
+            code: |
+              part of 'LOWER_CASE_bloc.dart';
+              sealed class NAMEState extends Equatable {}
+
+              class NAMESuccessState extends NAMEState {
+                NAMESuccessState({required this.model});
+                final NAMEModel? model;
+
+                @override
+                List<Object?> get props => [model];
+              }
+
+              class NAMELoadingState extends NAMEState {
+                @override
+                List<Object?> get props => [];  
+              }
+
+              class NAMEErrorState extends NAMEState {
+                NAMEErrorState({required this.message});
+                final String message;
+
+                @override
+                List<Object?> get props => [message];
+              }
+
+      - folder: pages
+        contents:
+          - file: NAME_page.dart
+# ------------------------------------------------------------- end
+
