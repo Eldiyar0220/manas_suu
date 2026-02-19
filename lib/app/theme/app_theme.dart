@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 
+
+/// Суля дальше сам
 abstract class AppThemes {
   static ThemeData mainThemeDark = ThemeData(
     brightness: Brightness.dark,
