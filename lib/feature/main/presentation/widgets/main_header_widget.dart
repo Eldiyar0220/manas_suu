@@ -15,16 +15,30 @@ class MainHeaderWidget extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(color: const Color(0xFF4CAF50), width: 3),
-            boxShadow: [BoxShadow(color: AppColors.mainColor.withValues(alpha: 0.25), blurRadius: 30, spreadRadius: 5)],
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.mainColor.withValues(alpha: 0.25),
+                blurRadius: 30,
+                spreadRadius: 5,
+              ),
+            ],
           ),
-          child: const Icon(Icons.account_balance_wallet, size: 60, color: Color(0xFF4CAF50)),
+          child: const Icon(
+            Icons.account_balance_wallet,
+            size: 60,
+            color: Color(0xFF4CAF50),
+          ),
         ),
 
         const SizedBox(height: 24),
 
         Text(
           context.tr(LocaleKeys.mainPageNoCheck),
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: Color(0xFF43A047)),
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF43A047),
+          ),
         ),
 
         const SizedBox(height: 12),
@@ -32,7 +46,7 @@ class MainHeaderWidget extends StatelessWidget {
         Text(
           context.tr(LocaleKeys.mainPageNoCheckDesc),
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.black54, fontSize: 14, height: 1.5),
+          style: TextStyle(fontSize: 14, height: 1.5),
         ),
       ],
     );

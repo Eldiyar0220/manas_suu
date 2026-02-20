@@ -26,13 +26,16 @@ class MainInfoContainerWidget extends StatelessWidget {
           Text(
             context.tr(LocaleKeys.mainPageWhereToFind),
             textAlign: TextAlign.center,
-            style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF2E7D32), fontSize: 16),
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF2E7D32),
+              fontSize: 16,
+            ),
           ),
           SizedBox(height: 8),
           Text(
             context.tr(LocaleKeys.mainPageShowed),
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.black54),
           ),
         ],
       ),
