@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
+import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
 /// Суля дальше сам
 abstract class AppThemes {
@@ -8,6 +10,10 @@ abstract class AppThemes {
       MyColors(
         textWhiteBlackColor: AppColors.backgroundWhite,
         cardBackgroundWhiteBlackColor: AppColors.backgroundBlack,
+        userAccountBackground: [Color(0xFF0E1A14), Color(0xFF0A0A0A)],
+        dayAndNight: Colors.black,
+        nightAndDay: Colors.white,
+        containerIconColor: Color(0xFF2d2d2d),
       ),
     ],
     brightness: Brightness.dark,
@@ -71,21 +77,55 @@ abstract class AppThemes {
       surface: AppColors.mainColor,
       onSurface: Colors.grey,
     ),
-    extensions: [MyColors(textWhiteBlackColor: AppColors.backgroundBlack, cardBackgroundWhiteBlackColor: Colors.white)],
+    extensions: [
+      MyColors(
+        textWhiteBlackColor: AppColors.backgroundBlack,
+        cardBackgroundWhiteBlackColor: Colors.white,
+        userAccountBackground: [
+          const Color.fromARGB(255, 231, 233, 232),
+          const Color.fromARGB(255, 236, 238, 237),
+        ],
+        dayAndNight: Colors.white,
+        nightAndDay: Colors.black,
+        containerIconColor: Color(0xfffafafa),
+      ),
+    ],
   );
 }
 
 class MyColors extends ThemeExtension<MyColors> {
-  const MyColors({required this.textWhiteBlackColor, required this.cardBackgroundWhiteBlackColor});
+  const MyColors({
+    required this.textWhiteBlackColor,
+    required this.cardBackgroundWhiteBlackColor,
+    required this.userAccountBackground,
+    required this.dayAndNight,
+    required this.nightAndDay,
+    required this.containerIconColor,
+  });
 
   final Color? textWhiteBlackColor;
   final Color? cardBackgroundWhiteBlackColor;
+  final List<Color>? userAccountBackground;
+  final Color? dayAndNight;
+  final Color? nightAndDay;
+  final Color? containerIconColor;
 
   @override
-  MyColors copyWith({Color? textWhiteBlackColor, Color? cardBackgroundWhiteBlackColor}) {
+  MyColors copyWith({
+    Color? textWhiteBlackColor,
+    Color? cardBackgroundWhiteBlackColor,
+    List<Color>? userAccountBackground,
+    Color? dayAndNight,
+    Color? nightAndDay,
+  }) {
     return MyColors(
       textWhiteBlackColor: textWhiteBlackColor ?? this.textWhiteBlackColor,
-      cardBackgroundWhiteBlackColor: cardBackgroundWhiteBlackColor ?? this.cardBackgroundWhiteBlackColor,
+      cardBackgroundWhiteBlackColor:
+          cardBackgroundWhiteBlackColor ?? this.cardBackgroundWhiteBlackColor,
+      userAccountBackground: userAccountBackground ?? userAccountBackground,
+      dayAndNight: dayAndNight ?? dayAndNight,
+      nightAndDay: nightAndDay ?? nightAndDay,
+      containerIconColor: containerIconColor ?? containerIconColor,
     );
   }
 
@@ -95,8 +135,20 @@ class MyColors extends ThemeExtension<MyColors> {
       return this;
     }
     return MyColors(
-      textWhiteBlackColor: Color.lerp(textWhiteBlackColor, other.textWhiteBlackColor, t),
-      cardBackgroundWhiteBlackColor: Color.lerp(cardBackgroundWhiteBlackColor, other.cardBackgroundWhiteBlackColor, t),
+      textWhiteBlackColor: Color.lerp(
+        textWhiteBlackColor,
+        other.textWhiteBlackColor,
+        t,
+      ),
+      cardBackgroundWhiteBlackColor: Color.lerp(
+        cardBackgroundWhiteBlackColor,
+        other.cardBackgroundWhiteBlackColor,
+        t,
+      ),
+      userAccountBackground: userAccountBackground,
+      dayAndNight: dayAndNight,
+      nightAndDay: nightAndDay,
+      containerIconColor: containerIconColor,
     );
   }
 
@@ -104,4 +156,27 @@ class MyColors extends ThemeExtension<MyColors> {
   @override
   String toString() =>
       'MyColors(textWhiteBlackColor: $textWhiteBlackColor, cardBackgroundWhiteBlackColor: $cardBackgroundWhiteBlackColor)';
+}
+
+class AppThemeChangeButton extends StatelessWidget {
+  const AppThemeChangeButton({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ElevatedButton(
+          child: const Text('Light'),
+          onPressed: () {
+            context.read<ThemeCubit>().changeTheme(ThemeMode.light);
+          },
+        ),
+        ElevatedButton(
+          child: const Text('Dark'),
+          onPressed: () {
+            context.read<ThemeCubit>().changeTheme(ThemeMode.dark);
+          },
+        ),
+      ],
+    );
+  }
 }

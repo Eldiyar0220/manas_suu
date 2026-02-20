@@ -9,6 +9,7 @@ class AppRouter extends RootStackRouter {
   @override
   List<CupertinoRoute> get routes => [
     CupertinoRoute(page: SplashRoute.page, initial: true),
+    CupertinoRoute(page: MainAddUserAccountRoute.page),
     CupertinoRoute(
       page: BottomNavigationRoute.page,
       children: [

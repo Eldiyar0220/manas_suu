@@ -9,26 +9,7 @@ class MainHeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          width: 140,
-          height: 140,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: const Color(0xFF4CAF50), width: 3),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.mainColor.withValues(alpha: 0.25),
-                blurRadius: 30,
-                spreadRadius: 5,
-              ),
-            ],
-          ),
-          child: const Icon(
-            Icons.account_balance_wallet,
-            size: 60,
-            color: Color(0xFF4CAF50),
-          ),
-        ),
+        
 
         const SizedBox(height: 24),
 
@@ -49,6 +30,37 @@ class MainHeaderWidget extends StatelessWidget {
           style: TextStyle(fontSize: 14, height: 1.5),
         ),
       ],
+    );
+  }
+}
+
+class MainHeaderWalletWidget extends StatelessWidget {
+  const MainHeaderWalletWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 140,
+      height: 140,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.white,
+        border: Border.all(color: const Color(0xFF4CAF50), width: 3),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.mainColor.withValues(alpha: 0.25),
+            blurRadius: 30,
+            spreadRadius: 5,
+          ),
+        ],
+      ),
+      child: const Icon(
+        Icons.account_balance_wallet,
+        size: 60,
+        color: Color(0xFF4CAF50),
+      ),
     );
   }
 }
