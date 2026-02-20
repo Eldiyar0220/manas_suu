@@ -14,9 +14,9 @@ Future<void> main() async {
   await configureDependencies(environment: AppEnv.prod);
   runApp(
     EasyLocalization(
-      path: 'lib/langs',
+      path: 'lib/app/langs/lang_gen',
       ignorePluralRules: false,
-      supportedLocales: const [Locale('ru', 'RU')],
+      supportedLocales: const [Locale('ru', 'RU'), Locale('ky', 'KY'), Locale('en', 'US')],
       fallbackLocale: const Locale('ru', 'RU'),
       assetLoader: const CodegenLoader(),
       child: ManasSuuApp(),
@@ -42,7 +42,7 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => GetIt.I<ThemeCubit>(),
+      create: (context) => GetIt.I<ThemeCubit>()..init(),
       child: Builder(
         builder: (context) => MaterialApp.router(
           title: 'Manas tazalyk',

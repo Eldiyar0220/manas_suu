@@ -16,7 +16,6 @@ class ThemeInteractor {
   Future<void> init() async {
     final currentBrightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
     final savedMode = _preferenceHelper.preferences?.getString('themeMode');
-
     switch (savedMode) {
       case 'ThemeMode.dark':
         mode = ThemeMode.dark;
@@ -40,7 +39,6 @@ class ThemeInteractor {
 
   Future<void> setTheme(ThemeMode theme) async {
     final currentBrightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
-
     await _preferenceHelper.preferences?.setString('themeMode', theme.toString());
 
     mode = theme;
@@ -67,9 +65,7 @@ class ThemeInteractor {
 
 @singleton
 class ThemeCubit extends Cubit<ThemeState> {
-  ThemeCubit(this._interactor) : super(ThemeState(themeMode: ThemeMode.system, isDarkMode: false)) {
-    init();
-  }
+  ThemeCubit(this._interactor) : super(ThemeState(themeMode: ThemeMode.system, isDarkMode: false));
   final ThemeInteractor _interactor;
 
   void init() async {

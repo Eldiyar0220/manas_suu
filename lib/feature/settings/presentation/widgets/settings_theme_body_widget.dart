@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
+import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 import 'package:manas_suu_app/feature/settings/presentation/widgets/settings_header_title_widget.dart';
 import 'package:manas_suu_app/feature/settings/presentation/widgets/settings_select_item_widget.dart';
@@ -19,18 +21,14 @@ class SettingsThemeBodyWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SettingsHeaderTitleWidget(
-            title: 'Тема приложения',
-            icon: Icons.palette,
-          ),
+          SettingsHeaderTitleWidget(title: context.tr(LocaleKeys.themeApp), icon: Icons.palette),
           const SizedBox(height: 16),
           SettingsSelectItemWidget(
             value: ThemeMode.light.name,
             icon: Icons.light_mode,
             groupValue: context.watch<ThemeCubit>().state.themeMode.name,
-            title: 'Светлая',
-            onTap: () =>
-                context.read<ThemeCubit>().changeTheme(ThemeMode.light),
+            title: context.tr(LocaleKeys.themeLight),
+            onTap: () => context.read<ThemeCubit>().changeTheme(ThemeMode.light),
           ),
           const SizedBox(height: 12),
           SettingsSelectItemWidget(
@@ -38,7 +36,7 @@ class SettingsThemeBodyWidget extends StatelessWidget {
             icon: Icons.dark_mode,
 
             groupValue: context.watch<ThemeCubit>().state.themeMode.name,
-            title: 'Темная',
+            title: context.tr(LocaleKeys.themeDark),
             onTap: () => context.read<ThemeCubit>().changeTheme(ThemeMode.dark),
           ),
           const SizedBox(height: 12),
@@ -47,9 +45,8 @@ class SettingsThemeBodyWidget extends StatelessWidget {
 
             value: ThemeMode.system.name,
             groupValue: context.watch<ThemeCubit>().state.themeMode.name,
-            title: 'Системная',
-            onTap: () =>
-                context.read<ThemeCubit>().changeTheme(ThemeMode.system),
+            title: context.tr(LocaleKeys.themeSystem),
+            onTap: () => context.read<ThemeCubit>().changeTheme(ThemeMode.system),
           ),
         ],
       ),

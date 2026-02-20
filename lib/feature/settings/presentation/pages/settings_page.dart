@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
+import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/feature/settings/presentation/widgets/settings_language_widget.dart';
 import 'package:manas_suu_app/feature/settings/presentation/widgets/settings_notification_widget.dart';
 import 'package:manas_suu_app/feature/settings/presentation/widgets/settings_theme_body_widget.dart';
@@ -14,21 +16,19 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Настройки', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+        title: Text(context.tr(LocaleKeys.bottomNavText4), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
-            Text(
-              'Настройте приложение под свои предпочтения',
-              style: TextStyle(color: context.theme.textWhiteBlackColor),
-            ),
+            Text(context.tr(LocaleKeys.settingApp), style: TextStyle(color: context.theme.textWhiteBlackColor)),
             const SizedBox(height: 24),
             SettingsNotificationAndVersionWidget(
               icon: Icons.notifications,
-              title: 'Уведомления',
-              subtitle: 'Все уведомления прочитаны',
+              title: context.tr(LocaleKeys.notifications),
+
+              subtitle: context.tr(LocaleKeys.seeAllNotifications),
             ),
             const SizedBox(height: 24),
             SettingsThemeBodyWidget(),
@@ -37,12 +37,13 @@ class SettingsPage extends StatelessWidget {
             const SizedBox(height: 24),
             SettingsNotificationAndVersionWidget(
               icon: Icons.info_outline,
-              title: 'О приложении',
+              title: context.tr(LocaleKeys.aboutApp),
+
               subtitle: '1.0.11+11',
             ),
             const SizedBox(height: 20),
-            const Center(
-              child: Text('© 2026 Все права защищены', style: TextStyle(color: Colors.white38)),
+            Center(
+              child: Text(context.tr(LocaleKeys.pravaSecured), style: TextStyle(color: Colors.white38)),
             ),
             const SizedBox(height: 20),
           ],

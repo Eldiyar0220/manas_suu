@@ -9,5 +9,18 @@
   "mainPageAddCheck": "Эсеп кошуу",
   "mainPageWhereToFind": "Жеке эсеп номерин кайдан табууга болот?",
   "mainPageShowed": "Жеке эсеп номери квитанцияда көрсөтүлгөн",
-  "activate": "Иштетүү"
+  "activate": "Иштетүү",
+  "settingApp": "Колдонмону өз каалооңузга ылайык жөндөнүңүз",
+  "notifications": "Билдирмелер",
+  "seeAllNotifications": "Бардык билдирмелер окулду",
+  "aboutApp": "Колдонмо жөнүндө",
+  "pravaSecured": "© 2026 Бардык укуктар корголгон",
+  "themeApp": "Колдонмонун темасы",
+  "langInterface": "Интерфейстин тили",
+  "themeLight": "Ачык",
+  "themeDark": "Караңгы",
+  "themeSystem": "Системалык",
+  "splashSubTitle": "Жеке эсептерди башкаруу",
+  "configurationLoading": "Конфигурацияны жүктөө...",
+  "version": "Версия"
 }

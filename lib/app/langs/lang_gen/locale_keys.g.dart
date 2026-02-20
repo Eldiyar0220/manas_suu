@@ -14,5 +14,18 @@ abstract class  LocaleKeys {
   static const mainPageWhereToFind = 'mainPageWhereToFind';
   static const mainPageShowed = 'mainPageShowed';
   static const activate = 'activate';
+  static const settingApp = 'settingApp';
+  static const notifications = 'notifications';
+  static const seeAllNotifications = 'seeAllNotifications';
+  static const aboutApp = 'aboutApp';
+  static const pravaSecured = 'pravaSecured';
+  static const themeApp = 'themeApp';
+  static const langInterface = 'langInterface';
+  static const themeLight = 'themeLight';
+  static const themeDark = 'themeDark';
+  static const themeSystem = 'themeSystem';
+  static const splashSubTitle = 'splashSubTitle';
+  static const configurationLoading = 'configurationLoading';
+  static const version = 'version';
 
 }
