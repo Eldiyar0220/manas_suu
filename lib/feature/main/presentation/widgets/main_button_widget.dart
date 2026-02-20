@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
+import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 
 class MainButtonWidget extends StatelessWidget {
   const MainButtonWidget({super.key});
@@ -17,7 +18,7 @@ class MainButtonWidget extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.green.withValues(alpha: 0.3),
+            color: AppColors.mainColor.withValues(alpha: 0.3),
             blurRadius: 15,
             offset: const Offset(0, 8),
           ),

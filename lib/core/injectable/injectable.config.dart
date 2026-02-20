@@ -29,6 +29,8 @@ import '../../feature/settings/domain/interactor/settings_interactor.dart'
     as _i774;
 import '../../feature/settings/domain/repository/settings_repository.dart'
     as _i103;
+import '../../feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart'
+    as _i778;
 import '../../feature/splash/data/repository/splash_repository_impl.dart'
     as _i228;
 import '../../feature/splash/domain/interactor/splash_interactor.dart' as _i111;
@@ -53,10 +55,16 @@ _i174.GetIt $initGetIt(
     instanceName: 'BaseUrl',
     registerFor: {_dev},
   );
+  gh.singleton<_i778.ThemeInteractor>(
+    () => _i778.ThemeInteractor(gh<_i692.PreferenceHelper>()),
+  );
   gh.factory<String>(
     () => registerModule.prodBaseUrl,
     instanceName: 'BaseUrl',
     registerFor: {_prod},
+  );
+  gh.singleton<_i778.ThemeCubit>(
+    () => _i778.ThemeCubit(gh<_i778.ThemeInteractor>()),
   );
   gh.lazySingleton<_i361.Dio>(
     () => registerModule.dio(gh<String>(instanceName: 'BaseUrl')),

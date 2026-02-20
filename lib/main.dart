@@ -1,10 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get_it/get_it.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/codegen_loader.g.dart';
 import 'package:manas_suu_app/app/theme/app_theme.dart';
 import 'package:manas_suu_app/core/auto_router/app_router.dart';
 import 'package:manas_suu_app/core/injectable/injectable.dart';
+import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,21 +41,26 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'MegaPay',
-      locale: context.locale,
-      routerConfig: _appRouter.config(),
-      localizationsDelegates: [
-        ...context.localizationDelegates,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
+    return BlocProvider(
+      create: (context) => GetIt.I<ThemeCubit>(),
+      child: Builder(
+        builder: (context) => MaterialApp.router(
+          title: 'Manas tazalyk',
+          locale: context.locale,
+          routerConfig: _appRouter.config(),
+          localizationsDelegates: [
+            ...context.localizationDelegates,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
 
-      supportedLocales: context.supportedLocales,
-      darkTheme: AppThemes.mainThemeDark,
-      themeMode: ThemeMode.dark,
-      theme: AppThemes.isLightTheme,
+          supportedLocales: context.supportedLocales,
+          darkTheme: AppThemes.mainThemeDark,
+          themeMode: context.watch<ThemeCubit>().state.themeMode,
+          theme: AppThemes.isLightTheme,
+        ),
+      ),
     );
   }
 }

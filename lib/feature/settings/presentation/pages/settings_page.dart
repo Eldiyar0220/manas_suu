@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/feature/settings/presentation/widgets/settings_language_widget.dart';
 import 'package:manas_suu_app/feature/settings/presentation/widgets/settings_notification_widget.dart';
 import 'package:manas_suu_app/feature/settings/presentation/widgets/settings_theme_body_widget.dart';
@@ -11,23 +12,17 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF121212),
-        elevation: 0,
         centerTitle: true,
-        title: const Text(
-          'Настройки',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-        ),
+        title: const Text('Настройки', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
-            const Text(
+            Text(
               'Настройте приложение под свои предпочтения',
-              style: TextStyle(color: Colors.white54),
+              style: TextStyle(color: context.theme.textWhiteBlackColor),
             ),
             const SizedBox(height: 24),
             SettingsNotificationAndVersionWidget(
@@ -47,10 +42,7 @@ class SettingsPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Center(
-              child: Text(
-                '© 2025 Все права защищены',
-                style: TextStyle(color: Colors.white38),
-              ),
+              child: Text('© 2026 Все права защищены', style: TextStyle(color: Colors.white38)),
             ),
             const SizedBox(height: 20),
           ],

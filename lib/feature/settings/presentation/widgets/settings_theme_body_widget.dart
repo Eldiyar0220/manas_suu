@@ -1,50 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manas_suu_app/app/extensions/context_extensions.dart';
+import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 import 'package:manas_suu_app/feature/settings/presentation/widgets/settings_header_title_widget.dart';
 import 'package:manas_suu_app/feature/settings/presentation/widgets/settings_select_item_widget.dart';
 
-class SettingsThemeBodyWidget extends StatefulWidget {
+class SettingsThemeBodyWidget extends StatelessWidget {
   const SettingsThemeBodyWidget({super.key});
-
-  @override
-  State<SettingsThemeBodyWidget> createState() =>
-      _SettingsThemeBodyWidgetState();
-}
-
-class _SettingsThemeBodyWidgetState extends State<SettingsThemeBodyWidget> {
-  String selectedTheme = 'system';
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF1E1E1E),
-        borderRadius: BorderRadius.circular(15),
+        color: context.theme.cardBackgroundWhiteBlackColor,
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SettingsHeaderTitleWidget(title: 'Тема приложения'),
+          SettingsHeaderTitleWidget(title: 'Тема приложения', icon: Icons.palette),
           const SizedBox(height: 16),
           SettingsSelectItemWidget(
-            value: 'light',
-            groupValue: selectedTheme,
+            value: ThemeMode.light.name,
+            icon: Icons.light_mode,
+            groupValue: context.watch<ThemeCubit>().state.themeMode.name,
             title: 'Светлая',
-            onTap: () => setState(() => selectedTheme = 'light'),
+            onTap: () => context.read<ThemeCubit>().changeTheme(ThemeMode.light),
           ),
           const SizedBox(height: 12),
           SettingsSelectItemWidget(
-            value: 'dark',
-            groupValue: selectedTheme,
+            value: ThemeMode.dark.name,
+            icon: Icons.dark_mode,
+
+            groupValue: context.watch<ThemeCubit>().state.themeMode.name,
             title: 'Темная',
-            onTap: () => setState(() => selectedTheme = 'dark'),
+            onTap: () => context.read<ThemeCubit>().changeTheme(ThemeMode.dark),
           ),
           const SizedBox(height: 12),
           SettingsSelectItemWidget(
-            value: 'system',
-            groupValue: selectedTheme,
+            icon: Icons.brightness_auto,
+
+            value: ThemeMode.system.name,
+            groupValue: context.watch<ThemeCubit>().state.themeMode.name,
             title: 'Системная',
-            onTap: () => setState(() => selectedTheme = 'system'),
+            onTap: () => context.read<ThemeCubit>().changeTheme(ThemeMode.system),
           ),
         ],
       ),

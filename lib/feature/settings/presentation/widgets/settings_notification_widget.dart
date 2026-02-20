@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/extensions/context_extensions.dart';
+import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 
 class SettingsNotificationAndVersionWidget extends StatelessWidget {
   final IconData icon;
@@ -19,11 +21,11 @@ class SettingsNotificationAndVersionWidget extends StatelessWidget {
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: const Color(0xFF1E1E1E),
+        color: context.theme.cardBackgroundWhiteBlackColor,
       ),
       child: Row(
         children: [
-          Icon(icon, color: Colors.green),
+          Icon(icon, color: AppColors.mainColor),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
@@ -31,17 +33,14 @@ class SettingsNotificationAndVersionWidget extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: context.theme.textWhiteBlackColor),
                 ),
                 const SizedBox(height: 4),
-                Text(subtitle, style: const TextStyle(color: Colors.white54)),
+                Text(subtitle, style: TextStyle(color: context.theme.textWhiteBlackColor)),
               ],
             ),
           ),
-          const Icon(Icons.chevron_right, color: Colors.white38),
+          Icon(Icons.chevron_right, color: context.theme.textWhiteBlackColor),
         ],
       ),
     );

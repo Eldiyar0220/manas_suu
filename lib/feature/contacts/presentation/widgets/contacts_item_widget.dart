@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 
 class ContactItemWidget extends StatelessWidget {
   final String title;
   final String subtitle;
   final Color color;
 
-  const ContactItemWidget({
-    super.key,
-    required this.title,
-    required this.subtitle,
-    required this.color,
-  });
+  const ContactItemWidget({super.key, required this.title, required this.subtitle, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +15,7 @@ class ContactItemWidget extends StatelessWidget {
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: const Color(0xFF1E1E1E),
+        color: context.theme.cardBackgroundWhiteBlackColor,
         border: Border.all(color: Colors.white10),
       ),
       child: Row(
@@ -30,9 +26,7 @@ class ContactItemWidget extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               color: color.withValues(alpha: 0.15),
-              boxShadow: [
-                BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 20),
-              ],
+              boxShadow: [BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 20)],
             ),
             child: Icon(Icons.info, color: color),
           ),
@@ -43,17 +37,14 @@ class ContactItemWidget extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: context.theme.textWhiteBlackColor),
                 ),
                 const SizedBox(height: 6),
-                Text(subtitle, style: const TextStyle(color: Colors.white70)),
+                Text(subtitle, style: TextStyle(color: context.theme.textWhiteBlackColor)),
               ],
             ),
           ),
-          const Icon(Icons.chevron_right, color: Colors.white38),
+          Icon(Icons.chevron_right, color: context.theme.textWhiteBlackColor),
         ],
       ),
     );

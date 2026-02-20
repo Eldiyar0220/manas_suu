@@ -4,15 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/core/auto_router/app_router.gr.dart';
+import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 import 'package:manas_suu_app/feature/splash/presentation/bloc/splash_bloc.dart';
 
 @RoutePage()
 class SplashPage extends StatefulWidget implements AutoRouteWrapper {
-  const SplashPage({
-    super.key,
-    this.progress = 0.5,
-    this.version = '1.0.11+11',
-  });
+  const SplashPage({super.key, this.progress = 0.5, this.version = '1.0.11+11'});
 
   final double progress; // 0.0 → 1.0
   final String version;
@@ -21,10 +18,7 @@ class SplashPage extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GetIt.I<SplashBloc>()..add(ToSplashEvent()),
-      child: this,
-    );
+    return BlocProvider(create: (context) => GetIt.I<SplashBloc>()..add(ToSplashEvent()), child: this);
   }
 }
 
@@ -47,13 +41,15 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF0E1A14), Color(0xFF0A120F)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+        decoration: context.watch<ThemeCubit>().state.isDarkMode
+            ? const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xFF0E1A14), Color(0xFF0A120F)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              )
+            : BoxDecoration(color: Colors.green.withValues(alpha: 0.1)),
         child: SafeArea(
           child: Column(
             children: [
@@ -67,13 +63,7 @@ class _SplashPageState extends State<SplashPage> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(28),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.green.withValues(alpha: 0.3),
-                      blurRadius: 30,
-                      spreadRadius: 5,
-                    ),
-                  ],
+                  boxShadow: [BoxShadow(color: Colors.green.withValues(alpha: 0.3), blurRadius: 30, spreadRadius: 5)],
                 ),
                 child: Image.asset('assets/logo.png', fit: BoxFit.contain),
               ),
@@ -81,21 +71,14 @@ class _SplashPageState extends State<SplashPage> {
               const SizedBox(height: 24),
 
               /// TITLE
-              const Text(
+              Text(
                 'Ош-Тазалык',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700, color: context.theme.textWhiteBlackColor),
               ),
 
               const SizedBox(height: 8),
 
-              const Text(
-                'Жеке эсептерди башкаруу',
-                style: TextStyle(fontSize: 14, color: Colors.white54),
-              ),
+              Text('Жеке эсептерди башкаруу', style: TextStyle(fontSize: 14, color: context.theme.textWhiteBlackColor)),
 
               const Spacer(),
 
@@ -110,28 +93,22 @@ class _SplashPageState extends State<SplashPage> {
                         value: widget.progress,
                         minHeight: 6,
                         backgroundColor: Colors.white10,
-                        valueColor: const AlwaysStoppedAnimation(
-                          Color(0xFF4CAF50),
-                        ),
+                        valueColor: const AlwaysStoppedAnimation(Color(0xFF4CAF50)),
                       ),
                     ),
 
                     const SizedBox(height: 12),
 
-                    const Text(
+                    Text(
                       'Конфигурацияны жүктөө...',
-                      style: TextStyle(color: Colors.white54, fontSize: 13),
+                      style: TextStyle(color: context.theme.textWhiteBlackColor, fontSize: 13),
                     ),
 
                     const SizedBox(height: 8),
 
                     Text(
                       '$percent%',
-                      style: const TextStyle(
-                        color: Color(0xFF4CAF50),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: const TextStyle(color: Color(0xFF4CAF50), fontSize: 20, fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
@@ -141,25 +118,19 @@ class _SplashPageState extends State<SplashPage> {
 
               /// VERSION
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white10,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.white10),
                 child: Text(
                   'Версия ${widget.version}',
-                  style: const TextStyle(color: Colors.white70, fontSize: 12),
+                  style: TextStyle(color: context.theme.textWhiteBlackColor, fontSize: 12),
                 ),
               ),
 
               const SizedBox(height: 16),
 
-              const Text(
-                '© 2025 Бардык укуктар корголгон',
-                style: TextStyle(color: Colors.white38, fontSize: 11),
+              Text(
+                '© 2026 Бардык укуктар корголгон',
+                style: TextStyle(color: context.theme.textWhiteBlackColor, fontSize: 11),
               ),
 
               const SizedBox(height: 24),
