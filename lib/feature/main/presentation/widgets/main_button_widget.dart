@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
+import 'package:manas_suu_app/core/auto_router/app_router.gr.dart';
 
 class MainButtonWidget extends StatelessWidget {
   const MainButtonWidget({super.key});
@@ -32,7 +34,7 @@ class MainButtonWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(28),
           ),
         ),
-        onPressed: () {},
+        onPressed: () => context.router.push(MainAddUserAccountRoute()),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

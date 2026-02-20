@@ -19,14 +19,18 @@ class SettingsThemeBodyWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SettingsHeaderTitleWidget(title: 'Тема приложения', icon: Icons.palette),
+          SettingsHeaderTitleWidget(
+            title: 'Тема приложения',
+            icon: Icons.palette,
+          ),
           const SizedBox(height: 16),
           SettingsSelectItemWidget(
             value: ThemeMode.light.name,
             icon: Icons.light_mode,
             groupValue: context.watch<ThemeCubit>().state.themeMode.name,
             title: 'Светлая',
-            onTap: () => context.read<ThemeCubit>().changeTheme(ThemeMode.light),
+            onTap: () =>
+                context.read<ThemeCubit>().changeTheme(ThemeMode.light),
           ),
           const SizedBox(height: 12),
           SettingsSelectItemWidget(
@@ -44,7 +48,8 @@ class SettingsThemeBodyWidget extends StatelessWidget {
             value: ThemeMode.system.name,
             groupValue: context.watch<ThemeCubit>().state.themeMode.name,
             title: 'Системная',
-            onTap: () => context.read<ThemeCubit>().changeTheme(ThemeMode.system),
+            onTap: () =>
+                context.read<ThemeCubit>().changeTheme(ThemeMode.system),
           ),
         ],
       ),

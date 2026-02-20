@@ -9,28 +9,30 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i6;
-import 'package:flutter/material.dart' as _i7;
+import 'package:auto_route/auto_route.dart' as _i7;
+import 'package:flutter/material.dart' as _i8;
 import 'package:manas_suu_app/feature/bottom_navigation/bottom_navigation_page.dart'
     as _i1;
 import 'package:manas_suu_app/feature/contacts/presentation/pages/contacts_page.dart'
     as _i2;
 import 'package:manas_suu_app/feature/main/presentation/pages/main_page.dart'
+    as _i4;
+import 'package:manas_suu_app/feature/main/presentation/pages/sub_pages/main_add_user_account_page.dart'
     as _i3;
 import 'package:manas_suu_app/feature/settings/presentation/pages/settings_page.dart'
-    as _i4;
-import 'package:manas_suu_app/feature/splash/presentation/pages/splash_page.dart'
     as _i5;
+import 'package:manas_suu_app/feature/splash/presentation/pages/splash_page.dart'
+    as _i6;
 
 /// generated route for
 /// [_i1.BottomNavigationPage]
-class BottomNavigationRoute extends _i6.PageRouteInfo<void> {
-  const BottomNavigationRoute({List<_i6.PageRouteInfo>? children})
+class BottomNavigationRoute extends _i7.PageRouteInfo<void> {
+  const BottomNavigationRoute({List<_i7.PageRouteInfo>? children})
     : super(BottomNavigationRoute.name, initialChildren: children);
 
   static const String name = 'BottomNavigationRoute';
 
-  static _i6.PageInfo page = _i6.PageInfo(
+  static _i7.PageInfo page = _i7.PageInfo(
     name,
     builder: (data) {
       return const _i1.BottomNavigationPage();
@@ -40,13 +42,13 @@ class BottomNavigationRoute extends _i6.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.ContactsPage]
-class ContactsRoute extends _i6.PageRouteInfo<void> {
-  const ContactsRoute({List<_i6.PageRouteInfo>? children})
+class ContactsRoute extends _i7.PageRouteInfo<void> {
+  const ContactsRoute({List<_i7.PageRouteInfo>? children})
     : super(ContactsRoute.name, initialChildren: children);
 
   static const String name = 'ContactsRoute';
 
-  static _i6.PageInfo page = _i6.PageInfo(
+  static _i7.PageInfo page = _i7.PageInfo(
     name,
     builder: (data) {
       return const _i2.ContactsPage();
@@ -55,45 +57,61 @@ class ContactsRoute extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.MainPage]
-class MainRoute extends _i6.PageRouteInfo<void> {
-  const MainRoute({List<_i6.PageRouteInfo>? children})
+/// [_i3.MainAddUserAccountPage]
+class MainAddUserAccountRoute extends _i7.PageRouteInfo<void> {
+  const MainAddUserAccountRoute({List<_i7.PageRouteInfo>? children})
+    : super(MainAddUserAccountRoute.name, initialChildren: children);
+
+  static const String name = 'MainAddUserAccountRoute';
+
+  static _i7.PageInfo page = _i7.PageInfo(
+    name,
+    builder: (data) {
+      return const _i3.MainAddUserAccountPage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i4.MainPage]
+class MainRoute extends _i7.PageRouteInfo<void> {
+  const MainRoute({List<_i7.PageRouteInfo>? children})
     : super(MainRoute.name, initialChildren: children);
 
   static const String name = 'MainRoute';
 
-  static _i6.PageInfo page = _i6.PageInfo(
+  static _i7.PageInfo page = _i7.PageInfo(
     name,
     builder: (data) {
-      return const _i3.MainPage();
+      return const _i4.MainPage();
     },
   );
 }
 
 /// generated route for
-/// [_i4.SettingsPage]
-class SettingsRoute extends _i6.PageRouteInfo<void> {
-  const SettingsRoute({List<_i6.PageRouteInfo>? children})
+/// [_i5.SettingsPage]
+class SettingsRoute extends _i7.PageRouteInfo<void> {
+  const SettingsRoute({List<_i7.PageRouteInfo>? children})
     : super(SettingsRoute.name, initialChildren: children);
 
   static const String name = 'SettingsRoute';
 
-  static _i6.PageInfo page = _i6.PageInfo(
+  static _i7.PageInfo page = _i7.PageInfo(
     name,
     builder: (data) {
-      return const _i4.SettingsPage();
+      return const _i5.SettingsPage();
     },
   );
 }
 
 /// generated route for
-/// [_i5.SplashPage]
-class SplashRoute extends _i6.PageRouteInfo<SplashRouteArgs> {
+/// [_i6.SplashPage]
+class SplashRoute extends _i7.PageRouteInfo<SplashRouteArgs> {
   SplashRoute({
-    _i7.Key? key,
+    _i8.Key? key,
     double progress = 0.5,
     String version = '1.0.11+11',
-    List<_i6.PageRouteInfo>? children,
+    List<_i7.PageRouteInfo>? children,
   }) : super(
          SplashRoute.name,
          args: SplashRouteArgs(key: key, progress: progress, version: version),
@@ -102,14 +120,14 @@ class SplashRoute extends _i6.PageRouteInfo<SplashRouteArgs> {
 
   static const String name = 'SplashRoute';
 
-  static _i6.PageInfo page = _i6.PageInfo(
+  static _i7.PageInfo page = _i7.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<SplashRouteArgs>(
         orElse: () => const SplashRouteArgs(),
       );
-      return _i6.WrappedRoute(
-        child: _i5.SplashPage(
+      return _i7.WrappedRoute(
+        child: _i6.SplashPage(
           key: args.key,
           progress: args.progress,
           version: args.version,
@@ -126,7 +144,7 @@ class SplashRouteArgs {
     this.version = '1.0.11+11',
   });
 
-  final _i7.Key? key;
+  final _i8.Key? key;
 
   final double progress;
 
