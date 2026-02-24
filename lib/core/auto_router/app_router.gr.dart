@@ -109,7 +109,7 @@ class SettingsRoute extends _i7.PageRouteInfo<void> {
 class SplashRoute extends _i7.PageRouteInfo<SplashRouteArgs> {
   SplashRoute({
     _i8.Key? key,
-    double progress = 0.5,
+    double progress = 1,
     String version = '1.0.11+11',
     List<_i7.PageRouteInfo>? children,
   }) : super(
@@ -140,7 +140,7 @@ class SplashRoute extends _i7.PageRouteInfo<SplashRouteArgs> {
 class SplashRouteArgs {
   const SplashRouteArgs({
     this.key,
-    this.progress = 0.5,
+    this.progress = 1,
     this.version = '1.0.11+11',
   });
 

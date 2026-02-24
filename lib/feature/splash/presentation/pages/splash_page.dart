@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:manas_suu_app/app/constants/app_images.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/core/auto_router/app_router.gr.dart';
@@ -88,13 +89,13 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                         BoxShadow(color: Colors.green.withValues(alpha: 0.3), blurRadius: 30, spreadRadius: 5),
                       ],
                     ),
-                    child: Image.asset('assets/logo.png', fit: BoxFit.contain),
+                    child: Image.asset(AppImages.logo, fit: BoxFit.contain),
                   ),
                   const SizedBox(height: 24),
 
                   /// TITLE
                   Text(
-                    'Ош-Тазалык',
+                    context.tr(LocaleKeys.splashTitle),
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.w700,
@@ -135,23 +136,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                       ],
                     ),
                   ),
-                  const SizedBox(height: 24),
-
-                  /// VERSION
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.white10),
-                    child: Text(
-                      '${context.tr(LocaleKeys.version)} ${widget.version}',
-                      style: TextStyle(color: context.theme.textWhiteBlackColor, fontSize: 12),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    context.tr(LocaleKeys.pravaSecured),
-                    style: TextStyle(color: context.theme.textWhiteBlackColor, fontSize: 11),
-                  ),
-                  const SizedBox(height: 24),
+                  const Spacer(),
                 ],
               );
             },

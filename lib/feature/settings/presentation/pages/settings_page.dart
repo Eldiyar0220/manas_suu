@@ -27,25 +27,12 @@ class SettingsPage extends StatelessWidget {
             SettingsNotificationAndVersionWidget(
               icon: Icons.notifications,
               title: context.tr(LocaleKeys.notifications),
-
-              subtitle: context.tr(LocaleKeys.seeAllNotifications),
             ),
             const SizedBox(height: 24),
             SettingsThemeBodyWidget(),
             const SizedBox(height: 24),
             SettingsLanguageWidget(),
             const SizedBox(height: 24),
-            SettingsNotificationAndVersionWidget(
-              icon: Icons.info_outline,
-              title: context.tr(LocaleKeys.aboutApp),
-
-              subtitle: '1.0.11+11',
-            ),
-            const SizedBox(height: 20),
-            Center(
-              child: Text(context.tr(LocaleKeys.pravaSecured), style: TextStyle(color: Colors.white38)),
-            ),
-            const SizedBox(height: 20),
           ],
         ),
       ),

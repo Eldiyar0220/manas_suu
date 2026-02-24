@@ -5,14 +5,9 @@ import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 class SettingsNotificationAndVersionWidget extends StatelessWidget {
   final IconData icon;
   final String title;
-  final String subtitle;
+  final String? subtitle;
 
-  const SettingsNotificationAndVersionWidget({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-  });
+  const SettingsNotificationAndVersionWidget({super.key, required this.icon, required this.title, this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +30,8 @@ class SettingsNotificationAndVersionWidget extends StatelessWidget {
                   title,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: context.theme.textWhiteBlackColor),
                 ),
-                const SizedBox(height: 4),
-                Text(subtitle, style: TextStyle(color: context.theme.textWhiteBlackColor)),
+                if (subtitle != null) const SizedBox(height: 4),
+                if (subtitle != null) Text(subtitle!, style: TextStyle(color: context.theme.textWhiteBlackColor)),
               ],
             ),
           ),

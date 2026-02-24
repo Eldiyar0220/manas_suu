@@ -27,5 +27,18 @@ abstract class  LocaleKeys {
   static const splashSubTitle = 'splashSubTitle';
   static const configurationLoading = 'configurationLoading';
   static const version = 'version';
+  static const splashTitle = 'splashTitle';
+  static const contactAddress = 'contactAddress';
+  static const contactManasAddress = 'contactManasAddress';
+  static const contactAbonent = 'contactAbonent';
+  static const contactManasAbonentSubtitle = 'contactManasAbonentSubtitle';
+  static const contactDispatchers = 'contactDispatchers';
+  static const contactManasDispatchersSubtitle = 'contactManasDispatchersSubtitle';
+  static const contactTechnical = 'contactTechnical';
+  static const contactManasTechnicalSubtitle = 'contactManasTechnicalSubtitle';
+  static const contactEmail = 'contactEmail';
+  static const contactManasEmailSubtitle = 'contactManasEmailSubtitle';
+  static const contactInstagram = 'contactInstagram';
+  static const contactManasInstagramSubtitle = 'contactManasInstagramSubtitle';
 
 }

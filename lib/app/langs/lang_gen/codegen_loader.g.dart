@@ -38,7 +38,20 @@ class CodegenLoader extends AssetLoader{
   "themeSystem": "Системалык",
   "splashSubTitle": "Жеке эсептерди башкаруу",
   "configurationLoading": "Конфигурацияны жүктөө...",
-  "version": "Версия"
+  "version": "Версия",
+  "splashTitle": "Манас Тазалык",
+  "contactAddress": "Дарек",
+  "contactManasAddress": "г. Манас, Манас көч., 92",
+  "contactAbonent": "Абоненттик бөлүм",
+  "contactManasAbonentSubtitle": "0 (3722) 5-16-29",
+  "contactDispatchers": "Диспетчерлер",
+  "contactManasDispatchersSubtitle": "0551616195 Нурбек",
+  "contactTechnical": "Техникалык бөлүм",
+  "contactManasTechnicalSubtitle": "5-21-72 Динара",
+  "contactEmail": "Электрондук почта",
+  "contactManasEmailSubtitle": "abon.otdeltazalyk@mail.ru, tazalykkg@mail.ru",
+  "contactInstagram": "Instagram",
+  "contactManasInstagramSubtitle": "tazalyk_manas"
 };
 static const Map<String,dynamic> _en_US = {
   "bottomNavText1": "Home",
@@ -64,7 +77,20 @@ static const Map<String,dynamic> _en_US = {
   "themeSystem": "System",
   "splashSubTitle": "Manage your accounts",
   "configurationLoading": "Loading Configuration...",
-  "version": "Version"
+  "version": "Version",
+  "splashTitle": "Manas Tazalyk",
+  "contactAddress": "Address",
+  "contactManasAddress": "Manas, Manas St., 92",
+  "contactAbonent": "Customer Service",
+  "contactManasAbonentSubtitle": "0 (3722) 5-16-29",
+  "contactDispatchers": "Dispatchers",
+  "contactManasDispatchersSubtitle": "0551616195 Nurbek",
+  "contactTechnical": "Technical Department",
+  "contactManasTechnicalSubtitle": "5-21-72 Dinara",
+  "contactEmail": "Email",
+  "contactManasEmailSubtitle": "abon.otdeltazalyk@mail.ru, tazalykkg@mail.ru",
+  "contactInstagram": "Instagram",
+  "contactManasInstagramSubtitle": "tazalyk_manas"
 };
 static const Map<String,dynamic> _ru_RU = {
   "bottomNavText1": "Главная",
@@ -90,7 +116,20 @@ static const Map<String,dynamic> _ru_RU = {
   "themeSystem": "Системная",
   "splashSubTitle": "Управление личными счетами",
   "configurationLoading": "Загрузка конфигурации...",
-  "version": "Версия"
+  "version": "Версия",
+  "splashTitle": "Манас Тазалык",
+  "contactAddress": "Адрес",
+  "contactManasAddress": "г. Манас, ул. Манас 92",
+  "contactAbonent": "Абонентский отдел",
+  "contactManasAbonentSubtitle": "0 (3722) 5-16-29",
+  "contactDispatchers": "Диспетчеры",
+  "contactManasDispatchersSubtitle": "0551616195 Нурбек",
+  "contactTechnical": "Технический отдел",
+  "contactManasTechnicalSubtitle": "5-21-72 Динара",
+  "contactEmail": "Электронная почта",
+  "contactManasEmailSubtitle": "abon.otdeltazalyk@mail.ru, tazalykkg@mail.ru",
+  "contactInstagram": "Instagram",
+  "contactManasInstagramSubtitle": "tazalyk_manas"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ky_KY": _ky_KY, "en_US": _en_US, "ru_RU": _ru_RU};
 }

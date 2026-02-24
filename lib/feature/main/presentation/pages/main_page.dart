@@ -72,7 +72,6 @@ class _MainPageState extends State<MainPage>
           ),
         ],
       ),
-
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20),

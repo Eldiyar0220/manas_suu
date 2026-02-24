@@ -20,17 +20,43 @@ class ContactsPage extends StatelessWidget {
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
-        children: const [
-          ContactItemWidget(title: 'СМП "ОШ-ТАЗАЛЫК"', subtitle: 'г. Ош, ул. Алиева, 153', color: Colors.red),
-          ContactItemWidget(title: 'Абонентский отдел', subtitle: '03222 48223', color: AppColors.mainColor),
-          ContactItemWidget(title: 'Диспетчерская', subtitle: '03222 53193', color: AppColors.mainColor),
+        children: [
           ContactItemWidget(
-            title: 'Диспетчерская Whatsapp',
-            subtitle: 'wa.me/996551111704',
-            color: AppColors.mainColor,
+            title: context.tr(LocaleKeys.contactAddress),
+            subtitle: context.tr(LocaleKeys.contactManasAddress),
+            color: Colors.red,
+            launchUrl: Uri(scheme: 'geo', path: '0,0', queryParameters: {'q': context.tr(LocaleKeys.contactManasAddress)}).toString(),
           ),
-          ContactItemWidget(title: 'Web-сайт', subtitle: 'oshtazalyk.kg', color: Colors.purple),
-          ContactItemWidget(title: 'Электронный адрес', subtitle: 'info@oshtazalyk.kg', color: Colors.orange),
+          ContactItemWidget(
+            title: context.tr(LocaleKeys.contactAbonent),
+            subtitle: context.tr(LocaleKeys.contactManasAbonentSubtitle),
+            color: AppColors.mainColor,
+            launchUrl: 'tel:+996372251629',
+          ),
+          ContactItemWidget(
+            title: context.tr(LocaleKeys.contactDispatchers),
+            subtitle: context.tr(LocaleKeys.contactManasDispatchersSubtitle),
+            color: AppColors.mainColor,
+            launchUrl: 'tel:+996551616195',
+          ),
+          ContactItemWidget(
+            title: context.tr(LocaleKeys.contactTechnical),
+            subtitle: context.tr(LocaleKeys.contactManasTechnicalSubtitle),
+            color: AppColors.mainColor,
+            launchUrl: 'tel:+996372252172',
+          ),
+          ContactItemWidget(
+            title: context.tr(LocaleKeys.contactEmail),
+            subtitle: context.tr(LocaleKeys.contactManasEmailSubtitle),
+            color: Colors.orange,
+            launchUrl: 'mailto:abon.otdeltazalyk@mail.ru',
+          ),
+          ContactItemWidget(
+            title: context.tr(LocaleKeys.contactInstagram),
+            subtitle: context.tr(LocaleKeys.contactManasInstagramSubtitle),
+            color: Colors.purple,
+            launchUrl: 'https://instagram.com/tazalyk_manas',
+          ),
         ],
       ),
     );
