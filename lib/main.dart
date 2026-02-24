@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/codegen_loader.g.dart';
+import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_theme.dart';
 import 'package:manas_suu_app/core/auto_router/app_router.dart';
 import 'package:manas_suu_app/core/injectable/injectable.dart';
@@ -111,7 +112,7 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
       create: (context) => GetIt.I<ThemeCubit>()..init(),
       child: Builder(
         builder: (context) => MaterialApp.router(
-          title: 'Manas tazalyk',
+          title: context.tr(LocaleKeys.appTitle),
           locale: context.locale,
           routerConfig: _appRouter.config(),
           localizationsDelegates: [

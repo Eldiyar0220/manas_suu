@@ -31,7 +31,7 @@ class _SettingsLanguageWidgetState extends State<SettingsLanguageWidget> {
             value: 'kg',
             stringIcon: '🇰🇬',
             groupValue: selectedLanguage,
-            title: 'Кыргызча',
+            title: context.tr(LocaleKeys.langKyrgyz),
             onTap: () => setState(() {
               selectedLanguage = 'kg';
               context.setLocale(Locale('ky', 'KY'));
@@ -42,7 +42,7 @@ class _SettingsLanguageWidgetState extends State<SettingsLanguageWidget> {
             stringIcon: '🇷🇺',
             value: 'ru',
             groupValue: selectedLanguage,
-            title: 'Русский',
+            title: context.tr(LocaleKeys.langRussian),
             onTap: () => setState(() {
               selectedLanguage = 'ru';
               context.setLocale(Locale('ru', 'RU'));
@@ -53,7 +53,7 @@ class _SettingsLanguageWidgetState extends State<SettingsLanguageWidget> {
             stringIcon: '🇺🇸',
             value: 'en',
             groupValue: selectedLanguage,
-            title: 'English',
+            title: context.tr(LocaleKeys.langEnglish),
             onTap: () => setState(() {
               selectedLanguage = 'en';
               context.setLocale(Locale('en', 'US'));

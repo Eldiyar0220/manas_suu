@@ -1,13 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manas_suu_app/app/components/app_button_green_widget.dart';
+import 'package:manas_suu_app/app/components/app_slide_animations_wirapper.dart';
+import 'package:manas_suu_app/app/components/app_text_field_widget.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/feature/main/presentation/pages/sub_pages/widgets/user_account_header_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/pages/sub_pages/widgets/user_account_info_widget.dart';
-import 'package:manas_suu_app/app/components/app_button_green_widget.dart';
-import 'package:manas_suu_app/app/components/app_slide_animations_wirapper.dart';
-import 'package:manas_suu_app/app/components/app_text_field_widget.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
 @RoutePage()
@@ -18,8 +18,7 @@ class MainAddUserAccountPage extends StatefulWidget {
   State<MainAddUserAccountPage> createState() => _MainAddUserAccountPageState();
 }
 
-class _MainAddUserAccountPageState extends State<MainAddUserAccountPage>
-    with SingleTickerProviderStateMixin {
+class _MainAddUserAccountPageState extends State<MainAddUserAccountPage> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   final controller = TextEditingController();
   late Animation<double> header;
@@ -31,10 +30,7 @@ class _MainAddUserAccountPageState extends State<MainAddUserAccountPage>
   void initState() {
     super.initState();
 
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1500),
-    );
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 1500));
 
     header = CurvedAnimation(
       parent: _controller,
@@ -79,7 +75,7 @@ class _MainAddUserAccountPageState extends State<MainAddUserAccountPage>
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(right: 16, left: 16, top: 10),
-            child: Column(
+            child: ListView(
               children: [
                 GestureDetector(
                   onTap: context.router.pop,
@@ -89,29 +85,19 @@ class _MainAddUserAccountPageState extends State<MainAddUserAccountPage>
                       width: 44,
                       height: 44,
                       decoration: BoxDecoration(
-                        color: context.watch<ThemeCubit>().state.isDarkMode
-                            ? Colors.white10
-                            : Colors.white,
+                        color: context.watch<ThemeCubit>().state.isDarkMode ? Colors.white10 : Colors.white,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         Icons.arrow_back_ios_new,
-                        color: context.watch<ThemeCubit>().state.isDarkMode
-                            ? Colors.white
-                            : AppColors.textPrimaryLight,
+                        color: context.watch<ThemeCubit>().state.isDarkMode ? Colors.white : AppColors.textPrimaryLight,
                       ),
                     ),
                   ),
                 ),
-                AppSlideAnimationWrapper(
-                  header,
-                  const UserAccountHeaderWidget(),
-                ),
+                AppSlideAnimationWrapper(header, const UserAccountHeaderWidget()),
                 const SizedBox(height: 16),
-                AppSlideAnimationWrapper(
-                  textField,
-                  AppTextFieldWidget(controller: controller),
-                ),
+                AppSlideAnimationWrapper(textField, AppTextFieldWidget(controller: controller)),
                 const SizedBox(height: 24),
                 AppSlideAnimationWrapper(button, const AppButtonGreenWidget()),
                 const SizedBox(height: 24),

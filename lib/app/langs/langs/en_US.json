@@ -35,5 +35,14 @@
     "contactEmail": "Email",
     "contactManasEmailSubtitle": "abon.otdeltazalyk@mail.ru, tazalykkg@mail.ru",
     "contactInstagram": "Instagram",
-    "contactManasInstagramSubtitle": "tazalyk_manas"
+    "contactManasInstagramSubtitle": "tazalyk_manas",
+  "accountNumberHint": "Account number",
+  "appTitle": "Manas Tazalyk",
+  "welcomeTitle": "Welcome!",
+  "welcomeSubtitle": "Enter your account number to view bills and manage services",
+  "langKyrgyz": "Kyrgyz",
+  "langRussian": "Russian",
+  "langEnglish": "English",
+  "addButton": "Add",
+  "notificationDefaultTitle": "New notification"
 }

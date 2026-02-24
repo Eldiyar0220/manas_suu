@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 
 class AppButtonGreenWidget extends StatelessWidget {
@@ -17,14 +19,14 @@ class AppButtonGreenWidget extends StatelessWidget {
             colors: [AppColors.buttonStart, AppColors.buttonEnd],
           ),
         ),
-        child: const Center(
+        child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.check_circle_outline, color: Colors.white),
-              SizedBox(width: 8),
+              const Icon(Icons.check_circle_outline, color: Colors.white),
+              const SizedBox(width: 8),
               Text(
-                'Добавить',
+                context.tr(LocaleKeys.addButton),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,

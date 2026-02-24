@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
@@ -165,13 +167,13 @@ class AppThemeChangeButton extends StatelessWidget {
     return Column(
       children: [
         ElevatedButton(
-          child: const Text('Light'),
+          child: Text(context.tr(LocaleKeys.themeLight)),
           onPressed: () {
             context.read<ThemeCubit>().changeTheme(ThemeMode.light);
           },
         ),
         ElevatedButton(
-          child: const Text('Dark'),
+          child: Text(context.tr(LocaleKeys.themeDark)),
           onPressed: () {
             context.read<ThemeCubit>().changeTheme(ThemeMode.dark);
           },

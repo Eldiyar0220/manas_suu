@@ -40,5 +40,14 @@ abstract class  LocaleKeys {
   static const contactManasEmailSubtitle = 'contactManasEmailSubtitle';
   static const contactInstagram = 'contactInstagram';
   static const contactManasInstagramSubtitle = 'contactManasInstagramSubtitle';
+  static const accountNumberHint = 'accountNumberHint';
+  static const appTitle = 'appTitle';
+  static const welcomeTitle = 'welcomeTitle';
+  static const welcomeSubtitle = 'welcomeSubtitle';
+  static const langKyrgyz = 'langKyrgyz';
+  static const langRussian = 'langRussian';
+  static const langEnglish = 'langEnglish';
+  static const addButton = 'addButton';
+  static const notificationDefaultTitle = 'notificationDefaultTitle';
 
 }

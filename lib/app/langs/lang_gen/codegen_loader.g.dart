@@ -51,7 +51,16 @@ class CodegenLoader extends AssetLoader{
   "contactEmail": "Электрондук почта",
   "contactManasEmailSubtitle": "abon.otdeltazalyk@mail.ru, tazalykkg@mail.ru",
   "contactInstagram": "Instagram",
-  "contactManasInstagramSubtitle": "tazalyk_manas"
+  "contactManasInstagramSubtitle": "tazalyk_manas",
+  "accountNumberHint": "Жеке эсеп номери",
+  "appTitle": "Манас Тазалык",
+  "welcomeTitle": "Кош келиңиз!",
+  "welcomeSubtitle": "Эсептерди көрүү жана кызматтарды башкаруу үчүн жеке эсеп номерин киргизиңиз",
+  "langKyrgyz": "Кыргызча",
+  "langRussian": "Орусча",
+  "langEnglish": "Англисче",
+  "addButton": "Кошуу",
+  "notificationDefaultTitle": "Жаңы билдирме"
 };
 static const Map<String,dynamic> _en_US = {
   "bottomNavText1": "Home",
@@ -90,7 +99,16 @@ static const Map<String,dynamic> _en_US = {
   "contactEmail": "Email",
   "contactManasEmailSubtitle": "abon.otdeltazalyk@mail.ru, tazalykkg@mail.ru",
   "contactInstagram": "Instagram",
-  "contactManasInstagramSubtitle": "tazalyk_manas"
+  "contactManasInstagramSubtitle": "tazalyk_manas",
+  "accountNumberHint": "Account number",
+  "appTitle": "Manas Tazalyk",
+  "welcomeTitle": "Welcome!",
+  "welcomeSubtitle": "Enter your account number to view bills and manage services",
+  "langKyrgyz": "Kyrgyz",
+  "langRussian": "Russian",
+  "langEnglish": "English",
+  "addButton": "Add",
+  "notificationDefaultTitle": "New notification"
 };
 static const Map<String,dynamic> _ru_RU = {
   "bottomNavText1": "Главная",
@@ -129,7 +147,16 @@ static const Map<String,dynamic> _ru_RU = {
   "contactEmail": "Электронная почта",
   "contactManasEmailSubtitle": "abon.otdeltazalyk@mail.ru, tazalykkg@mail.ru",
   "contactInstagram": "Instagram",
-  "contactManasInstagramSubtitle": "tazalyk_manas"
+  "contactManasInstagramSubtitle": "tazalyk_manas",
+  "accountNumberHint": "Номер лицевого счета",
+  "appTitle": "Манас Тазалык",
+  "welcomeTitle": "Добро пожаловать!",
+  "welcomeSubtitle": "Укажите номер лицевого счета для доступа к счетам и управления услугами",
+  "langKyrgyz": "Кыргызча",
+  "langRussian": "Русский",
+  "langEnglish": "English",
+  "addButton": "Добавить",
+  "notificationDefaultTitle": "Новое уведомление"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ky_KY": _ky_KY, "en_US": _en_US, "ru_RU": _ru_RU};
 }

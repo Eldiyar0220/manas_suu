@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
@@ -32,7 +34,7 @@ class UserAccountHeaderWidget extends StatelessWidget {
         const SizedBox(height: 24),
 
         Text(
-          'Добро пожаловать!',
+          context.tr(LocaleKeys.welcomeTitle),
           style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.w700,
@@ -45,7 +47,7 @@ class UserAccountHeaderWidget extends StatelessWidget {
         const SizedBox(height: 16),
 
         Text(
-          'Укажите номер лицевого счета для доступа к счетам и управления услугами',
+          context.tr(LocaleKeys.welcomeSubtitle),
           textAlign: TextAlign.center,
           style: TextStyle(
             color: context.watch<ThemeCubit>().state.isDarkMode
