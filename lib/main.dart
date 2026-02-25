@@ -13,32 +13,37 @@ import 'package:manas_suu_app/core/auto_router/app_router.dart';
 import 'package:manas_suu_app/core/injectable/injectable.dart';
 import 'package:manas_suu_app/core/notifications/local_notifications_service.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
-import 'package:manas_suu_app/firebase_options.dart';
 
+/// ✅ Background handler
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp();
+  log('data-unique: message: $message ');
 
-  final localNotifications = LocalNotificationsService();
-  await localNotifications.initialize();
-  await localNotifications.showNotificationFromRemoteMessage(message);
+  /// показываем notification ТОЛЬКО если data-only payload
+  if (message.notification == null) {
+    final localNotifications = LocalNotificationsService();
+    await localNotifications.initialize();
+    await localNotifications.showNotificationFromRemoteMessage(message);
+  }
 }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  /// ✅ Firebase init safe
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp();
+  }
+
+  /// ✅ DI
   await configureDependencies(environment: AppEnv.prod);
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  /// ✅ Register background handler
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   final localNotifications = GetIt.I<LocalNotificationsService>();
   await localNotifications.initialize();
-
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
 
   runApp(
     EasyLocalization(
@@ -77,39 +82,31 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
   Future<void> _initializeFirebaseMessaging() async {
     try {
       final messaging = FirebaseMessaging.instance;
-
-      // Android 13+: если пуши не показываются — Настройки → Приложения → manas_suu_app → Уведомления → Включить
-
-      // Сценарий 1: приложение было полностью закрыто, юзер нажал на пуш → запуск приложения
-      // Сообщение только здесь, onMessageOpenedApp для этого НЕ вызывается
-      final initialMessage = await messaging.getInitialMessage();
+      await messaging.getInitialMessage();
 
       final settings = await messaging.requestPermission(
         alert: true,
-        announcement: false,
         badge: true,
-        carPlay: false,
-        criticalAlert: false,
-        provisional: false,
         sound: true,
       );
 
-      log('User granted permission: ${settings.authorizationStatus}');
-      String? token;
-      try {
-        token = await messaging.getToken();
-        log('FCM Token: $token');
-      } catch (e, st) {
-        print('FCM getToken failed (network/Play Services?): $e');
-        print(st);
-      }
+      log('Permission: ${settings.authorizationStatus}');
 
-      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      final token = await messaging.getToken();
+      log('FCM Token: $token');
+
+      FirebaseMessaging.onMessage.listen((message) {
+        ///TODO soon add  message.notification == null
+        // if (message.notification == null) {
         widget.localNotifications.showNotificationFromRemoteMessage(message);
+        // }
+      });
+
+      FirebaseMessaging.onMessageOpenedApp.listen((message) {
+        //deeplinke kerek
       });
     } catch (e, st) {
-      print('Firebase Messaging init error: $e');
-      print(st);
+      log('$st');
     }
   }
 
@@ -128,7 +125,6 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-
           supportedLocales: context.supportedLocales,
           darkTheme: AppThemes.mainThemeDark,
           themeMode: context.watch<ThemeCubit>().state.themeMode,
