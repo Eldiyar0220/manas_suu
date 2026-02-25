@@ -14,13 +14,11 @@ import 'package:manas_suu_app/core/injectable/injectable.dart';
 import 'package:manas_suu_app/core/notifications/local_notifications_service.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
-/// ✅ Background handler
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   log('data-unique: message: $message ');
 
-  /// показываем notification ТОЛЬКО если data-only payload
   if (message.notification == null) {
     final localNotifications = LocalNotificationsService();
     await localNotifications.initialize();
@@ -31,15 +29,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  /// ✅ Firebase init safe
   if (Firebase.apps.isEmpty) {
     await Firebase.initializeApp();
   }
-
-  /// ✅ DI
   await configureDependencies(environment: AppEnv.prod);
-
-  /// ✅ Register background handler
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   final localNotifications = GetIt.I<LocalNotificationsService>();
