@@ -77,6 +77,11 @@ class _MainPageState extends State<MainPage>
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
+              // MainAccountsSectionWidget(accountNumber: '222'),
+              // SizedBox(height: 15),
+              // MainChartWidget(),
+              // SizedBox(height: 15),
+              // MainPaymentCardWidget(accountNumber: '222'),
               const SizedBox(height: 20),
               AppBouncingAnimationWrapper(MainHeaderWalletWidget()),
               AppSlideAnimationWrapper(header, MainHeaderWidget()),
