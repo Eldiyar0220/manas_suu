@@ -44,5 +44,11 @@
   "langRussian": "Russian",
   "langEnglish": "English",
   "addButton": "Add",
-  "notificationDefaultTitle": "New notification"
+  "notificationDefaultTitle": "New notification",
+  "scannerTitle": "Scanner",
+  "scannerInstruction": "Point the camera at the QR code or barcode",
+  "scannerAccountSearch": "Account search",
+  "scannerAccountSearchDesc": "Scanner will automatically find the 8-digit number",
+  "scannerSelectFromGallery": "Select from gallery",
+  "scannerNoCodeFound": "QR code or barcode not found"
 }

@@ -60,7 +60,13 @@ class CodegenLoader extends AssetLoader{
   "langRussian": "Орусча",
   "langEnglish": "Англисче",
   "addButton": "Кошуу",
-  "notificationDefaultTitle": "Жаңы билдирме"
+  "notificationDefaultTitle": "Жаңы билдирме",
+  "scannerTitle": "Сканер",
+  "scannerInstruction": "Камераны QR-кодго же штрих-кодго багыттаңыз",
+  "scannerAccountSearch": "Жеке эсептин издөөсү",
+  "scannerAccountSearchDesc": "Сканер 8 сандык номурду автоматтык түрдө табат",
+  "scannerSelectFromGallery": "Галереядан тандоо",
+  "scannerNoCodeFound": "QR-код же штрих-код табылган жок"
 };
 static const Map<String,dynamic> _en_US = {
   "bottomNavText1": "Home",
@@ -108,7 +114,13 @@ static const Map<String,dynamic> _en_US = {
   "langRussian": "Russian",
   "langEnglish": "English",
   "addButton": "Add",
-  "notificationDefaultTitle": "New notification"
+  "notificationDefaultTitle": "New notification",
+  "scannerTitle": "Scanner",
+  "scannerInstruction": "Point the camera at the QR code or barcode",
+  "scannerAccountSearch": "Account search",
+  "scannerAccountSearchDesc": "Scanner will automatically find the 8-digit number",
+  "scannerSelectFromGallery": "Select from gallery",
+  "scannerNoCodeFound": "QR code or barcode not found"
 };
 static const Map<String,dynamic> _ru_RU = {
   "bottomNavText1": "Главная",
@@ -156,7 +168,13 @@ static const Map<String,dynamic> _ru_RU = {
   "langRussian": "Русский",
   "langEnglish": "English",
   "addButton": "Добавить",
-  "notificationDefaultTitle": "Новое уведомление"
+  "notificationDefaultTitle": "Новое уведомление",
+  "scannerTitle": "Сканер",
+  "scannerInstruction": "Наведите камеру на QR-код или штрих-код",
+  "scannerAccountSearch": "Поиск лицевого счета",
+  "scannerAccountSearchDesc": "Сканер автоматически найдет 8-значный номер",
+  "scannerSelectFromGallery": "Выбрать из галереи",
+  "scannerNoCodeFound": "QR-код или штрих-код не найден"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ky_KY": _ky_KY, "en_US": _en_US, "ru_RU": _ru_RU};
 }

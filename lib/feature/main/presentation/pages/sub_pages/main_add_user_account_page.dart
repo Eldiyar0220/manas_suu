@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/core/auto_router/app_router.gr.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manas_suu_app/app/components/app_button_green_widget.dart';
 import 'package:manas_suu_app/app/components/app_slide_animations_wirapper.dart';
@@ -97,7 +98,18 @@ class _MainAddUserAccountPageState extends State<MainAddUserAccountPage> with Si
                 ),
                 AppSlideAnimationWrapper(header, const UserAccountHeaderWidget()),
                 const SizedBox(height: 16),
-                AppSlideAnimationWrapper(textField, AppTextFieldWidget(controller: controller)),
+                AppSlideAnimationWrapper(
+                  textField,
+                  AppTextFieldWidget(
+                    controller: controller,
+                    onQrTap: () async {
+                      final result = await context.router.push<String>(const ScannerRoute());
+                      if (result != null && mounted) {
+                        controller.text = result;
+                      }
+                    },
+                  ),
+                ),
                 const SizedBox(height: 24),
                 AppSlideAnimationWrapper(button, const AppButtonGreenWidget()),
                 const SizedBox(height: 24),

@@ -49,5 +49,11 @@ abstract class  LocaleKeys {
   static const langEnglish = 'langEnglish';
   static const addButton = 'addButton';
   static const notificationDefaultTitle = 'notificationDefaultTitle';
+  static const scannerTitle = 'scannerTitle';
+  static const scannerInstruction = 'scannerInstruction';
+  static const scannerAccountSearch = 'scannerAccountSearch';
+  static const scannerAccountSearchDesc = 'scannerAccountSearchDesc';
+  static const scannerSelectFromGallery = 'scannerSelectFromGallery';
+  static const scannerNoCodeFound = 'scannerNoCodeFound';
 
 }

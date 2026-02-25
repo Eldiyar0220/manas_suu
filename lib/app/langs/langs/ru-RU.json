@@ -44,5 +44,11 @@
   "langRussian": "Русский",
   "langEnglish": "English",
   "addButton": "Добавить",
-  "notificationDefaultTitle": "Новое уведомление"
+  "notificationDefaultTitle": "Новое уведомление",
+  "scannerTitle": "Сканер",
+  "scannerInstruction": "Наведите камеру на QR-код или штрих-код",
+  "scannerAccountSearch": "Поиск лицевого счета",
+  "scannerAccountSearchDesc": "Сканер автоматически найдет 8-значный номер",
+  "scannerSelectFromGallery": "Выбрать из галереи",
+  "scannerNoCodeFound": "QR-код или штрих-код не найден"
 }

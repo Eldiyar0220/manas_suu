@@ -6,9 +6,10 @@ import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
 class AppTextFieldWidget extends StatelessWidget {
-  const AppTextFieldWidget({super.key, required this.controller});
+  const AppTextFieldWidget({super.key, required this.controller, this.onQrTap});
 
   final TextEditingController controller;
+  final VoidCallback? onQrTap;
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +44,12 @@ class AppTextFieldWidget extends StatelessWidget {
               ),
             ),
           ),
-          Icon(
-            Icons.qr_code,
-            color: context.watch<ThemeCubit>().state.isDarkMode ? Colors.green : AppColors.textPrimaryLight,
+          InkWell(
+            onTap: onQrTap,
+            child: Icon(
+              Icons.qr_code,
+              color: context.watch<ThemeCubit>().state.isDarkMode ? Colors.green : AppColors.textPrimaryLight,
+            ),
           ),
         ],
       ),
