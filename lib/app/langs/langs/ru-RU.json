@@ -50,5 +50,16 @@
   "scannerAccountSearch": "Поиск лицевого счета",
   "scannerAccountSearchDesc": "Сканер автоматически найдет 8-значный номер",
   "scannerSelectFromGallery": "Выбрать из галереи",
-  "scannerNoCodeFound": "QR-код или штрих-код не найден"
+  "scannerNoCodeFound": "QR-код или штрих-код не найден",
+  "accountsSection": "Счета",
+  "accountsCount": "{{count}} счет",
+  "toPay": "К оплате",
+  "accountLabel": "ЛС",
+  "fullNameLabel": "ФИО",
+  "addressLabel": "Адрес",
+  "registered": "Зарегистрировано",
+  "residing": "Проживают",
+  "updateDate": "Дата обновления",
+  "tapForDetails": "Нажмите для деталей",
+  "serviceTypeHousehold": "Быт"
 }

@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:manas_suu_app/core/dio_settings/app_exception_interceptor.dart';
 
 @module
 abstract class RegisterModule {
   @dev
   @Named('BaseUrl')
-  String get devBaseUrl => 'https://rickandmortyapi.com/api/';
+  String get devBaseUrl => 'http://10.244.47.127:8080/tazalyk/';
 
   @prod
   @Named('BaseUrl')
@@ -43,7 +44,7 @@ abstract class RegisterModule {
       onResponse: (response, handler) => handler.next(response),
     );
 
-    interceptors.addAll([if (kDebugMode) logInterceptor, headerInterceptors]);
+    interceptors.addAll([if (kDebugMode) logInterceptor, headerInterceptors, AppExceptionInterceptor()]);
 
     return dio;
   }

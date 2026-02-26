@@ -62,7 +62,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
         decoration: context.watch<ThemeCubit>().state.isDarkMode
             ? const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFF0E1A14), Color(0xFF0A120F)],
+                  colors: [Color(0xFF1C1C1E), Color(0xFF1C1C1E), Color(0xFF0A120F)],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),

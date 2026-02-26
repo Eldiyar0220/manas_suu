@@ -5,13 +5,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/codegen_loader.g.dart';
+import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/app/theme/app_theme.dart';
 import 'package:manas_suu_app/core/auto_router/app_router.dart';
 import 'package:manas_suu_app/core/injectable/injectable.dart';
 import 'package:manas_suu_app/core/notifications/local_notifications_service.dart';
+import 'package:manas_suu_app/feature/main/presentation/bloc/main_cubit.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
 @pragma('vm:entry-point')
@@ -24,6 +27,19 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     await localNotifications.initialize();
     await localNotifications.showNotificationFromRemoteMessage(message);
   }
+}
+
+void _configEasyLoading() {
+  EasyLoading.instance
+    ..indicatorType = EasyLoadingIndicatorType.ring
+    ..loadingStyle = EasyLoadingStyle.custom
+    ..indicatorColor = AppColors.mainColor
+    ..indicatorSize = 45.0
+    ..radius = 12.0
+    ..backgroundColor = const Color(0xFF2D2D2D)
+    ..textColor = Colors.white
+    ..maskType = EasyLoadingMaskType.none
+    ..userInteractions = false;
 }
 
 Future<void> main() async {
@@ -42,11 +58,7 @@ Future<void> main() async {
     EasyLocalization(
       path: 'lib/app/langs/lang_gen',
       ignorePluralRules: false,
-      supportedLocales: const [
-        Locale('ru', 'RU'),
-        Locale('ky', 'KY'),
-        Locale('en', 'US'),
-      ],
+      supportedLocales: const [Locale('ru', 'RU'), Locale('ky', 'KY'), Locale('en', 'US')],
       fallbackLocale: const Locale('ru', 'RU'),
       assetLoader: const CodegenLoader(),
       child: ManasSuuApp(localNotifications: localNotifications),
@@ -105,11 +117,15 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GetIt.I<ThemeCubit>()..init(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => GetIt.I<ThemeCubit>()..init()),
+        BlocProvider(create: (context) => GetIt.I<MainCubit>()),
+      ],
       child: Builder(
         builder: (context) => MaterialApp.router(
           title: 'Манас Тазалык',
+          builder: EasyLoading.init(),
           locale: context.locale,
           routerConfig: _appRouter.config(),
           localizationsDelegates: [

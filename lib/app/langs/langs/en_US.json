@@ -50,5 +50,16 @@
   "scannerAccountSearch": "Account search",
   "scannerAccountSearchDesc": "Scanner will automatically find the 8-digit number",
   "scannerSelectFromGallery": "Select from gallery",
-  "scannerNoCodeFound": "QR code or barcode not found"
+  "scannerNoCodeFound": "QR code or barcode not found",
+  "accountsSection": "Accounts",
+  "accountsCount": "{{count}} account",
+  "toPay": "To pay",
+  "accountLabel": "Account",
+  "fullNameLabel": "Full name",
+  "addressLabel": "Address",
+  "registered": "Registered",
+  "residing": "Residing",
+  "updateDate": "Update date",
+  "tapForDetails": "Tap for details",
+  "serviceTypeHousehold": "Household"
 }

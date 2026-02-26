@@ -11,7 +11,7 @@ abstract class AppThemes {
     extensions: [
       MyColors(
         textWhiteBlackColor: AppColors.backgroundWhite,
-        cardBackgroundWhiteBlackColor: AppColors.backgroundBlack,
+        cardBackgroundWhiteBlackColor: Color(0xFF1C1C1E),
         userAccountBackground: [Color(0xFF0E1A14), Color(0xFF0A0A0A)],
         dayAndNight: Colors.black,
         nightAndDay: Colors.white,
@@ -83,10 +83,7 @@ abstract class AppThemes {
       MyColors(
         textWhiteBlackColor: AppColors.backgroundBlack,
         cardBackgroundWhiteBlackColor: Colors.white,
-        userAccountBackground: [
-          const Color.fromARGB(255, 231, 233, 232),
-          const Color.fromARGB(255, 236, 238, 237),
-        ],
+        userAccountBackground: [const Color.fromARGB(255, 231, 233, 232), const Color.fromARGB(255, 236, 238, 237)],
         dayAndNight: Colors.white,
         nightAndDay: Colors.black,
         containerIconColor: Color(0xfffafafa),
@@ -122,8 +119,7 @@ class MyColors extends ThemeExtension<MyColors> {
   }) {
     return MyColors(
       textWhiteBlackColor: textWhiteBlackColor ?? this.textWhiteBlackColor,
-      cardBackgroundWhiteBlackColor:
-          cardBackgroundWhiteBlackColor ?? this.cardBackgroundWhiteBlackColor,
+      cardBackgroundWhiteBlackColor: cardBackgroundWhiteBlackColor ?? this.cardBackgroundWhiteBlackColor,
       userAccountBackground: userAccountBackground ?? userAccountBackground,
       dayAndNight: dayAndNight ?? dayAndNight,
       nightAndDay: nightAndDay ?? nightAndDay,
@@ -137,16 +133,8 @@ class MyColors extends ThemeExtension<MyColors> {
       return this;
     }
     return MyColors(
-      textWhiteBlackColor: Color.lerp(
-        textWhiteBlackColor,
-        other.textWhiteBlackColor,
-        t,
-      ),
-      cardBackgroundWhiteBlackColor: Color.lerp(
-        cardBackgroundWhiteBlackColor,
-        other.cardBackgroundWhiteBlackColor,
-        t,
-      ),
+      textWhiteBlackColor: Color.lerp(textWhiteBlackColor, other.textWhiteBlackColor, t),
+      cardBackgroundWhiteBlackColor: Color.lerp(cardBackgroundWhiteBlackColor, other.cardBackgroundWhiteBlackColor, t),
       userAccountBackground: userAccountBackground,
       dayAndNight: dayAndNight,
       nightAndDay: nightAndDay,

@@ -1,10 +1,11 @@
-import 'dart:developer';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 @singleton
 class PreferenceHelper {
-  static const String save= 'save';
+  static const String save = 'save';
+  static const String accessToken = 'accessToken';
+  static const String personalAccount = 'personalAccount';
   SharedPreferences? _preferences;
   SharedPreferences? get preferences => _preferences;
 

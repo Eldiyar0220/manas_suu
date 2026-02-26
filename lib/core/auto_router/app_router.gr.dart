@@ -20,11 +20,11 @@ import 'package:manas_suu_app/feature/main/presentation/pages/main_page.dart'
 import 'package:manas_suu_app/feature/main/presentation/pages/sub_pages/main_add_user_account_page.dart'
     as _i3;
 import 'package:manas_suu_app/feature/scanner/presentation/pages/scanner_page.dart'
-    as _i7;
-import 'package:manas_suu_app/feature/settings/presentation/pages/settings_page.dart'
     as _i5;
-import 'package:manas_suu_app/feature/splash/presentation/pages/splash_page.dart'
+import 'package:manas_suu_app/feature/settings/presentation/pages/settings_page.dart'
     as _i6;
+import 'package:manas_suu_app/feature/splash/presentation/pages/splash_page.dart'
+    as _i7;
 
 /// generated route for
 /// [_i1.BottomNavigationPage]
@@ -38,22 +38,6 @@ class BottomNavigationRoute extends _i8.PageRouteInfo<void> {
     name,
     builder: (data) {
       return const _i1.BottomNavigationPage();
-    },
-  );
-}
-
-/// generated route for
-/// [_i7.ScannerPage]
-class ScannerRoute extends _i8.PageRouteInfo<void> {
-  const ScannerRoute({List<_i8.PageRouteInfo>? children})
-    : super(ScannerRoute.name, initialChildren: children);
-
-  static const String name = 'ScannerRoute';
-
-  static _i8.PageInfo page = _i8.PageInfo(
-    name,
-    builder: (data) {
-      return const _i7.ScannerPage();
     },
   );
 }
@@ -107,7 +91,23 @@ class MainRoute extends _i8.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.SettingsPage]
+/// [_i5.ScannerPage]
+class ScannerRoute extends _i8.PageRouteInfo<void> {
+  const ScannerRoute({List<_i8.PageRouteInfo>? children})
+    : super(ScannerRoute.name, initialChildren: children);
+
+  static const String name = 'ScannerRoute';
+
+  static _i8.PageInfo page = _i8.PageInfo(
+    name,
+    builder: (data) {
+      return const _i5.ScannerPage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i6.SettingsPage]
 class SettingsRoute extends _i8.PageRouteInfo<void> {
   const SettingsRoute({List<_i8.PageRouteInfo>? children})
     : super(SettingsRoute.name, initialChildren: children);
@@ -117,13 +117,13 @@ class SettingsRoute extends _i8.PageRouteInfo<void> {
   static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i5.SettingsPage();
+      return const _i6.SettingsPage();
     },
   );
 }
 
 /// generated route for
-/// [_i6.SplashPage]
+/// [_i7.SplashPage]
 class SplashRoute extends _i8.PageRouteInfo<SplashRouteArgs> {
   SplashRoute({
     _i9.Key? key,
@@ -145,7 +145,7 @@ class SplashRoute extends _i8.PageRouteInfo<SplashRouteArgs> {
         orElse: () => const SplashRouteArgs(),
       );
       return _i8.WrappedRoute(
-        child: _i6.SplashPage(
+        child: _i7.SplashPage(
           key: args.key,
           progress: args.progress,
           version: args.version,

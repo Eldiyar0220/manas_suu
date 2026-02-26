@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:auto_route/auto_route.dart';
@@ -74,134 +75,135 @@ class _ScannerPageState extends State<ScannerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
+    return SafeArea(
+      top: false,
+      bottom: !Platform.isIOS,
+      child: Scaffold(
         backgroundColor: Colors.black,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.close, color: Colors.white),
-          onPressed: () => context.router.maybePop(),
-        ),
-        title: Text(
-          context.tr(LocaleKeys.scannerTitle),
-          style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.flash_on, color: Colors.white),
-            onPressed: () => _controller.toggleTorch(),
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.close, color: Colors.white),
+            onPressed: () => context.router.maybePop(),
           ),
-          IconButton(
-            icon: const Icon(Icons.cameraswitch, color: Colors.white),
-            onPressed: () => _controller.switchCamera(),
+          title: Text(
+            context.tr(LocaleKeys.scannerTitle),
+            style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
           ),
-        ],
-      ),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          MobileScanner(controller: _controller, onDetect: _onBarcodeDetected),
-          // Instruction overlay
-          Positioned(
-            top: 24,
-            left: 24,
-            right: 24,
-            child: Center(
+          centerTitle: true,
+        ),
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            MobileScanner(controller: _controller, onDetect: _onBarcodeDetected),
+            // Instruction overlay
+            Positioned(
+              top: 24,
+              left: 24,
+              right: 24,
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: 0.6),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    context.tr(LocaleKeys.scannerInstruction),
+                    style: const TextStyle(color: Colors.white, fontSize: 15),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+            // Scanner frame — центрированная по умолчанию или наводится на QR
+            _ScanFrameOverlay(controller: _controller),
+            // Bottom section
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                padding: const EdgeInsets.fromLTRB(20, 24, 20, 34),
                 decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.6),
-                  borderRadius: BorderRadius.circular(12),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.transparent, Colors.black.withValues(alpha: 0.85)],
+                  ),
                 ),
-                child: Text(
-                  context.tr(LocaleKeys.scannerInstruction),
-                  style: const TextStyle(color: Colors.white, fontSize: 15),
-                  textAlign: TextAlign.center,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Account search info card
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF1C1C1E),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: AppColors.textPrimary.withValues(alpha: 0.2),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Icon(Icons.qr_code_scanner, color: AppColors.textPrimary, size: 28),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  context.tr(LocaleKeys.scannerAccountSearch),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  context.tr(LocaleKeys.scannerAccountSearchDesc),
+                                  style: TextStyle(color: Colors.white.withValues(alpha: 0.6), fontSize: 13),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    // Select from gallery button
+                    SizedBox(
+                      width: double.infinity,
+                      height: 52,
+                      child: ElevatedButton.icon(
+                        onPressed: _pickFromGallery,
+                        icon: const Icon(Icons.photo_library_outlined, color: Colors.white, size: 22),
+                        label: Text(
+                          context.tr(LocaleKeys.scannerSelectFromGallery),
+                          style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.textPrimary,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                          elevation: 0,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ),
-          // Scanner frame — центрированная по умолчанию или наводится на QR
-          _ScanFrameOverlay(controller: _controller),
-          // Bottom section
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(20, 24, 20, 34),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Colors.transparent, Colors.black.withValues(alpha: 0.85)],
-                ),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Account search info card
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(color: const Color(0xFF1C1C1E), borderRadius: BorderRadius.circular(12)),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: AppColors.textPrimary.withValues(alpha: 0.2),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Icon(Icons.qr_code_scanner, color: AppColors.textPrimary, size: 28),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                context.tr(LocaleKeys.scannerAccountSearch),
-                                style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                context.tr(LocaleKeys.scannerAccountSearchDesc),
-                                style: TextStyle(color: Colors.white.withValues(alpha: 0.6), fontSize: 13),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  // Select from gallery button
-                  SizedBox(
-                    width: double.infinity,
-                    height: 52,
-                    child: ElevatedButton.icon(
-                      onPressed: _pickFromGallery,
-                      icon: const Icon(Icons.photo_library_outlined, color: Colors.white, size: 22),
-                      label: Text(
-                        context.tr(LocaleKeys.scannerSelectFromGallery),
-                        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.textPrimary,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                        elevation: 0,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -265,10 +267,7 @@ class _ScanFrameOverlayState extends State<_ScanFrameOverlay> {
           builder: (context, snapshot) {
             final capture = snapshot.data;
             Barcode? targetBarcode;
-            if (capture != null &&
-                capture.size.width > 0 &&
-                capture.size.height > 0 &&
-                capture.barcodes.isNotEmpty) {
+            if (capture != null && capture.size.width > 0 && capture.size.height > 0 && capture.barcodes.isNotEmpty) {
               for (final b in capture.barcodes) {
                 if (b.corners.length >= 4 && !b.size.isEmpty) {
                   targetBarcode = b;
@@ -290,13 +289,7 @@ class _ScanFrameOverlayState extends State<_ScanFrameOverlay> {
                     ),
                   );
                 }
-                return Center(
-                  child: _ScannerFrame(
-                    width: 260,
-                    height: 260,
-                    color: AppColors.textPrimary,
-                  ),
-                );
+                return Center(child: _ScannerFrame(width: 260, height: 260, color: AppColors.textPrimary));
               },
             );
           },
@@ -324,21 +317,15 @@ class _BarcodeFramePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (barcode.corners.length < 4 || captureSize.isEmpty) return;
 
-    final isLandscape = deviceOrientation == DeviceOrientation.landscapeLeft ||
-        deviceOrientation == DeviceOrientation.landscapeRight;
+    final isLandscape =
+        deviceOrientation == DeviceOrientation.landscapeLeft || deviceOrientation == DeviceOrientation.landscapeRight;
     final camSize = isLandscape ? Size(captureSize.height, captureSize.width) : captureSize;
 
-    final ratio = math.max(
-      size.width / camSize.width,
-      size.height / camSize.height,
-    );
+    final ratio = math.max(size.width / camSize.width, size.height / camSize.height);
     final padX = (camSize.width * ratio - size.width) / 2;
     final padY = (camSize.height * ratio - size.height) / 2;
 
-    final pts = <Offset>[
-      for (final o in barcode.corners)
-        Offset(o.dx * ratio - padX, o.dy * ratio - padY),
-    ];
+    final pts = <Offset>[for (final o in barcode.corners) Offset(o.dx * ratio - padX, o.dy * ratio - padY)];
     if (pts.length < 4) return;
 
     const cornerLen = 28.0;

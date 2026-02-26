@@ -23,6 +23,7 @@ import '../../feature/contacts/domain/repository/contacts_repository.dart'
 import '../../feature/main/data/repository/main_repository_impl.dart' as _i268;
 import '../../feature/main/domain/interactor/main_interactor.dart' as _i332;
 import '../../feature/main/domain/repository/main_repository.dart' as _i234;
+import '../../feature/main/presentation/bloc/main_cubit.dart' as _i503;
 import '../../feature/settings/data/repository/settings_repository_impl.dart'
     as _i993;
 import '../../feature/settings/domain/interactor/settings_interactor.dart'
@@ -73,7 +74,7 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i361.Dio>(
     () => registerModule.dio(gh<String>(instanceName: 'BaseUrl')),
   );
-  gh.singleton<_i234.MainRepository>(
+  gh.factory<_i234.MainRepository>(
     () => _i268.MainRepositoryImpl(gh<_i361.Dio>()),
   );
   gh.singleton<_i384.ContactsRepository>(
@@ -85,8 +86,14 @@ _i174.GetIt $initGetIt(
   gh.singleton<_i467.SplashRepository>(
     () => _i228.SplashRepositoryImpl(gh<_i361.Dio>()),
   );
-  gh.singleton<_i332.MainInteractor>(
-    () => _i332.MainInteractor(gh<_i234.MainRepository>()),
+  gh.factory<_i332.MainInteractor>(
+    () => _i332.MainInteractor(
+      gh<_i234.MainRepository>(),
+      gh<_i692.PreferenceHelper>(),
+    ),
+  );
+  gh.singleton<_i503.MainCubit>(
+    () => _i503.MainCubit(gh<_i332.MainInteractor>()),
   );
   gh.singleton<_i459.ContactsInteractor>(
     () => _i459.ContactsInteractor(gh<_i384.ContactsRepository>()),

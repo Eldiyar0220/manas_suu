@@ -55,5 +55,17 @@ abstract class  LocaleKeys {
   static const scannerAccountSearchDesc = 'scannerAccountSearchDesc';
   static const scannerSelectFromGallery = 'scannerSelectFromGallery';
   static const scannerNoCodeFound = 'scannerNoCodeFound';
+  static const accountsSection = 'accountsSection';
+  static const accountsCount = 'accountsCount';
+  static const toPay = 'toPay';
+  static const accountLabel = 'accountLabel';
+  static const fullNameLabel = 'fullNameLabel';
+  static const addressLabel = 'addressLabel';
+  static const registered = 'registered';
+  static const residing = 'residing';
+  static const updateDate = 'updateDate';
+  static const tapForDetails = 'tapForDetails';
+  static const serviceTypeHousehold = 'serviceTypeHousehold';
 
 }
+

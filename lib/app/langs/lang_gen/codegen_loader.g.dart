@@ -66,7 +66,18 @@ class CodegenLoader extends AssetLoader{
   "scannerAccountSearch": "Жеке эсептин издөөсү",
   "scannerAccountSearchDesc": "Сканер 8 сандык номурду автоматтык түрдө табат",
   "scannerSelectFromGallery": "Галереядан тандоо",
-  "scannerNoCodeFound": "QR-код же штрих-код табылган жок"
+  "scannerNoCodeFound": "QR-код же штрих-код табылган жок",
+  "accountsSection": "Эсептер",
+  "accountsCount": "{{count}} эсеп",
+  "toPay": "Төлөөгө",
+  "accountLabel": "ЖЭ",
+  "fullNameLabel": "Аты-жөнү",
+  "addressLabel": "Дарек",
+  "registered": "Катталган",
+  "residing": "Жашайт",
+  "updateDate": "Жаңыртуу датасы",
+  "tapForDetails": "Толук маалымат үчүн басыңыз",
+  "serviceTypeHousehold": "Үй"
 };
 static const Map<String,dynamic> _en_US = {
   "bottomNavText1": "Home",
@@ -120,7 +131,18 @@ static const Map<String,dynamic> _en_US = {
   "scannerAccountSearch": "Account search",
   "scannerAccountSearchDesc": "Scanner will automatically find the 8-digit number",
   "scannerSelectFromGallery": "Select from gallery",
-  "scannerNoCodeFound": "QR code or barcode not found"
+  "scannerNoCodeFound": "QR code or barcode not found",
+  "accountsSection": "Accounts",
+  "accountsCount": "{{count}} account",
+  "toPay": "To pay",
+  "accountLabel": "Account",
+  "fullNameLabel": "Full name",
+  "addressLabel": "Address",
+  "registered": "Registered",
+  "residing": "Residing",
+  "updateDate": "Update date",
+  "tapForDetails": "Tap for details",
+  "serviceTypeHousehold": "Household"
 };
 static const Map<String,dynamic> _ru_RU = {
   "bottomNavText1": "Главная",
@@ -174,7 +196,18 @@ static const Map<String,dynamic> _ru_RU = {
   "scannerAccountSearch": "Поиск лицевого счета",
   "scannerAccountSearchDesc": "Сканер автоматически найдет 8-значный номер",
   "scannerSelectFromGallery": "Выбрать из галереи",
-  "scannerNoCodeFound": "QR-код или штрих-код не найден"
+  "scannerNoCodeFound": "QR-код или штрих-код не найден",
+  "accountsSection": "Счета",
+  "accountsCount": "{{count}} счет",
+  "toPay": "К оплате",
+  "accountLabel": "ЛС",
+  "fullNameLabel": "ФИО",
+  "addressLabel": "Адрес",
+  "registered": "Зарегистрировано",
+  "residing": "Проживают",
+  "updateDate": "Дата обновления",
+  "tapForDetails": "Нажмите для деталей",
+  "serviceTypeHousehold": "Быт"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ky_KY": _ky_KY, "en_US": _en_US, "ru_RU": _ru_RU};
 }
