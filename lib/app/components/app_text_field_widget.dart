@@ -35,6 +35,7 @@ class AppTextFieldWidget extends StatelessWidget {
               onTapUpOutside: (event) => WidgetsBinding.instance.focusManager.primaryFocus?.unfocus(),
               style: TextStyle(color: context.watch<ThemeCubit>().state.isDarkMode ? Colors.white : Colors.black87),
               controller: controller,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 hintText: context.tr(LocaleKeys.accountNumberHint),
                 border: InputBorder.none,

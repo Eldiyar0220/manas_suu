@@ -48,12 +48,13 @@ Future<void> main() async {
   if (Firebase.apps.isEmpty) {
     await Firebase.initializeApp();
   }
-  await configureDependencies(environment: AppEnv.prod);
+  await configureDependencies(environment: AppEnv.dev);
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   final localNotifications = GetIt.I<LocalNotificationsService>();
   await localNotifications.initialize();
-
+  _configEasyLoading();
   runApp(
     EasyLocalization(
       path: 'lib/app/langs/lang_gen',
@@ -89,11 +90,7 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
       final messaging = FirebaseMessaging.instance;
       await messaging.getInitialMessage();
 
-      final settings = await messaging.requestPermission(
-        alert: true,
-        badge: true,
-        sound: true,
-      );
+      final settings = await messaging.requestPermission(alert: true, badge: true, sound: true);
 
       log('Permission: ${settings.authorizationStatus}');
 
