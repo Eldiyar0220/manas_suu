@@ -66,6 +66,11 @@ abstract class  LocaleKeys {
   static const updateDate = 'updateDate';
   static const tapForDetails = 'tapForDetails';
   static const serviceTypeHousehold = 'serviceTypeHousehold';
+  static const payButton = 'payButton';
+  static const printInvoice = 'printInvoice';
+  static const history = 'history';
+  static const noNotifications = 'noNotifications';
+  static const noNotificationsDesc = 'noNotificationsDesc';
 
 }
 

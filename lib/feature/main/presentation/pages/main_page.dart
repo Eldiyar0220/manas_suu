@@ -14,6 +14,7 @@ import 'package:manas_suu_app/feature/main/presentation/bloc/main_cubit.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_button_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_header_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_info_contaiiner_widget.dart';
+import 'package:manas_suu_app/feature/main/presentation/widgets/payment_actions_widget.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
 @RoutePage()
@@ -68,26 +69,37 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
         elevation: 0,
         centerTitle: true,
         title: Text(context.tr(LocaleKeys.mainPageTitle), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
-        actions: const [Padding(padding: EdgeInsets.only(right: 16), child: Icon(Icons.notifications_none))],
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_none),
+            onPressed: () => context.router.push(const NotificationsRoute()),
+          ),
+        ],
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: BlocBuilder<MainCubit, MainState>(
-            builder: (context, state) {
-              if (state.status == MainStateStatus.INITIAL) {
-                return _NoAccountState(header: header, button: button, info: info);
-              }
-              if (state.status == MainStateStatus.LOADING && state.myAccounts.isEmpty) {
-                return SizedBox(
-                  height: MediaQuery.sizeOf(context).height / 1.3,
-                  width: MediaQuery.sizeOf(context).width,
-                  child: Center(child: CircularProgressIndicator.adaptive()),
-                );
-              }
+      body: RefreshIndicator.adaptive(
+        onRefresh: () async => _getMyAccounts(),
+        color: AppColors.mainColor,
+        child: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            children: [
+              BlocBuilder<MainCubit, MainState>(
+                builder: (context, state) {
+                  if (state.status == MainStateStatus.INITIAL) {
+                    return _NoAccountState(header: header, button: button, info: info);
+                  }
+                  if (state.status == MainStateStatus.LOADING && state.myAccounts.isEmpty) {
+                    return SizedBox(
+                      height: MediaQuery.sizeOf(context).height / 1.3,
+                      width: MediaQuery.sizeOf(context).width,
+                      child: Center(child: CircularProgressIndicator.adaptive()),
+                    );
+                  }
 
-              return _IsAddedAccountState(state);
-            },
+                  return _IsAddedAccountState(state);
+                },
+              ),
+            ],
           ),
         ),
       ),
@@ -110,7 +122,6 @@ class _NoAccountState extends StatelessWidget {
         // SizedBox(height: 15),
         // MainChartWidget(),
         // SizedBox(height: 15),
-        // MainPaymentCardWidget(accountNumber: '222'),
         const SizedBox(height: 20),
         AppBouncingAnimationWrapper(MainHeaderWalletWidget()),
         AppSlideAnimationWrapper(header, MainHeaderWidget()),
@@ -190,9 +201,15 @@ class _IsAddedAccountState extends StatelessWidget {
                     height: 36,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: AppColors.mainColor.withValues(alpha: 0.12),
+                      color: (state.selectedAccount?.balance ?? 0) > 0
+                          ? Colors.red.withValues(alpha: 0.12)
+                          : AppColors.mainColor.withValues(alpha: 0.12),
                     ),
-                    child: const Icon(Icons.arrow_downward, color: AppColors.mainColor, size: 20),
+                    child: Icon(
+                      Icons.arrow_downward,
+                      color: (state.selectedAccount?.balance ?? 0) > 0 ? Colors.red : AppColors.mainColor,
+                      size: 20,
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Text(
@@ -201,8 +218,12 @@ class _IsAddedAccountState extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    state.selectedAccount?.balance.toString() ?? '',
-                    style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: AppColors.mainColor),
+                    '${state.selectedAccount?.balance.toString() ?? 0} сом',
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      color: (state.selectedAccount?.balance ?? 0) > 0 ? Colors.red : AppColors.mainColor,
+                    ),
                   ),
                   const SizedBox(width: 6),
                   Icon(Icons.chevron_right, color: subTextColor, size: 18),
@@ -276,18 +297,15 @@ class _IsAddedAccountState extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 12),
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.touch_app, size: 14, color: subTextColor),
-                    const SizedBox(width: 6),
-                    Text(context.tr(LocaleKeys.tapForDetails), style: TextStyle(fontSize: 12, color: subTextColor)),
-                  ],
-                ),
-              ),
             ],
           ),
+        ),
+        const SizedBox(height: 20),
+        PaymentActionsWidget(
+          isRedButton: (state.selectedAccount?.balance ?? 0) > 0,
+          onPay: () {},
+          onPrintInvoice: () {},
+          onHistory: () {},
         ),
         const SizedBox(height: 24),
       ],

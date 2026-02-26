@@ -77,7 +77,12 @@ class CodegenLoader extends AssetLoader{
   "residing": "Жашайт",
   "updateDate": "Жаңыртуу датасы",
   "tapForDetails": "Толук маалымат үчүн басыңыз",
-  "serviceTypeHousehold": "Үй"
+  "serviceTypeHousehold": "Үй",
+  "payButton": "Төлөө",
+  "printInvoice": "Чек басып чыгаруу",
+  "history": "Тарых",
+  "noNotifications": "Билдирмелер жок",
+  "noNotificationsDesc": "Маанилүү билдирмелер жана жаңыртуулар бул жерде көрсөтүлөт"
 };
 static const Map<String,dynamic> _en_US = {
   "bottomNavText1": "Home",
@@ -142,7 +147,12 @@ static const Map<String,dynamic> _en_US = {
   "residing": "Residing",
   "updateDate": "Update date",
   "tapForDetails": "Tap for details",
-  "serviceTypeHousehold": "Household"
+  "serviceTypeHousehold": "Household",
+  "payButton": "Pay",
+  "printInvoice": "Print invoice",
+  "history": "History",
+  "noNotifications": "No notifications",
+  "noNotificationsDesc": "Important notifications and updates will be shown here"
 };
 static const Map<String,dynamic> _ru_RU = {
   "bottomNavText1": "Главная",
@@ -207,7 +217,12 @@ static const Map<String,dynamic> _ru_RU = {
   "residing": "Проживают",
   "updateDate": "Дата обновления",
   "tapForDetails": "Нажмите для деталей",
-  "serviceTypeHousehold": "Быт"
+  "serviceTypeHousehold": "Быт",
+  "payButton": "Оплатить",
+  "printInvoice": "Печать счета",
+  "history": "История",
+  "noNotifications": "Нет уведомлений",
+  "noNotificationsDesc": "Здесь будут показаны важные уведомления и обновления"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ky_KY": _ky_KY, "en_US": _en_US, "ru_RU": _ru_RU};
 }

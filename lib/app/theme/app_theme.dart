@@ -8,6 +8,10 @@ import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/the
 /// Суля дальше сам
 abstract class AppThemes {
   static ThemeData mainThemeDark = ThemeData(
+   progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: Colors.green,
+      refreshBackgroundColor: Color(0xFF1C1C1E),
+    ),
     extensions: [
       MyColors(
         textWhiteBlackColor: AppColors.backgroundWhite,
@@ -19,6 +23,7 @@ abstract class AppThemes {
       ),
     ],
     brightness: Brightness.dark,
+
     scaffoldBackgroundColor: AppColors.backgroundBlack,
     appBarTheme: AppBarTheme(
       centerTitle: true,
@@ -49,6 +54,11 @@ abstract class AppThemes {
   );
 
   static ThemeData isLightTheme = ThemeData(
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: Colors.green,
+      refreshBackgroundColor: AppColors.backgroundWhite,
+    ),
+
     brightness: Brightness.light,
     scaffoldBackgroundColor: AppColors.backgroundWhite,
     appBarTheme: AppBarTheme(

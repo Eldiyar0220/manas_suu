@@ -61,5 +61,10 @@
   "residing": "Residing",
   "updateDate": "Update date",
   "tapForDetails": "Tap for details",
-  "serviceTypeHousehold": "Household"
+  "serviceTypeHousehold": "Household",
+  "payButton": "Pay",
+  "printInvoice": "Print invoice",
+  "history": "History",
+  "noNotifications": "No notifications",
+  "noNotificationsDesc": "Important notifications and updates will be shown here"
 }

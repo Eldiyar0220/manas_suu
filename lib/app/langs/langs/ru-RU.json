@@ -61,5 +61,10 @@
   "residing": "Проживают",
   "updateDate": "Дата обновления",
   "tapForDetails": "Нажмите для деталей",
-  "serviceTypeHousehold": "Быт"
+  "serviceTypeHousehold": "Быт",
+  "payButton": "Оплатить",
+  "printInvoice": "Печать счета",
+  "history": "История",
+  "noNotifications": "Нет уведомлений",
+  "noNotificationsDesc": "Здесь будут показаны важные уведомления и обновления"
 }

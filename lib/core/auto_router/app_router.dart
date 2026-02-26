@@ -13,6 +13,7 @@ class AppRouter extends RootStackRouter {
   List<CupertinoRoute> get routes => [
     CupertinoRoute(page: SplashRoute.page, initial: true),
     CupertinoRoute(page: MainAddUserAccountRoute.page),
+    CupertinoRoute(page: NotificationsRoute.page),
     CupertinoRoute(page: ScannerRoute.page),
     CupertinoRoute(
       page: BottomNavigationRoute.page,
