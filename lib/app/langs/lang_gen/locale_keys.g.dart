@@ -71,6 +71,9 @@ abstract class  LocaleKeys {
   static const history = 'history';
   static const noNotifications = 'noNotifications';
   static const noNotificationsDesc = 'noNotificationsDesc';
+  static const accountDetails = 'accountDetails';
+  static const accrualHistory = 'accrualHistory';
+  static const deleteAccount = 'deleteAccount';
 
 }
 

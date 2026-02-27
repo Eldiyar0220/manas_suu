@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
 import 'package:manas_suu_app/feature/main/data/models/auth_login/auth_login_response_model.dart';
+import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
 import 'package:manas_suu_app/feature/main/domain/repository/main_repository.dart';
 
 @Injectable(as: MainRepository)
@@ -11,6 +11,8 @@ class MainRepositoryImpl implements MainRepository {
 
   final _authLogin = 'auth/login';
   final _accountsMy = 'accounts/my';
+  final _accountsAdd = 'accounts/add';
+  final _accountsDelete = 'accounts';
 
   @override
   Future<AuthLoginResponseModel> postAuthLogin(String personalAccount) async {
@@ -25,4 +27,12 @@ class MainRepositoryImpl implements MainRepository {
 
     return AccountsResponseModel.fromJson(response.data).data;
   }
+
+  @override
+  Future<void> addAccount(String personalAccount) async {
+    await _dio.post(_accountsAdd, data: {'personalAccount': personalAccount});
+  }
+
+  @override
+  Future<void> deleteAccount(int id) async => await _dio.delete('$_accountsDelete/$id');
 }

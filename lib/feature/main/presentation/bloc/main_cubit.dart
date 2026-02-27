@@ -32,14 +32,23 @@ class MainCubit extends Cubit<MainState> {
     }
   }
 
-  Future<void> getMyAccounts() async {
+  Future<void> getMyAccounts({bool isAddedAccount = false}) async {
     final accessToken = GetIt.I<PreferenceHelper>().preferences?.getString(PreferenceHelper.accessToken);
     if (accessToken != null) {
       emit(_mainState(MainStateStatus.LOADING));
 
       try {
         await _interactor.getMyAccounts();
-        emit(_mainState(MainStateStatus.MYACCOUNTSUCCESS));
+
+        if (_interactor.myAccounts.isEmpty) {
+          emit(MainState(status: MainStateStatus.INITIAL));
+          return;
+        }
+        if (isAddedAccount) {
+          emit(_mainState(MainStateStatus.AUTHSUCCESS));
+        } else {
+          emit(_mainState(MainStateStatus.MYACCOUNTSUCCESS));
+        }
       } catch (e) {
         emit(_mainState(MainStateStatus.ERROR));
       }
@@ -53,6 +62,26 @@ class MainCubit extends Cubit<MainState> {
     try {
       await _interactor.selectAccount(personalAccount);
       emit(_mainState(MainStateStatus.MYACCOUNTSUCCESS));
+    } catch (e) {
+      emit(_mainState(MainStateStatus.ERROR));
+    }
+  }
+
+  Future<void> addAccount(String personalAccount) async {
+    emit(_mainState(MainStateStatus.LOADING));
+    try {
+      await _interactor.addAccount(personalAccount);
+      getMyAccounts(isAddedAccount: true);
+    } catch (e) {
+      emit(_mainState(MainStateStatus.ERROR));
+    }
+  }
+
+  Future<void> deleteAccount(int id) async {
+    emit(_mainState(MainStateStatus.LOADING));
+    try {
+      await _interactor.deleteAccount(id);
+      getMyAccounts();
     } catch (e) {
       emit(_mainState(MainStateStatus.ERROR));
     }

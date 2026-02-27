@@ -9,8 +9,10 @@ import 'package:manas_suu_app/app/extensions/datetime_extension.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/core/auto_router/app_router.gr.dart';
+import 'package:manas_suu_app/feature/finik/presentation/finik_sdk.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
 import 'package:manas_suu_app/feature/main/presentation/bloc/main_cubit.dart';
+import 'package:manas_suu_app/feature/main/presentation/widgets/account_actions_bottom_sheet.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_button_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_header_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_info_contaiiner_widget.dart';
@@ -171,7 +173,7 @@ class _IsAddedAccountState extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              _AddAccountCard(backgroundColor: addCardBg),
+              _AddAccountCard(backgroundColor: addCardBg, isAddedAccount: true),
             ],
           ),
         ),
@@ -303,7 +305,14 @@ class _IsAddedAccountState extends StatelessWidget {
         const SizedBox(height: 20),
         PaymentActionsWidget(
           isRedButton: (state.selectedAccount?.balance ?? 0) > 0,
-          onPay: () {},
+          onPay: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FinikScreen(extra: FinikExtra(amount: state.selectedAccount?.balance ?? 0)),
+              ),
+            );
+          },
           onPrintInvoice: () {},
           onHistory: () {},
         ),
@@ -321,6 +330,7 @@ class _ActiveAccountCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = context.read<ThemeCubit>().state.isDarkMode;
     return InkWell(
       onTap: () {
         if (!isSelectedCard) {
@@ -341,9 +351,7 @@ class _ActiveAccountCard extends StatelessWidget {
                   end: Alignment.bottomRight,
                 )
               : null,
-          border: Border.all(
-            color: context.read<ThemeCubit>().state.isDarkMode ? Colors.grey.shade900 : Colors.grey.shade300,
-          ),
+          border: Border.all(color: isDark ? Colors.grey.shade900 : Colors.grey.shade300),
           borderRadius: BorderRadius.circular(16),
           boxShadow: isSelectedCard
               ? [
@@ -360,7 +368,7 @@ class _ActiveAccountCard extends StatelessWidget {
             if (isSelectedCard)
               Positioned(
                 top: 0,
-                right: 0,
+                left: 0,
                 child: Container(
                   width: 24,
                   height: 24,
@@ -368,6 +376,36 @@ class _ActiveAccountCard extends StatelessWidget {
                   child: const Icon(Icons.check, size: 14, color: Colors.white),
                 ),
               ),
+            Positioned(
+              top: -2,
+              right: -2,
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () => showAccountActionsBottomSheet(
+                    context,
+                    account: account,
+                    onDelete: () => context.read<MainCubit>().deleteAccount(account.id),
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    width: 28,
+                    height: 28,
+                    decoration: BoxDecoration(
+                      color: (isSelectedCard ? Colors.white : (isDark ? Colors.white : Colors.black)).withValues(
+                        alpha: isSelectedCard ? 0.2 : 0.08,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Icon(
+                      Icons.more_horiz,
+                      size: 16,
+                      color: isSelectedCard ? Colors.white : (isDark ? Colors.white70 : Colors.black54),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -409,14 +447,15 @@ class _ActiveAccountCard extends StatelessWidget {
 }
 
 class _AddAccountCard extends StatelessWidget {
-  const _AddAccountCard({required this.backgroundColor});
+  const _AddAccountCard({required this.backgroundColor, required this.isAddedAccount});
 
   final Color backgroundColor;
+  final bool isAddedAccount;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.router.push(const MainAddUserAccountRoute()),
+      onTap: () => context.router.push(MainAddUserAccountRoute(isAddedAccount: isAddedAccount)),
       child: Container(
         width: 120,
         decoration: BoxDecoration(

@@ -23,7 +23,7 @@ abstract class RegisterModule {
         contentType: 'application/json',
         connectTimeout: duration,
         receiveTimeout: duration,
-        headers: {'Accept': 'application/json'},
+        headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
       ),
     );
 

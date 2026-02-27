@@ -62,18 +62,58 @@ class ContactsRoute extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.MainAddUserAccountPage]
-class MainAddUserAccountRoute extends _i9.PageRouteInfo<void> {
-  const MainAddUserAccountRoute({List<_i9.PageRouteInfo>? children})
-    : super(MainAddUserAccountRoute.name, initialChildren: children);
+class MainAddUserAccountRoute
+    extends _i9.PageRouteInfo<MainAddUserAccountRouteArgs> {
+  MainAddUserAccountRoute({
+    _i10.Key? key,
+    bool isAddedAccount = false,
+    List<_i9.PageRouteInfo>? children,
+  }) : super(
+         MainAddUserAccountRoute.name,
+         args: MainAddUserAccountRouteArgs(
+           key: key,
+           isAddedAccount: isAddedAccount,
+         ),
+         initialChildren: children,
+       );
 
   static const String name = 'MainAddUserAccountRoute';
 
   static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
-      return const _i3.MainAddUserAccountPage();
+      final args = data.argsAs<MainAddUserAccountRouteArgs>(
+        orElse: () => const MainAddUserAccountRouteArgs(),
+      );
+      return _i3.MainAddUserAccountPage(
+        key: args.key,
+        isAddedAccount: args.isAddedAccount,
+      );
     },
   );
+}
+
+class MainAddUserAccountRouteArgs {
+  const MainAddUserAccountRouteArgs({this.key, this.isAddedAccount = false});
+
+  final _i10.Key? key;
+
+  final bool isAddedAccount;
+
+  @override
+  String toString() {
+    return 'MainAddUserAccountRouteArgs{key: $key, isAddedAccount: $isAddedAccount}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! MainAddUserAccountRouteArgs) return false;
+    return key == other.key && isAddedAccount == other.isAddedAccount;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ isAddedAccount.hashCode;
 }
 
 /// generated route for

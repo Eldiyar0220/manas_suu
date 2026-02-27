@@ -36,6 +36,7 @@ dependencies:
   image_picker: ^1.1.2
   flutter_easyloading: ^3.0.5
   finik_sdk: ^3.1.4
+  device_info_plus: ^12.3.0
 
 dev_dependencies:
   flutter_test:

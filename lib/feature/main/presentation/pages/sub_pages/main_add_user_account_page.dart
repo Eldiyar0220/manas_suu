@@ -14,7 +14,8 @@ import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/the
 
 @RoutePage()
 class MainAddUserAccountPage extends StatefulWidget {
-  const MainAddUserAccountPage({super.key});
+  const MainAddUserAccountPage({super.key, this.isAddedAccount = false});
+  final bool isAddedAccount;
 
   @override
   State<MainAddUserAccountPage> createState() => _MainAddUserAccountPageState();
@@ -121,7 +122,7 @@ class _MainAddUserAccountPageState extends State<MainAddUserAccountPage> with Si
                     ),
                   ),
                   const SizedBox(height: 24),
-                  AppSlideAnimationWrapper(button, AppButtonGreenWidget(controller: controller)),
+                  AppSlideAnimationWrapper(button, AppButtonGreenWidget(controller: controller, isAddedAccount: widget.isAddedAccount)),
                   const SizedBox(height: 24),
                   AppSlideAnimationWrapper(info, const UserAccountInfoWidget()),
                   const Spacer(),

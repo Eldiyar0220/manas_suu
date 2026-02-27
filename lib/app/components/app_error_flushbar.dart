@@ -16,6 +16,7 @@ Future<void> showErrorFlushbar(
 }) async {
   final context = navigatorKey.currentContext;
   if (context == null || !context.mounted) return;
+  final safeMessage = message.trim().isEmpty ? 'Произошла ошибка' : message;
   final isDark = Theme.of(context).brightness == Brightness.dark;
   final backgroundColor = isDark ? const Color(0xFF2D2D2D) : const Color(0xFFFFEBEE);
   final textColor = isDark ? Colors.white : const Color(0xFFB71C1C);
@@ -23,7 +24,7 @@ Future<void> showErrorFlushbar(
 
   return Flushbar(
     title: title,
-    message: message,
+    message: safeMessage,
     titleColor: textColor,
     messageColor: textColor.withValues(alpha: isDark ? 0.9 : 0.8),
     icon: Icon(Icons.error_outline, color: iconColor, size: 28),

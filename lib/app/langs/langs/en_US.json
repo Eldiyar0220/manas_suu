@@ -66,5 +66,8 @@
   "printInvoice": "Print invoice",
   "history": "History",
   "noNotifications": "No notifications",
-  "noNotificationsDesc": "Important notifications and updates will be shown here"
+  "noNotificationsDesc": "Important notifications and updates will be shown here",
+  "accountDetails": "Account details",
+  "accrualHistory": "Accrual history",
+  "deleteAccount": "Delete account"
 }

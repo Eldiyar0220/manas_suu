@@ -15,24 +15,16 @@ class MainButtonWidget extends StatelessWidget {
       height: 56,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(28),
-        gradient: const LinearGradient(
-          colors: [Color(0xFF43A047), Color(0xFF66BB6A)],
-        ),
+        gradient: const LinearGradient(colors: [Color(0xFF43A047), Color(0xFF66BB6A)]),
         boxShadow: [
-          BoxShadow(
-            color: AppColors.mainColor.withValues(alpha: 0.3),
-            blurRadius: 15,
-            offset: const Offset(0, 8),
-          ),
+          BoxShadow(color: AppColors.mainColor.withValues(alpha: 0.3), blurRadius: 15, offset: const Offset(0, 8)),
         ],
       ),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(28),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
         ),
         onPressed: () => context.router.push(MainAddUserAccountRoute()),
         child: Row(
@@ -46,11 +38,7 @@ class MainButtonWidget extends StatelessWidget {
             SizedBox(width: 12),
             Text(
               context.tr(LocaleKeys.mainPageAddCheck),
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
             ),
           ],
         ),

@@ -82,7 +82,10 @@ class CodegenLoader extends AssetLoader{
   "printInvoice": "Чек басып чыгаруу",
   "history": "Тарых",
   "noNotifications": "Билдирмелер жок",
-  "noNotificationsDesc": "Маанилүү билдирмелер жана жаңыртуулар бул жерде көрсөтүлөт"
+  "noNotificationsDesc": "Маанилүү билдирмелер жана жаңыртуулар бул жерде көрсөтүлөт",
+  "accountDetails": "Эсеп тууралуу толук",
+  "accrualHistory": "Эсептөө тарыхы",
+  "deleteAccount": "Эсепти өчүрүү"
 };
 static const Map<String,dynamic> _en_US = {
   "bottomNavText1": "Home",
@@ -152,7 +155,10 @@ static const Map<String,dynamic> _en_US = {
   "printInvoice": "Print invoice",
   "history": "History",
   "noNotifications": "No notifications",
-  "noNotificationsDesc": "Important notifications and updates will be shown here"
+  "noNotificationsDesc": "Important notifications and updates will be shown here",
+  "accountDetails": "Account details",
+  "accrualHistory": "Accrual history",
+  "deleteAccount": "Delete account"
 };
 static const Map<String,dynamic> _ru_RU = {
   "bottomNavText1": "Главная",
@@ -222,7 +228,10 @@ static const Map<String,dynamic> _ru_RU = {
   "printInvoice": "Печать счета",
   "history": "История",
   "noNotifications": "Нет уведомлений",
-  "noNotificationsDesc": "Здесь будут показаны важные уведомления и обновления"
+  "noNotificationsDesc": "Здесь будут показаны важные уведомления и обновления",
+  "accountDetails": "Подробнее о счете",
+  "accrualHistory": "История начислений",
+  "deleteAccount": "Удалить счет"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ky_KY": _ky_KY, "en_US": _en_US, "ru_RU": _ru_RU};
 }

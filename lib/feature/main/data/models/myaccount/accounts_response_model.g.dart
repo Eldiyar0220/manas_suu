@@ -28,7 +28,7 @@ AccountItemModel _$AccountItemModelFromJson(Map<String, dynamic> json) =>
       accountType: $enumDecode(_$AccountTypeEnumMap, json['accountType']),
       balance: (json['balance'] as num).toDouble(),
       registeredCount: (json['registeredCount'] as num?)?.toInt(),
-      residingCount: (json['residingCount'] as num?)?.toInt(),
+      residingCount: (json['residentsCount'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$AccountItemModelToJson(AccountItemModel instance) =>
@@ -40,7 +40,7 @@ Map<String, dynamic> _$AccountItemModelToJson(AccountItemModel instance) =>
       'accountType': _$AccountTypeEnumMap[instance.accountType]!,
       'balance': instance.balance,
       'registeredCount': instance.registeredCount,
-      'residingCount': instance.residingCount,
+      'residentsCount': instance.residingCount,
     };
 
 const _$AccountTypeEnumMap = {

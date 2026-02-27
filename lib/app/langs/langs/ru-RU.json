@@ -66,5 +66,8 @@
   "printInvoice": "Печать счета",
   "history": "История",
   "noNotifications": "Нет уведомлений",
-  "noNotificationsDesc": "Здесь будут показаны важные уведомления и обновления"
+  "noNotificationsDesc": "Здесь будут показаны важные уведомления и обновления",
+  "accountDetails": "Подробнее о счете",
+  "accrualHistory": "История начислений",
+  "deleteAccount": "Удалить счет"
 }

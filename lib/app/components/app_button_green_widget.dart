@@ -6,13 +6,16 @@ import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/feature/main/presentation/bloc/main_cubit.dart';
 
 class AppButtonGreenWidget extends StatelessWidget {
-  const AppButtonGreenWidget({super.key, required this.controller});
+  const AppButtonGreenWidget({super.key, required this.controller, this.isAddedAccount = false});
   final TextEditingController controller;
+  final bool isAddedAccount;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.read<MainCubit>().postAuthLogin(controller.text),
+      onTap: () => isAddedAccount
+          ? context.read<MainCubit>().addAccount(controller.text)
+          : context.read<MainCubit>().postAuthLogin(controller.text),
       child: Container(
         height: 56,
         width: double.infinity,

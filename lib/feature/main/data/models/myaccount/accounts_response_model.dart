@@ -37,9 +37,8 @@ class AccountItemModel {
   final AccountType accountType;
   final double balance;
   final int? registeredCount;
+  @JsonKey(name: 'residentsCount')
   final int? residingCount;
-
-  
 
   factory AccountItemModel.fromJson(Map<String, dynamic> json) => _$AccountItemModelFromJson(json);
 
