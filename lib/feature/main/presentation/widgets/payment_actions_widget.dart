@@ -7,12 +7,11 @@ import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/the
 
 /// Виджет кнопок оплаты: «Оплатить», «Печать счета», «История».
 class PaymentActionsWidget extends StatelessWidget {
-  const PaymentActionsWidget({super.key, this.onPay, this.onPrintInvoice, this.onHistory, required this.isRedButton});
+  const PaymentActionsWidget({super.key, this.onPay, this.onPrintInvoice, this.onHistory});
 
   final VoidCallback? onPay;
   final VoidCallback? onPrintInvoice;
   final VoidCallback? onHistory;
-  final bool isRedButton;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +22,7 @@ class PaymentActionsWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         // Кнопка «Оплатить»
+        if (onPay != null)
         Material(
           color: Colors.transparent,
           child: InkWell(
@@ -32,16 +32,14 @@ class PaymentActionsWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: isRedButton
-                      ? [Color.fromARGB(255, 187, 102, 102), Color.fromARGB(255, 160, 67, 67)]
-                      : [Color(0xFF66BB6A), Color(0xFF43A047)],
+                  colors: [Color(0xFF66BB6A), Color(0xFF43A047)],
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                 ),
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: isRedButton ? Colors.red.withValues(alpha: 0.4) : AppColors.mainColor.withValues(alpha: 0.4),
+                    color:  AppColors.mainColor.withValues(alpha: 0.4),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),

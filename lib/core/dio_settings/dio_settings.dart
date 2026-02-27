@@ -11,7 +11,7 @@ abstract class RegisterModule {
 
   @prod
   @Named('BaseUrl')
-  String get prodBaseUrl => 'https://rickandmortyapi.com/api/';
+  String get prodBaseUrl => 'http://10.244.47.127:8080/tazalyk/';
 
   @dev
   @Named('APIKEY')
@@ -27,6 +27,13 @@ abstract class RegisterModule {
   @prod
   @Named('ACCOUNTID')
   String get prodACCOUNTID => '4f88cdfb-9546-4b58-a0e7-661328ec7efc';
+  @dev
+  @Named('CALLBACKURL')
+  String get devCALLBACKURL => 'https://beta.api.paymentsgateway.averspay.kg/v1/graphql';
+
+  @prod
+  @Named('CALLBACKURL')
+  String get prodCALLBACKURL => 'https://api.paymentsgateway.averspay.kg/v1/graphql';
 
   @lazySingleton
   Dio dio(@Named('BaseUrl') String baseUrl) {

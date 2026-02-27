@@ -304,15 +304,16 @@ class _IsAddedAccountState extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         PaymentActionsWidget(
-          isRedButton: (state.selectedAccount?.balance ?? 0) > 0,
-          onPay: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => FinikScreen(extra: FinikExtra(amount: state.selectedAccount?.balance ?? 0)),
-              ),
-            );
-          },
+          onPay: (state.selectedAccount?.balance ?? 0) > 0
+              ? () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FinikScreen(extra: FinikExtra(amount: state.selectedAccount?.balance ?? 0)),
+                    ),
+                  );
+                }
+              : null,
           onPrintInvoice: () {},
           onHistory: () {},
         ),

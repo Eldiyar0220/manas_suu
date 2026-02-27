@@ -61,6 +61,11 @@ _i174.GetIt $initGetIt(
     registerFor: {_dev},
   );
   gh.factory<String>(
+    () => registerModule.devCALLBACKURL,
+    instanceName: 'CALLBACKURL',
+    registerFor: {_dev},
+  );
+  gh.factory<String>(
     () => registerModule.devACCOUNTID,
     instanceName: 'ACCOUNTID',
     registerFor: {_dev},
@@ -69,6 +74,11 @@ _i174.GetIt $initGetIt(
     () => registerModule.devAPIKEY,
     instanceName: 'APIKEY',
     registerFor: {_dev},
+  );
+  gh.factory<String>(
+    () => registerModule.prodCALLBACKURL,
+    instanceName: 'CALLBACKURL',
+    registerFor: {_prod},
   );
   gh.singleton<_i778.ThemeInteractor>(
     () => _i778.ThemeInteractor(gh<_i692.PreferenceHelper>()),
