@@ -1,10 +1,19 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:manas_suu_app/app/components/app_error_flushbar.dart';
+import 'package:manas_suu_app/core/dio_settings/app_exception.dart';
 import 'package:manas_suu_app/core/dio_settings/app_exception_interceptor.dart';
 
 @module
 abstract class RegisterModule {
+  @test
+  @Named('BaseUrl')
+  String get testBaseUrl => 'https://31.3.216.40/tazalyk/';
+
   @dev
   @Named('BaseUrl')
   String get devBaseUrl => 'http://10.244.47.127:8080/tazalyk/';
@@ -49,6 +58,16 @@ abstract class RegisterModule {
       ),
     );
 
+    if (kDebugMode) {
+      dio.httpClientAdapter = IOHttpClientAdapter(
+        createHttpClient: () {
+          final client = HttpClient();
+          client.badCertificateCallback = (_, __, ___) => true;
+          return client;
+        },
+      );
+    }
+
     final interceptors = dio.interceptors;
     interceptors.clear();
 
@@ -62,11 +81,18 @@ abstract class RegisterModule {
 
     final headerInterceptors = QueuedInterceptorsWrapper(
       onRequest: (options, handler) => handler.next(options),
-      onError: (err, handler) => handler.next(err),
+      onError: (err, handler) {
+        handler.next(err);
+        showAppExceptionFlushbar(AppException.fromDioException(err));
+      },
       onResponse: (response, handler) => handler.next(response),
     );
 
-    interceptors.addAll([if (kDebugMode) logInterceptor, headerInterceptors, AppExceptionInterceptor()]);
+    interceptors.addAll([
+      if (kDebugMode) logInterceptor,
+      headerInterceptors,
+      AppExceptionInterceptor(),
+    ]);
 
     return dio;
   }

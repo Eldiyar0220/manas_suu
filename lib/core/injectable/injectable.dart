@@ -25,6 +25,7 @@ Future<void> configureDependencies({String? environment}) async {
 abstract class AppEnv {
   static const dev = Environment.dev;
   static const prod = Environment.prod;
+  static const test = Environment.test;
 }
 
 class ProvidersWrapper extends StatelessWidget {

@@ -11,4 +11,9 @@ extension CustomAutoRouter on StackRouter {
 
 extension ContextExtension on BuildContext {
   MyColors get theme => Theme.of(this).extension<MyColors>()!;
+  double get width => MediaQuery.of(this).size.width;
+  double get height => MediaQuery.of(this).size.height;
+  EdgeInsets get viewInsets => MediaQuery.of(this).viewInsets;
+  MediaQueryData get mQuery => MediaQuery.of(this);
+  FocusNode get focusScope => FocusScope.of(this);
 }

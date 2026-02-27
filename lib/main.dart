@@ -14,6 +14,7 @@ import 'package:manas_suu_app/app/theme/app_theme.dart';
 import 'package:manas_suu_app/core/auto_router/app_router.dart';
 import 'package:manas_suu_app/core/injectable/injectable.dart';
 import 'package:manas_suu_app/core/notifications/local_notifications_service.dart';
+import 'package:manas_suu_app/feature/history/presentation/bloc/history_bloc.dart';
 import 'package:manas_suu_app/feature/main/presentation/bloc/main_cubit.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
@@ -48,7 +49,7 @@ Future<void> main() async {
   if (Firebase.apps.isEmpty) {
     await Firebase.initializeApp();
   }
-  await configureDependencies(environment: AppEnv.dev);
+  await configureDependencies(environment: AppEnv.test);
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
@@ -59,7 +60,11 @@ Future<void> main() async {
     EasyLocalization(
       path: 'lib/app/langs/lang_gen',
       ignorePluralRules: false,
-      supportedLocales: const [Locale('ru', 'RU'), Locale('ky', 'KY'), Locale('en', 'US')],
+      supportedLocales: const [
+        Locale('ru', 'RU'),
+        Locale('ky', 'KY'),
+        Locale('en', 'US'),
+      ],
       fallbackLocale: const Locale('ru', 'RU'),
       assetLoader: const CodegenLoader(),
       child: ManasSuuApp(localNotifications: localNotifications),
@@ -90,7 +95,11 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
       final messaging = FirebaseMessaging.instance;
       await messaging.getInitialMessage();
 
-      final settings = await messaging.requestPermission(alert: true, badge: true, sound: true);
+      final settings = await messaging.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
 
       log('Permission: ${settings.authorizationStatus}');
 
@@ -117,6 +126,7 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => GetIt.I<ThemeCubit>()..init()),
+        BlocProvider(create: (context) => GetIt.I<HistoryBloc>()),
         BlocProvider(create: (context) => GetIt.I<MainCubit>()),
       ],
       child: Builder(
