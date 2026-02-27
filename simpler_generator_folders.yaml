@@ -59,13 +59,14 @@ generate:
               class NAMERepositoryImpl implements NAMERepository {
                 NAMERepositoryImpl(this._dio);
                 final Dio _dio;
-                
-                final String _getList = ' API ';
+
+                final String _getList = 'API';
 
                 @override
-                Future<String> exampleFuncRepo() async {
-                  final response = await _dio.get(_getList);
-                  return NAMEModel.fromJson(response.data).name;
+                Future<List<NAMEModel>> getNAMEList(int? id) async {
+                  final response = await _dio.get('endpoint/$id/$_getList');
+                  // TODO: подставь нужный парсер под свой API
+                  return [NAMEModel.fromJson(response.data as Map<String, dynamic>)];
                 }
               }
 
@@ -83,10 +84,9 @@ generate:
                 NAMEInteractor(this._repository);
                 final NAMERepository _repository;
 
-                @override
-                Future<void> exampleFunc() async {
+                Future<List<NAMEModel>> getNAMEList(int? id) async {
                   try {
-                    await _repository.exampleFuncRepo();
+                    return await _repository.getNAMEList(id);
                   } catch (e) {
                     rethrow;
                   }
@@ -97,7 +97,7 @@ generate:
           - file: NAME_repository.dart
             code: | 
               abstract class NAMERepository {
-                Future<void> exampleFuncRepo();
+                Future<List<NAMEModel>> getNAMEList(int? id);
               }
 # ---Presentation----------------------------------------------
   - category: presentation
@@ -114,26 +114,41 @@ generate:
               part 'LOWER_CASE_state.dart';
 
               class NAMEBloc extends Bloc<NAMEEvent, NAMEState> {
-              NAMEBloc(this._interactor) : super(NAMELoadingState()) {
-                on<NAMEEvent>((event, emit) async {
-                  switch (event) {
-                    case ToNAMEEvent(:final model):
-                      {
-                        await onToNAMEEvent(model: model, emit: emit);
-                        break;
-                      }
-                  }
-                });
-              }
+                NAMEBloc(this._interactor) : super(NAMELoadingState()) {
+                  on<NAMEEvent>(_onEvent);
+                }
 
                 final NAMEInteractor _interactor;
 
-                Future<void> onToNAMEEvent({
-                  required NAMEModel model,
-                  required Emitter<NAMEState> emit,
-                }) async {
+                Future<void> _onEvent(NAMEEvent event, Emitter<NAMEState> emit) async {
+                  switch (event) {
+                    case LoadNAMEEvent():
+                      await _onLoadNAME(event, emit);
+                      break;
+                    case GetNAMECheckEvent():
+                      await _getNAMECheck(event, emit);
+                      break;
+                  }
+                }
+
+                Future<void> _onLoadNAME(
+                  LoadNAMEEvent event,
+                  Emitter<NAMEState> emit,
+                ) async {
                   emit(NAMELoadingState());
-                  final result = await _interactor.exampleFunc();
+                  try {
+                    final items = await _interactor.getNAMEList(event.id);
+                    emit(NAMESuccessState(items: items));
+                  } catch (e) {
+                    emit(NAMEErrorState(message: e.toString()));
+                  }
+                }
+
+                Future<void> _getNAMECheck(
+                  GetNAMECheckEvent event,
+                  Emitter<NAMEState> emit,
+                ) async {
+                  // TODO: реализуешь при необходимости
                 }
               }
 
@@ -142,12 +157,17 @@ generate:
               part of 'LOWER_CASE_bloc.dart';
               sealed class NAMEEvent extends Equatable {}
 
-              class ToNAMEEvent extends NAMEEvent {
-                ToNAMEEvent({required this.model});
-                final NAMEModel model;
+              class LoadNAMEEvent extends NAMEEvent {
+                LoadNAMEEvent({required this.id});
+                final int id;
 
                 @override
-                List<Object?> get props => [model];
+                List<Object?> get props => [id];
+              }
+
+              class GetNAMECheckEvent extends NAMEEvent {
+                @override
+                List<Object?> get props => [];
               }
           - file: NAME_state.dart
             code: |
@@ -155,11 +175,11 @@ generate:
               sealed class NAMEState extends Equatable {}
 
               class NAMESuccessState extends NAMEState {
-                NAMESuccessState({required this.model});
-                final NAMEModel? model;
+                NAMESuccessState({required this.items});
+                final List<NAMEModel> items;
 
                 @override
-                List<Object?> get props => [model];
+                List<Object?> get props => [items];
               }
 
               class NAMELoadingState extends NAMEState {

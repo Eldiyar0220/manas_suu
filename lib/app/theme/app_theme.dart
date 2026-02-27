@@ -15,6 +15,10 @@ abstract class AppThemes {
       MyColors(
         textWhiteBlackColor: AppColors.backgroundWhite,
         cardBackgroundWhiteBlackColor: Color(0xFF1C1C1E),
+        historyBackgroundColor: const Color(0xFF000000),
+        textSecondaryWhiteBlackColor: Colors.white70,
+        iconSecondaryWhiteBlackColor: Colors.white70,
+        historyIconContainerBackground: const Color(0xFF1F3A2F),
         userAccountBackground: [Color(0xFF0E1A14), Color(0xFF0A0A0A)],
         dayAndNight: Colors.black,
         nightAndDay: Colors.white,
@@ -94,7 +98,14 @@ abstract class AppThemes {
       MyColors(
         textWhiteBlackColor: AppColors.backgroundBlack,
         cardBackgroundWhiteBlackColor: Colors.white,
-        userAccountBackground: [const Color.fromARGB(255, 231, 233, 232), const Color.fromARGB(255, 236, 238, 237)],
+        historyBackgroundColor: const Color(0xFFF4F4F4),
+        textSecondaryWhiteBlackColor: Colors.black54,
+        iconSecondaryWhiteBlackColor: Colors.black45,
+        historyIconContainerBackground: const Color(0xFFE8F5E9),
+        userAccountBackground: [
+          const Color.fromARGB(255, 231, 233, 232),
+          const Color.fromARGB(255, 236, 238, 237),
+        ],
         dayAndNight: Colors.white,
         nightAndDay: Colors.black,
         containerIconColor: Color(0xfffafafa),
@@ -107,6 +118,10 @@ class MyColors extends ThemeExtension<MyColors> {
   const MyColors({
     required this.textWhiteBlackColor,
     required this.cardBackgroundWhiteBlackColor,
+    required this.historyBackgroundColor,
+    required this.textSecondaryWhiteBlackColor,
+    required this.iconSecondaryWhiteBlackColor,
+    required this.historyIconContainerBackground,
     required this.userAccountBackground,
     required this.dayAndNight,
     required this.nightAndDay,
@@ -115,6 +130,10 @@ class MyColors extends ThemeExtension<MyColors> {
 
   final Color? textWhiteBlackColor;
   final Color? cardBackgroundWhiteBlackColor;
+  final Color? historyBackgroundColor;
+  final Color? textSecondaryWhiteBlackColor;
+  final Color? iconSecondaryWhiteBlackColor;
+  final Color? historyIconContainerBackground;
   final List<Color>? userAccountBackground;
   final Color? dayAndNight;
   final Color? nightAndDay;
@@ -124,13 +143,26 @@ class MyColors extends ThemeExtension<MyColors> {
   MyColors copyWith({
     Color? textWhiteBlackColor,
     Color? cardBackgroundWhiteBlackColor,
+    Color? historyBackgroundColor,
+    Color? textSecondaryWhiteBlackColor,
+    Color? iconSecondaryWhiteBlackColor,
+    Color? historyIconContainerBackground,
     List<Color>? userAccountBackground,
     Color? dayAndNight,
     Color? nightAndDay,
   }) {
     return MyColors(
       textWhiteBlackColor: textWhiteBlackColor ?? this.textWhiteBlackColor,
-      cardBackgroundWhiteBlackColor: cardBackgroundWhiteBlackColor ?? this.cardBackgroundWhiteBlackColor,
+      cardBackgroundWhiteBlackColor:
+          cardBackgroundWhiteBlackColor ?? this.cardBackgroundWhiteBlackColor,
+      historyBackgroundColor:
+          historyBackgroundColor ?? this.historyBackgroundColor,
+      textSecondaryWhiteBlackColor:
+          textSecondaryWhiteBlackColor ?? this.textSecondaryWhiteBlackColor,
+      iconSecondaryWhiteBlackColor:
+          iconSecondaryWhiteBlackColor ?? this.iconSecondaryWhiteBlackColor,
+      historyIconContainerBackground:
+          historyIconContainerBackground ?? this.historyIconContainerBackground,
       userAccountBackground: userAccountBackground ?? userAccountBackground,
       dayAndNight: dayAndNight ?? dayAndNight,
       nightAndDay: nightAndDay ?? nightAndDay,
@@ -144,8 +176,36 @@ class MyColors extends ThemeExtension<MyColors> {
       return this;
     }
     return MyColors(
-      textWhiteBlackColor: Color.lerp(textWhiteBlackColor, other.textWhiteBlackColor, t),
-      cardBackgroundWhiteBlackColor: Color.lerp(cardBackgroundWhiteBlackColor, other.cardBackgroundWhiteBlackColor, t),
+      textWhiteBlackColor: Color.lerp(
+        textWhiteBlackColor,
+        other.textWhiteBlackColor,
+        t,
+      ),
+      cardBackgroundWhiteBlackColor: Color.lerp(
+        cardBackgroundWhiteBlackColor,
+        other.cardBackgroundWhiteBlackColor,
+        t,
+      ),
+      historyBackgroundColor: Color.lerp(
+        historyBackgroundColor,
+        other.historyBackgroundColor,
+        t,
+      ),
+      textSecondaryWhiteBlackColor: Color.lerp(
+        textSecondaryWhiteBlackColor,
+        other.textSecondaryWhiteBlackColor,
+        t,
+      ),
+      iconSecondaryWhiteBlackColor: Color.lerp(
+        iconSecondaryWhiteBlackColor,
+        other.iconSecondaryWhiteBlackColor,
+        t,
+      ),
+      historyIconContainerBackground: Color.lerp(
+        historyIconContainerBackground,
+        other.historyIconContainerBackground,
+        t,
+      ),
       userAccountBackground: userAccountBackground,
       dayAndNight: dayAndNight,
       nightAndDay: nightAndDay,

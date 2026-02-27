@@ -10,6 +10,7 @@ import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/core/auto_router/app_router.gr.dart';
 import 'package:manas_suu_app/feature/finik/presentation/finik_sdk.dart';
+import 'package:manas_suu_app/feature/history/presentation/bloc/history_bloc.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
 import 'package:manas_suu_app/feature/main/presentation/bloc/main_cubit.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/account_actions_bottom_sheet.dart';
@@ -26,7 +27,8 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin {
+class _MainPageState extends State<MainPage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   final controller = TextEditingController();
   late Animation<double> header;
@@ -37,7 +39,10 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
   void initState() {
     super.initState();
     _getMyAccounts();
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 1500));
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    );
 
     header = CurvedAnimation(
       parent: _controller,
@@ -70,7 +75,10 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: Text(context.tr(LocaleKeys.mainPageTitle), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
+        title: Text(
+          context.tr(LocaleKeys.mainPageTitle),
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_none),
@@ -88,13 +96,20 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
               BlocBuilder<MainCubit, MainState>(
                 builder: (context, state) {
                   if (state.status == MainStateStatus.INITIAL) {
-                    return _NoAccountState(header: header, button: button, info: info);
+                    return _NoAccountState(
+                      header: header,
+                      button: button,
+                      info: info,
+                    );
                   }
-                  if (state.status == MainStateStatus.LOADING && state.myAccounts.isEmpty) {
+                  if (state.status == MainStateStatus.LOADING &&
+                      state.myAccounts.isEmpty) {
                     return SizedBox(
                       height: MediaQuery.sizeOf(context).height / 1.3,
                       width: MediaQuery.sizeOf(context).width,
-                      child: Center(child: CircularProgressIndicator.adaptive()),
+                      child: Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      ),
                     );
                   }
 
@@ -110,7 +125,11 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
 }
 
 class _NoAccountState extends StatelessWidget {
-  const _NoAccountState({required this.header, required this.button, required this.info});
+  const _NoAccountState({
+    required this.header,
+    required this.button,
+    required this.info,
+  });
 
   final Animation<double> header;
   final Animation<double> button;
@@ -149,96 +168,117 @@ class _IsAddedAccountState extends StatelessWidget {
     final dividerColor = isDark ? Colors.white12 : Colors.grey.shade200;
     final addCardBg = isDark ? const Color(0xFF1C1C1E) : const Color(0xFFF0F0F0);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 20),
-        // Секция "Счета" с количеством
-        Text(
-          context.tr(LocaleKeys.accountsSection),
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: textColor),
-        ),
-        const SizedBox(height: 16),
-        // Горизонтальный скролл карточек: активный счёт + добавить
-        SizedBox(
-          height: 140,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              ...List.generate(
-                state.myAccounts.length,
-                (index) => _ActiveAccountCard(
-                  account: state.myAccounts[index],
-                  isSelectedCard: state.myAccounts[index].id == state.selectedAccount?.id,
+    return BlocListener<HistoryBloc, HistoryState>(
+      listener: (context, state) {
+        if (state is HistorySuccessState) {
+          context.router.push(MainHistoryRoute(model: state.model));
+        }
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 20),
+          // Секция "Счета" с количеством
+          Text(
+            context.tr(LocaleKeys.accountsSection),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: textColor,
+            ),
+          ),
+          const SizedBox(height: 16),
+          // Горизонтальный скролл карточек: активный счёт + добавить
+          SizedBox(
+            height: 140,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                ...List.generate(
+                  state.myAccounts.length,
+                  (index) => _ActiveAccountCard(
+                    account: state.myAccounts[index],
+                    isSelectedCard:
+                        state.myAccounts[index].id == state.selectedAccount?.id,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 12),
-              _AddAccountCard(backgroundColor: addCardBg, isAddedAccount: true),
-            ],
+                const SizedBox(width: 12),
+                _AddAccountCard(backgroundColor: addCardBg, isAddedAccount: true),
+              ],
+            ),
           ),
-        ),
-        const SizedBox(height: 24),
-        // Блок оплаты и деталей
-        Container(
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            color: isDark ? const Color(0xFF1C1C1E) : Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: isDark ? Colors.black38 : Colors.black.withValues(alpha: 0.06),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // К оплате
-              Row(
-                children: [
-                  Container(
-                    width: 36,
-                    height: 36,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: (state.selectedAccount?.balance ?? 0) > 0
-                          ? Colors.red.withValues(alpha: 0.12)
-                          : AppColors.mainColor.withValues(alpha: 0.12),
+          const SizedBox(height: 24),
+          // Блок оплаты и деталей
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              color: isDark ? const Color(0xFF1C1C1E) : Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: isDark
+                      ? Colors.black38
+                      : Colors.black.withValues(alpha: 0.06),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // К оплате
+                Row(
+                  children: [
+                    Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: (state.selectedAccount?.balance ?? 0) > 0
+                            ? Colors.red.withValues(alpha: 0.12)
+                            : AppColors.mainColor.withValues(alpha: 0.12),
+                      ),
+                      child: Icon(
+                        Icons.arrow_downward,
+                        color: (state.selectedAccount?.balance ?? 0) > 0
+                            ? Colors.red
+                            : AppColors.mainColor,
+                        size: 20,
+                      ),
                     ),
-                    child: Icon(
-                      Icons.arrow_downward,
-                      color: (state.selectedAccount?.balance ?? 0) > 0 ? Colors.red : AppColors.mainColor,
-                      size: 20,
+                    const SizedBox(width: 12),
+                    Text(
+                      context.tr(LocaleKeys.toPay),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15,
+                        color: textColor,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  Text(
-                    context.tr(LocaleKeys.toPay),
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: textColor),
-                  ),
-                  const Spacer(),
-                  Text(
-                    '${state.selectedAccount?.balance.toString() ?? 0} сом',
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
-                      color: (state.selectedAccount?.balance ?? 0) > 0 ? Colors.red : AppColors.mainColor,
+                    const Spacer(),
+                    Text(
+                      '${state.selectedAccount?.balance.toString() ?? 0} сом',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                        color: (state.selectedAccount?.balance ?? 0) > 0
+                            ? Colors.red
+                            : AppColors.mainColor,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 6),
-                  Icon(Icons.chevron_right, color: subTextColor, size: 18),
-                ],
-              ),
-              Divider(height: 24, color: dividerColor),
-              // ЛС
-              _DetailRow(
-                icon: Icons.credit_card,
-                label: '${context.tr(LocaleKeys.accountLabel)}:',
-                value: state.selectedAccount?.personalAccount ?? '',
+                    const SizedBox(width: 6),
+                    Icon(Icons.chevron_right, color: subTextColor, size: 18),
+                  ],
+                ),
+                Divider(height: 24, color: dividerColor),
+                // ЛС
+                _DetailRow(
+                  icon: Icons.credit_card,
+                  label: '${context.tr(LocaleKeys.accountLabel)}:',
+                  value: state.selectedAccount?.personalAccount ?? '',
 
-                accountType: state.selectedAccount?.accountType,
+                  accountType: state.selectedAccount?.accountType,
 
                 textColor: textColor,
                 subTextColor: subTextColor,
@@ -319,12 +359,110 @@ class _IsAddedAccountState extends StatelessWidget {
         ),
         const SizedBox(height: 24),
       ],
+                  textColor: textColor,
+                  subTextColor: subTextColor,
+                ),
+                const SizedBox(height: 10),
+                _DetailRow(
+                  icon: Icons.person_outline,
+                  label: '${context.tr(LocaleKeys.fullNameLabel)}:',
+                  value: state.selectedAccount?.fullName ?? '',
+                  textColor: textColor,
+                  subTextColor: subTextColor,
+                ),
+                const SizedBox(height: 10),
+                _DetailRow(
+                  icon: Icons.location_on_outlined,
+                  label: '${context.tr(LocaleKeys.addressLabel)}:',
+                  value: state.selectedAccount?.address ?? '',
+                  textColor: textColor,
+                  subTextColor: subTextColor,
+                ),
+                Divider(height: 20, color: dividerColor),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _PillInfo(
+                        icon: Icons.people_outline,
+                        label: context.tr(LocaleKeys.registered),
+                        value: (state.selectedAccount?.registeredCount ?? 0)
+                            .toString(),
+                        valueColor: AppColors.textPrimary,
+                        isDark: isDark,
+                      ),
+                    ),
+                    Container(width: 1, height: 30, color: dividerColor),
+                    Expanded(
+                      child: _PillInfo(
+                        icon: Icons.people,
+                        label: context.tr(LocaleKeys.residing),
+                        value: (state.selectedAccount?.residingCount ?? 0)
+                            .toString(),
+                        valueColor: Colors.blue,
+                        isDark: isDark,
+                      ),
+                    ),
+                  ],
+                ),
+                Divider(height: 20, color: dividerColor),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.access_time,
+                      size: 14,
+                      color: AppColors.textPrimary,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      context.tr(LocaleKeys.updateDate),
+                      style: TextStyle(fontSize: 12, color: subTextColor),
+                    ),
+                    const Spacer(),
+                    Text(
+                      DateTime.now().formattedLastUpdate,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.textPrimary,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    const Icon(
+                      Icons.check_circle,
+                      size: 14,
+                      color: AppColors.textPrimary,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
+          PaymentActionsWidget(
+            isRedButton: (state.selectedAccount?.balance ?? 0) > 0,
+            onPay: () {},
+            onPrintInvoice: () {},
+            onHistory: () {
+              context.read<HistoryBloc>().add(
+                LoadHistoryEvent(
+                  personalAccount: state.selectedAccount?.id ?? 0,
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 24),
+        ],
+      ),
     );
   }
 }
 
 class _ActiveAccountCard extends StatelessWidget {
-  const _ActiveAccountCard({required this.account, required this.isSelectedCard});
+  const _ActiveAccountCard({
+    required this.account,
+    required this.isSelectedCard,
+  });
 
   final AccountItemModel account;
   final bool isSelectedCard;
@@ -344,7 +482,9 @@ class _ActiveAccountCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         margin: EdgeInsets.only(right: 16),
         decoration: BoxDecoration(
-          color: isSelectedCard ? null : context.theme.cardBackgroundWhiteBlackColor,
+          color: isSelectedCard
+              ? null
+              : context.theme.cardBackgroundWhiteBlackColor,
           gradient: isSelectedCard
               ? const LinearGradient(
                   colors: [Color(0xFF43A047), Color(0xFF66BB6A)],
@@ -373,7 +513,10 @@ class _ActiveAccountCard extends StatelessWidget {
                 child: Container(
                   width: 24,
                   height: 24,
-                  decoration: BoxDecoration(color: Colors.green, shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    shape: BoxShape.circle,
+                  ),
                   child: const Icon(Icons.check, size: 14, color: Colors.white),
                 ),
               ),

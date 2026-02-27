@@ -14,7 +14,10 @@ class AppRouter extends RootStackRouter {
     CupertinoRoute(page: SplashRoute.page, initial: true),
     CupertinoRoute(page: MainAddUserAccountRoute.page),
     CupertinoRoute(page: NotificationsRoute.page),
+    CupertinoRoute(page: MainHistoryRoute.page),
     CupertinoRoute(page: ScannerRoute.page),
+    CupertinoRoute(page: AppPdfviewerRoute.page),
+    CupertinoRoute(page: HistoryChargesDetailRoute.page),
     CupertinoRoute(
       page: BottomNavigationRoute.page,
       children: [
