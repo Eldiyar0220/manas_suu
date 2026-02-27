@@ -64,6 +64,9 @@ abstract class  LocaleKeys {
   static const registered = 'registered';
   static const residing = 'residing';
   static const updateDate = 'updateDate';
+  static const accountDetails = 'accountDetails';
+  static const accrualHistory = 'accrualHistory';
+  static const deleteAccount = 'deleteAccount';
   static const tapForDetails = 'tapForDetails';
   static const serviceTypeHousehold = 'serviceTypeHousehold';
   static const payButton = 'payButton';
@@ -71,9 +74,24 @@ abstract class  LocaleKeys {
   static const history = 'history';
   static const noNotifications = 'noNotifications';
   static const noNotificationsDesc = 'noNotificationsDesc';
-  static const accountDetails = 'accountDetails';
-  static const accrualHistory = 'accrualHistory';
-  static const deleteAccount = 'deleteAccount';
+  static const historyNoData = 'historyNoData';
+  static const historyChargesForPeriod = 'historyChargesForPeriod';
+  static const historyPeriod = 'historyPeriod';
+  static const historyCharges = 'historyCharges';
+  static const historyServices = 'historyServices';
+  static const historyNoServicesData = 'historyNoServicesData';
+  static const historyTotal = 'historyTotal';
+  static const historyPeriodStart = 'historyPeriodStart';
+  static const historyAccrued = 'historyAccrued';
+  static const historyPaid = 'historyPaid';
+  static const historyPeriodEnd = 'historyPeriodEnd';
+  static const historyVolume = 'historyVolume';
+  static const historyCubicMeters = 'historyCubicMeters';
+  static const historyTariff = 'historyTariff';
+  static const historyAmount = 'historyAmount';
+  static const historyTax = 'historyTax';
+  static const currencySom = 'currencySom';
+  static const unitPeople = 'unitPeople';
+  static const unitCubicMeters = 'unitCubicMeters';
 
 }
-

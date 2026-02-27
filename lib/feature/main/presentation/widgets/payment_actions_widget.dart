@@ -7,7 +7,12 @@ import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/the
 
 /// Виджет кнопок оплаты: «Оплатить», «Печать счета», «История».
 class PaymentActionsWidget extends StatelessWidget {
-  const PaymentActionsWidget({super.key, this.onPay, this.onPrintInvoice, this.onHistory});
+  const PaymentActionsWidget({
+    super.key,
+    this.onPay,
+    this.onPrintInvoice,
+    this.onHistory,
+  });
 
   final VoidCallback? onPay;
   final VoidCallback? onPrintInvoice;
@@ -16,51 +21,68 @@ class PaymentActionsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = context.watch<ThemeCubit>().state.isDarkMode;
-    final secondaryBg = isDark ? const Color(0xFF2A2A2A) : const Color(0xFFE8E8E8);
+    final secondaryBg = isDark
+        ? const Color(0xFF2A2A2A)
+        : const Color(0xFFE8E8E8);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         // Кнопка «Оплатить»
         if (onPay != null)
-        Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: onPay,
-            borderRadius: BorderRadius.circular(16),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF66BB6A), Color(0xFF43A047)],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: onPay,
+              borderRadius: BorderRadius.circular(16),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 16,
                 ),
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color:  AppColors.mainColor.withValues(alpha: 0.4),
-                    blurRadius: 12,
-                    offset: const Offset(0, 4),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF66BB6A), Color(0xFF43A047)],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
                   ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.account_balance_wallet_outlined, color: Colors.white, size: 24),
-                  const SizedBox(width: 14),
-                  Expanded(
-                    child: Text(
-                      context.tr(LocaleKeys.payButton),
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16),
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.mainColor.withValues(alpha: 0.4),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
                     ),
-                  ),
-                  const Icon(Icons.chevron_right, color: Colors.white, size: 24),
-                ],
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.account_balance_wallet_outlined,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Text(
+                        context.tr(LocaleKeys.payButton),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    const Icon(
+                      Icons.chevron_right,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
         const SizedBox(height: 12),
         // Ряд: «Печать счета» и «История»
         Row(
@@ -90,7 +112,12 @@ class PaymentActionsWidget extends StatelessWidget {
 }
 
 class _SecondaryActionButton extends StatelessWidget {
-  const _SecondaryActionButton({required this.icon, required this.label, required this.backgroundColor, this.onTap});
+  const _SecondaryActionButton({
+    required this.icon,
+    required this.label,
+    required this.backgroundColor,
+    this.onTap,
+  });
 
   final IconData icon;
   final String label;
@@ -109,7 +136,10 @@ class _SecondaryActionButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          decoration: BoxDecoration(color: backgroundColor, borderRadius: BorderRadius.circular(16)),
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(16),
+          ),
           child: Row(
             children: [
               Icon(icon, color: AppColors.mainColor, size: 22),
@@ -117,7 +147,11 @@ class _SecondaryActionButton extends StatelessWidget {
               Expanded(
                 child: Text(
                   label,
-                  style: TextStyle(color: textColor, fontWeight: FontWeight.w500, fontSize: 14),
+                  style: TextStyle(
+                    color: textColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

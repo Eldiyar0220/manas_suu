@@ -67,8 +67,8 @@
   "history": "История",
   "noNotifications": "Нет уведомлений",
   "accountDetails": "Подробнее о счете",
-  "accrualHistory": "История начислений",
-  "deleteAccount": "Удалить счет"
+  "accrualHistory": "История начислений", 
+  "deleteAccount": "Удалить счет",
   "noNotificationsDesc": "Здесь будут показаны важные уведомления и обновления",
   "historyNoData": "Нет данных по истории",
   "historyChargesForPeriod": "Начисления за период",

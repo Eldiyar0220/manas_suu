@@ -9,7 +9,6 @@ import 'package:manas_suu_app/app/extensions/datetime_extension.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/core/auto_router/app_router.gr.dart';
-import 'package:manas_suu_app/feature/finik/presentation/finik_sdk.dart';
 import 'package:manas_suu_app/feature/history/presentation/bloc/history_bloc.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
 import 'package:manas_suu_app/feature/main/presentation/bloc/main_cubit.dart';
@@ -166,7 +165,9 @@ class _IsAddedAccountState extends StatelessWidget {
     final textColor = isDark ? Colors.white : Colors.black87;
     final subTextColor = isDark ? Colors.white60 : Colors.black54;
     final dividerColor = isDark ? Colors.white12 : Colors.grey.shade200;
-    final addCardBg = isDark ? const Color(0xFF1C1C1E) : const Color(0xFFF0F0F0);
+    final addCardBg = isDark
+        ? const Color(0xFF1C1C1E)
+        : const Color(0xFFF0F0F0);
 
     return BlocListener<HistoryBloc, HistoryState>(
       listener: (context, state) {
@@ -203,7 +204,10 @@ class _IsAddedAccountState extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 12),
-                _AddAccountCard(backgroundColor: addCardBg, isAddedAccount: true),
+                _AddAccountCard(
+                  backgroundColor: addCardBg,
+                  isAddedAccount: true,
+                ),
               ],
             ),
           ),
@@ -280,85 +284,6 @@ class _IsAddedAccountState extends StatelessWidget {
 
                   accountType: state.selectedAccount?.accountType,
 
-                textColor: textColor,
-                subTextColor: subTextColor,
-              ),
-              const SizedBox(height: 10),
-              _DetailRow(
-                icon: Icons.person_outline,
-                label: '${context.tr(LocaleKeys.fullNameLabel)}:',
-                value: state.selectedAccount?.fullName ?? '',
-                textColor: textColor,
-                subTextColor: subTextColor,
-              ),
-              const SizedBox(height: 10),
-              _DetailRow(
-                icon: Icons.location_on_outlined,
-                label: '${context.tr(LocaleKeys.addressLabel)}:',
-                value: state.selectedAccount?.address ?? '',
-                textColor: textColor,
-                subTextColor: subTextColor,
-              ),
-              Divider(height: 20, color: dividerColor),
-              Row(
-                children: [
-                  Expanded(
-                    child: _PillInfo(
-                      icon: Icons.people_outline,
-                      label: context.tr(LocaleKeys.registered),
-                      value: (state.selectedAccount?.registeredCount ?? 0).toString(),
-                      valueColor: AppColors.textPrimary,
-                      isDark: isDark,
-                    ),
-                  ),
-                  Container(width: 1, height: 30, color: dividerColor),
-                  Expanded(
-                    child: _PillInfo(
-                      icon: Icons.people,
-                      label: context.tr(LocaleKeys.residing),
-                      value: (state.selectedAccount?.residingCount ?? 0).toString(),
-                      valueColor: Colors.blue,
-                      isDark: isDark,
-                    ),
-                  ),
-                ],
-              ),
-              Divider(height: 20, color: dividerColor),
-              Row(
-                children: [
-                  Icon(Icons.access_time, size: 14, color: AppColors.textPrimary),
-                  const SizedBox(width: 6),
-                  Text(context.tr(LocaleKeys.updateDate), style: TextStyle(fontSize: 12, color: subTextColor)),
-                  const Spacer(),
-                  Text(
-                    DateTime.now().formattedLastUpdate,
-                    style: const TextStyle(fontSize: 12, color: AppColors.textPrimary, fontWeight: FontWeight.w500),
-                  ),
-                  const SizedBox(width: 4),
-                  const Icon(Icons.check_circle, size: 14, color: AppColors.textPrimary),
-                ],
-              ),
-              const SizedBox(height: 12),
-            ],
-          ),
-        ),
-        const SizedBox(height: 20),
-        PaymentActionsWidget(
-          onPay: (state.selectedAccount?.balance ?? 0) > 0
-              ? () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => FinikScreen(extra: FinikExtra(amount: state.selectedAccount?.balance ?? 0)),
-                    ),
-                  );
-                }
-              : null,
-          onPrintInvoice: () {},
-          onHistory: () {},
-        ),
-        const SizedBox(height: 24),
-      ],
                   textColor: textColor,
                   subTextColor: subTextColor,
                 ),
@@ -438,9 +363,9 @@ class _IsAddedAccountState extends StatelessWidget {
               ],
             ),
           ),
+
           const SizedBox(height: 20),
           PaymentActionsWidget(
-            isRedButton: (state.selectedAccount?.balance ?? 0) > 0,
             onPay: () {},
             onPrintInvoice: () {},
             onHistory: () {
@@ -492,7 +417,9 @@ class _ActiveAccountCard extends StatelessWidget {
                   end: Alignment.bottomRight,
                 )
               : null,
-          border: Border.all(color: isDark ? Colors.grey.shade900 : Colors.grey.shade300),
+          border: Border.all(
+            color: isDark ? Colors.grey.shade900 : Colors.grey.shade300,
+          ),
           borderRadius: BorderRadius.circular(16),
           boxShadow: isSelectedCard
               ? [
@@ -529,22 +456,27 @@ class _ActiveAccountCard extends StatelessWidget {
                   onTap: () => showAccountActionsBottomSheet(
                     context,
                     account: account,
-                    onDelete: () => context.read<MainCubit>().deleteAccount(account.id),
+                    onDelete: () =>
+                        context.read<MainCubit>().deleteAccount(account.id),
                   ),
                   borderRadius: BorderRadius.circular(12),
                   child: Container(
                     width: 28,
                     height: 28,
                     decoration: BoxDecoration(
-                      color: (isSelectedCard ? Colors.white : (isDark ? Colors.white : Colors.black)).withValues(
-                        alpha: isSelectedCard ? 0.2 : 0.08,
-                      ),
+                      color:
+                          (isSelectedCard
+                                  ? Colors.white
+                                  : (isDark ? Colors.white : Colors.black))
+                              .withValues(alpha: isSelectedCard ? 0.2 : 0.08),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Icon(
                       Icons.more_horiz,
                       size: 16,
-                      color: isSelectedCard ? Colors.white : (isDark ? Colors.white70 : Colors.black54),
+                      color: isSelectedCard
+                          ? Colors.white
+                          : (isDark ? Colors.white70 : Colors.black54),
                     ),
                   ),
                 ),
@@ -559,7 +491,9 @@ class _ActiveAccountCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
-                    color: isSelectedCard ? Colors.white : context.theme.textWhiteBlackColor,
+                    color: isSelectedCard
+                        ? Colors.white
+                        : context.theme.textWhiteBlackColor,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -568,7 +502,9 @@ class _ActiveAccountCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
-                    color: isSelectedCard ? Colors.white : context.theme.textWhiteBlackColor,
+                    color: isSelectedCard
+                        ? Colors.white
+                        : context.theme.textWhiteBlackColor,
                   ),
                 ),
                 const SizedBox(height: 6),
@@ -576,7 +512,9 @@ class _ActiveAccountCard extends StatelessWidget {
                   account.address,
                   style: TextStyle(
                     fontSize: 12,
-                    color: isSelectedCard ? Colors.white : context.theme.textWhiteBlackColor,
+                    color: isSelectedCard
+                        ? Colors.white
+                        : context.theme.textWhiteBlackColor,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -591,7 +529,10 @@ class _ActiveAccountCard extends StatelessWidget {
 }
 
 class _AddAccountCard extends StatelessWidget {
-  const _AddAccountCard({required this.backgroundColor, required this.isAddedAccount});
+  const _AddAccountCard({
+    required this.backgroundColor,
+    required this.isAddedAccount,
+  });
 
   final Color backgroundColor;
   final bool isAddedAccount;
@@ -599,13 +540,18 @@ class _AddAccountCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.router.push(MainAddUserAccountRoute(isAddedAccount: isAddedAccount)),
+      onTap: () => context.router.push(
+        MainAddUserAccountRoute(isAddedAccount: isAddedAccount),
+      ),
       child: Container(
         width: 120,
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.textPrimary.withValues(alpha: 0.2), width: 1),
+          border: Border.all(
+            color: AppColors.textPrimary.withValues(alpha: 0.2),
+            width: 1,
+          ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -614,7 +560,11 @@ class _AddAccountCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               context.tr(LocaleKeys.addButton),
-              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
             ),
           ],
         ),
@@ -651,7 +601,11 @@ class _DetailRow extends StatelessWidget {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(color: textColor, fontSize: 13, fontWeight: FontWeight.w500),
+            style: TextStyle(
+              color: textColor,
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+            ),
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -662,16 +616,26 @@ class _DetailRow extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: AppColors.mainColor.withValues(alpha: 0.1),
-              border: Border.all(color: AppColors.mainColor.withValues(alpha: 0.3)),
+              border: Border.all(
+                color: AppColors.mainColor.withValues(alpha: 0.3),
+              ),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.home_outlined, size: 12, color: AppColors.textPrimary),
+                const Icon(
+                  Icons.home_outlined,
+                  size: 12,
+                  color: AppColors.textPrimary,
+                ),
                 const SizedBox(width: 3),
                 Text(
                   accountType == AccountType.RESIDENTIAL ? 'Быт' : 'Ком',
-                  style: const TextStyle(fontSize: 11, color: AppColors.textPrimary, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: AppColors.textPrimary,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ],
             ),
@@ -712,7 +676,11 @@ class _PillInfo extends StatelessWidget {
             children: [
               TextSpan(
                 text: value,
-                style: TextStyle(fontSize: 12, color: valueColor, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: valueColor,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),

@@ -20,6 +20,13 @@ import '../../feature/contacts/domain/interactor/contacts_interactor.dart'
     as _i459;
 import '../../feature/contacts/domain/repository/contacts_repository.dart'
     as _i384;
+import '../../feature/history/data/repository/history_repository_impl.dart'
+    as _i891;
+import '../../feature/history/domain/interactor/history_interactor.dart'
+    as _i985;
+import '../../feature/history/domain/repository/history_repository.dart'
+    as _i700;
+import '../../feature/history/presentation/bloc/history_bloc.dart' as _i311;
 import '../../feature/main/data/repository/main_repository_impl.dart' as _i268;
 import '../../feature/main/domain/interactor/main_interactor.dart' as _i332;
 import '../../feature/main/domain/repository/main_repository.dart' as _i234;
@@ -41,6 +48,7 @@ import '../dio_settings/dio_settings.dart' as _i351;
 import '../notifications/local_notifications_service.dart' as _i111;
 
 const String _dev = 'dev';
+const String _test = 'test';
 const String _prod = 'prod';
 
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -74,6 +82,11 @@ _i174.GetIt $initGetIt(
     () => registerModule.devAPIKEY,
     instanceName: 'APIKEY',
     registerFor: {_dev},
+  );
+  gh.factory<String>(
+    () => registerModule.testBaseUrl,
+    instanceName: 'BaseUrl',
+    registerFor: {_test},
   );
   gh.factory<String>(
     () => registerModule.prodCALLBACKURL,
@@ -116,6 +129,12 @@ _i174.GetIt $initGetIt(
   gh.singleton<_i467.SplashRepository>(
     () => _i228.SplashRepositoryImpl(gh<_i361.Dio>()),
   );
+  gh.singleton<_i700.HistoryRepository>(
+    () => _i891.HistoryRepositoryImpl(gh<_i361.Dio>()),
+  );
+  gh.singleton<_i985.HistoryInteractor>(
+    () => _i985.HistoryInteractor(gh<_i700.HistoryRepository>()),
+  );
   gh.factory<_i332.MainInteractor>(
     () => _i332.MainInteractor(
       gh<_i234.MainRepository>(),
@@ -127,6 +146,9 @@ _i174.GetIt $initGetIt(
   );
   gh.singleton<_i459.ContactsInteractor>(
     () => _i459.ContactsInteractor(gh<_i384.ContactsRepository>()),
+  );
+  gh.factory<_i311.HistoryBloc>(
+    () => _i311.HistoryBloc(gh<_i985.HistoryInteractor>()),
   );
   gh.singleton<_i111.SplashInteractor>(
     () => _i111.SplashInteractor(gh<_i467.SplashRepository>()),

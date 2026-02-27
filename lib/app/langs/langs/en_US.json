@@ -68,7 +68,7 @@
   "noNotifications": "No notifications",
   "accountDetails": "Account details",
   "accrualHistory": "Accrual history",
-  "deleteAccount": "Delete account"
+  "deleteAccount": "Delete account",
   "noNotificationsDesc": "Important notifications and updates will be shown here",
   "historyNoData": "No history data",
   "historyChargesForPeriod": "Charges for the period",
