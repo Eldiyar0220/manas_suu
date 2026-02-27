@@ -26,7 +26,7 @@ abstract class RegisterModule {
 
   @prod
   @Named('ACCOUNTID')
-  String get prodACCOUNTID => 'a79d2a0a-3ce2-46dc-9332-8c4da9b8f209';
+  String get prodACCOUNTID => '4f88cdfb-9546-4b58-a0e7-661328ec7efc';
 
   @lazySingleton
   Dio dio(@Named('BaseUrl') String baseUrl) {
