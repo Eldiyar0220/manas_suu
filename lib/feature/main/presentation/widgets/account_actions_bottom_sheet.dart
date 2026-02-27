@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,22 +19,13 @@ Future<void> showAccountActionsBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: false,
-    builder: (context) => _AccountActionsSheet(
-      account: account,
-      onDetails: onDetails,
-      onHistory: onHistory,
-      onDelete: onDelete,
-    ),
+    builder: (context) =>
+        _AccountActionsSheet(account: account, onDetails: onDetails, onHistory: onHistory, onDelete: onDelete),
   );
 }
 
 class _AccountActionsSheet extends StatelessWidget {
-  const _AccountActionsSheet({
-    required this.account,
-    this.onDetails,
-    this.onHistory,
-    this.onDelete,
-  });
+  const _AccountActionsSheet({required this.account, this.onDetails, this.onHistory, this.onDelete});
 
   final AccountItemModel account;
   final VoidCallback? onDetails;
@@ -55,6 +48,7 @@ class _AccountActionsSheet extends StatelessWidget {
 
     return SafeArea(
       top: false,
+      bottom: !Platform.isIOS,
       child: Container(
         decoration: BoxDecoration(
           color: isDark ? const Color(0xFF1E1E1E) : const Color(0xFFF4F4F4),
@@ -73,12 +67,7 @@ class _AccountActionsSheet extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-            _AccountHeader(
-              account: account,
-              cardColor: cardColor,
-              textColor: textColor,
-              subTextColor: subTextColor,
-            ),
+            _AccountHeader(account: account, cardColor: cardColor, textColor: textColor, subTextColor: subTextColor),
             const SizedBox(height: 16),
             _ActionTile(
               icon: Icons.info_outline,
@@ -136,10 +125,7 @@ class _AccountHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      decoration: BoxDecoration(
-        color: cardColor,
-        borderRadius: BorderRadius.circular(16),
-      ),
+      decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(16)),
       child: Row(
         children: [
           Container(
@@ -160,10 +146,7 @@ class _AccountHeader extends StatelessWidget {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: textColor),
               ),
               const SizedBox(height: 2),
-              Text(
-                account.fullName,
-                style: TextStyle(fontSize: 13, color: subTextColor),
-              ),
+              Text(account.fullName, style: TextStyle(fontSize: 13, color: subTextColor)),
             ],
           ),
         ],
@@ -212,10 +195,7 @@ class _ActionTile extends StatelessWidget {
               Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
-                  color: iconBg,
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                decoration: BoxDecoration(color: iconBg, borderRadius: BorderRadius.circular(12)),
                 child: Icon(icon, color: iconColor, size: 22),
               ),
               const SizedBox(width: 14),

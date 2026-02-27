@@ -1,44 +1,43 @@
 import 'package:finik_sdk/finik_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
 
 final class FinikExtra {
   final double amount;
-
+ 
   FinikExtra({required this.amount});
 }
+
+final _apiKey = GetIt.I<String>(instanceName: 'APIKEY');
+final _accountId = GetIt.I<String>(instanceName: 'ACCOUNTID');
 
 class FinikScreen extends StatelessWidget {
   const FinikScreen({super.key, required this.extra});
   final FinikExtra extra;
+
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
         body: FinikProvider(
-          apiKey: 'rOhkc0AoXC6zl03MxsKeqa5OP6PeIF2E4YWX1Ndq',
+          apiKey: _apiKey,
           isBeta: true,
-          locale: FinikSdkLocale.RU,
-          textScenario: TextScenario.REPLENISHMENT,
+          locale: FinikSdkLocale.EN,
+          textScenario: TextScenario.PAYMENT,
           paymentMethods: const [PaymentMethod.APP, PaymentMethod.QR, PaymentMethod.VISA],
           enableShimmer: true,
           enableShare: true,
+
           enableSupportButtons: true,
+
           tapableSupportButtons: true,
-          onBackPressed: () {},
-          onPayment: (data) {},
+          onBackPressed: () => Navigator.of(context).pop(),
+          onPayment: (data) => Navigator.of(context).pop(data),
           widget: CreateItemHandlerWidget(
-            accountId: 'a79d2a0a-3ce2-46dc-9332-8c4da9b8f209',
-            nameEn: 'Манас Тазалык',
-            requestId: '110ec58a-a0f6-4ac4-8353-c86cd813b8d1',
-            callbackUrl: 'https://beta.api.paymentsgateway.averspay.kg/v1/graphql',
-            amount: FixedAmount(extra.amount),
-            maxAvailableQuantity: 100,
-            maxAvailableAmount: 1000,
-            startDate: DateTime(2025, 7, 1, 0, 0),
-            endDate: DateTime(2025, 12, 31, 23, 59),
-            visibilityType: VisibilityType.PRIVATE,
+            accountId: _accountId,
+            nameEn: 'sss222',
             requiredFields: const [
               RequiredField(
                 fieldId: 'YOU_FIELD_ID',
@@ -47,12 +46,10 @@ class FinikScreen extends StatelessWidget {
                 isHidden: true,
               ),
             ],
-            onCreated: (data) {
-              print('ExampleApp: Created item data: $data');
-
-              // Example output (data is of type Map<String, dynamic>):
-              // {id: 1743008977_49a59dc9-f8fa-403c-83dd-95eeb5b2526a, userId: test_user_id, account: {id: test_account_id, name: ИП "TEST", type: CORPORATE}, qrCode: ...}
-            },
+            description: 'sdfsdf',
+            requestId: '110ec58a-a0f6-4ac4-8353-c86cd813b8d1',
+            callbackUrl: 'https://beta.api.paymentsgateway.averspay.kg/v1/graphql',
+            amount: FixedAmount(extra.amount),
           ),
         ),
       ),

@@ -60,6 +60,16 @@ _i174.GetIt $initGetIt(
     instanceName: 'BaseUrl',
     registerFor: {_dev},
   );
+  gh.factory<String>(
+    () => registerModule.devACCOUNTID,
+    instanceName: 'ACCOUNTID',
+    registerFor: {_dev},
+  );
+  gh.factory<String>(
+    () => registerModule.devAPIKEY,
+    instanceName: 'APIKEY',
+    registerFor: {_dev},
+  );
   gh.singleton<_i778.ThemeInteractor>(
     () => _i778.ThemeInteractor(gh<_i692.PreferenceHelper>()),
   );
@@ -70,6 +80,16 @@ _i174.GetIt $initGetIt(
   );
   gh.singleton<_i778.ThemeCubit>(
     () => _i778.ThemeCubit(gh<_i778.ThemeInteractor>()),
+  );
+  gh.factory<String>(
+    () => registerModule.prodAPIKEY,
+    instanceName: 'APIKEY',
+    registerFor: {_prod},
+  );
+  gh.factory<String>(
+    () => registerModule.prodACCOUNTID,
+    instanceName: 'ACCOUNTID',
+    registerFor: {_prod},
   );
   gh.lazySingleton<_i361.Dio>(
     () => registerModule.dio(gh<String>(instanceName: 'BaseUrl')),
