@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:manas_suu_app/app/constants/preference_helper.dart';
+import 'package:manas_suu_app/feature/main/data/models/myaccount/account_chart_response_model.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/account_detail_response_model.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
 import 'package:manas_suu_app/feature/main/domain/interactor/main_interactor.dart';
@@ -15,6 +16,7 @@ enum MainStateStatus {
   LOADING,
   INITIAL,
   ACCOUNTDETAILSUCCESS,
+  CHARTSUCCESS,
 }
 
 @singleton
@@ -30,6 +32,8 @@ class MainCubit extends Cubit<MainState> {
       myAccounts: _interactor.myAccounts,
       selectedAccount: _interactor.selectedAccount,
       accountDetail: _interactor.accountDetail,
+      accountChartData: _interactor.accountChartData,
+      chartMonths: _interactor.chartMonths,
     );
   }
 
@@ -116,6 +120,17 @@ class MainCubit extends Cubit<MainState> {
       EasyLoading.dismiss();
     }
   }
+
+  Future<void> getAccountChart(int? accountId, {int months = 3}) async {
+    if (accountId == null) return;
+    emit(_mainState(MainStateStatus.LOADING));
+    try {
+      await _interactor.getAccountChart(accountId, months);
+      emit(_mainState(MainStateStatus.CHARTSUCCESS));
+    } catch (e) {
+      emit(_mainState(MainStateStatus.ERROR));
+    }
+  }
 }
 
 class MainState extends Equatable {
@@ -123,14 +138,18 @@ class MainState extends Equatable {
   final List<AccountItemModel> myAccounts;
   final AccountItemModel? selectedAccount;
   final AccountDetailData? accountDetail;
+  final AccountChartData? accountChartData;
+  final int chartMonths;
 
   const MainState({
     this.status = MainStateStatus.INITIAL,
     this.myAccounts = const [],
     this.selectedAccount,
     this.accountDetail,
+    this.accountChartData,
+    this.chartMonths = 3,
   });
 
   @override
-  List<Object?> get props => [status];
+  List<Object?> get props => [status, accountChartData];
 }

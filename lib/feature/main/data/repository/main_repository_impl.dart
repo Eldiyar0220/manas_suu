@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:manas_suu_app/feature/main/data/models/auth_login/auth_login_response_model.dart';
+import 'package:manas_suu_app/feature/main/data/models/myaccount/account_chart_response_model.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/account_detail_response_model.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
 import 'package:manas_suu_app/feature/main/domain/repository/main_repository.dart';
@@ -50,5 +51,14 @@ class MainRepositoryImpl implements MainRepository {
   Future<AccountDetailData> getAccountDetail(int accountId) async {
     final response = await _dio.get('accounts/$accountId/detail');
     return AccountDetailResponse.fromJson(response.data).data;
+  }
+
+  @override
+  Future<AccountChartData> getAccountChart(int accountId, int months) async {
+    final response = await _dio.get(
+      'accounts/$accountId/chart',
+      queryParameters: {'months': months},
+    );
+    return AccountChartResponse.fromJson(response.data).data;
   }
 }

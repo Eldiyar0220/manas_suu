@@ -53,6 +53,7 @@ import '../../feature/splash/domain/interactor/splash_interactor.dart' as _i111;
 import '../../feature/splash/domain/repository/splash_repository.dart' as _i467;
 import '../../feature/splash/presentation/bloc/splash_bloc.dart' as _i813;
 import '../dio_settings/dio_settings.dart' as _i351;
+import '../notifications/firebase_push_notifications.dart' as _i590;
 import '../notifications/local_notifications_service.dart' as _i111;
 
 const String _dev = 'dev';
@@ -67,6 +68,9 @@ _i174.GetIt $initGetIt(
 }) {
   final gh = _i526.GetItHelper(getIt, environment, environmentFilter);
   final registerModule = _$RegisterModule();
+  gh.factory<_i590.FirebasePushNotifications>(
+    () => _i590.FirebasePushNotifications(),
+  );
   gh.singleton<_i692.PreferenceHelper>(() => _i692.PreferenceHelper());
   gh.singleton<_i111.LocalNotificationsService>(
     () => _i111.LocalNotificationsService(),

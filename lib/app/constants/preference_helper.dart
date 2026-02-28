@@ -10,6 +10,7 @@ class PreferenceHelper {
   static const String accessToken = 'accessToken';
   static const String personalAccount = 'personalAccount';
   static const String deviceId = 'deviceId';
+  static const String messageToken = 'fcmToken';
   SharedPreferences? _preferences;
   SharedPreferences? get preferences => _preferences;
 
