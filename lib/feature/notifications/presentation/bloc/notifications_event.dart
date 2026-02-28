@@ -3,11 +3,10 @@ part of 'notifications_bloc.dart';
 sealed class NotificationsEvent extends Equatable {}
 
 class LoadNotificationsEvent extends NotificationsEvent {
-  LoadNotificationsEvent({required this.id});
-  final int id;
+  LoadNotificationsEvent();
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [];
 }
 
 class MarkNotificationReadEvent extends NotificationsEvent {

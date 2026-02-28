@@ -16,6 +16,7 @@ import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_respon
 import 'package:manas_suu_app/feature/main/presentation/bloc/main_cubit.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/account_actions_bottom_sheet.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_button_widget.dart';
+import 'package:manas_suu_app/feature/main/presentation/widgets/main_chart_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_header_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_info_contaiiner_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/payment_actions_widget.dart';
@@ -100,7 +101,9 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
                 BlocBuilder<MainCubit, MainState>(
                   builder: (context, state) {
                     if (state.selectedAccount != null) {
-                      context.read<NotificationsBloc>().add(LoadNotificationsEvent(id: state.selectedAccount?.id ?? 0));
+                      context.read<NotificationsBloc>().add(
+                        LoadNotificationsEvent(),
+                      );
                     }
                     if (state.status == MainStateStatus.INITIAL) {
                       return _NoAccountState(header: header, button: button, info: info);
@@ -113,7 +116,10 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
                       );
                     }
 
-                    return _IsAddedAccountState(state);
+                    return _EnsureChartLoaded(
+                      state: state,
+                      child: _IsAddedAccountState(state),
+                    );
                   },
                 ),
               ],
@@ -150,6 +156,50 @@ class _NoAccountState extends StatelessWidget {
       ],
     );
   }
+}
+
+class _EnsureChartLoaded extends StatefulWidget {
+  const _EnsureChartLoaded({required this.state, required this.child});
+
+  final MainState state;
+  final Widget child;
+
+  @override
+  State<_EnsureChartLoaded> createState() => _EnsureChartLoadedState();
+}
+
+class _EnsureChartLoadedState extends State<_EnsureChartLoaded> {
+  int? _requestedAccountId;
+
+  @override
+  void didUpdateWidget(covariant _EnsureChartLoaded oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _maybeLoadChart();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _maybeLoadChart();
+  }
+
+  void _maybeLoadChart() {
+    final state = widget.state;
+    final id = state.selectedAccount?.id;
+    if (id == null ||
+        state.accountChartData != null ||
+        _requestedAccountId == id) {
+      return;
+    }
+    _requestedAccountId = id;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      context.read<MainCubit>().getAccountChart(id, months: state.chartMonths);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }
 
 class _IsAddedAccountState extends StatelessWidget {
@@ -330,6 +380,29 @@ class _IsAddedAccountState extends StatelessWidget {
               ],
             ),
           ),
+            const SizedBox(height: 28),
+            AnimatedSwitcher(
+              duration: Duration(milliseconds: 300),
+              child: state.accountChartData != null
+                  ? MainChartWidget(
+                      accountChartData: state.accountChartData!,
+                      initialMonths: state.chartMonths,
+                      onPeriodChanged: (months) {
+                        final id = context
+                            .read<MainCubit>()
+                            .state
+                            .selectedAccount
+                            ?.id;
+                        if (id != null) {
+                          context.read<MainCubit>().getAccountChart(
+                            id,
+                            months: months,
+                          );
+                        }
+                      },
+                    )
+                  : const SizedBox.shrink(),
+            ),
 
           const SizedBox(height: 20),
           PaymentActionsWidget(

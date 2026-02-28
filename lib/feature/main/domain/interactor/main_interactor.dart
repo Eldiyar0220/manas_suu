@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:injectable/injectable.dart';
 import 'package:manas_suu_app/app/components/app_error_flushbar.dart';
 import 'package:manas_suu_app/app/constants/preference_helper.dart';
+import 'package:manas_suu_app/feature/main/data/models/myaccount/account_chart_response_model.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/account_detail_response_model.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
 import 'package:manas_suu_app/feature/main/domain/repository/main_repository.dart';
@@ -15,6 +18,8 @@ class MainInteractor {
   List<AccountItemModel> myAccounts = [];
   AccountItemModel? selectedAccount;
   AccountDetailData? accountDetail;
+  AccountChartData? accountChartData;
+  int chartMonths = 3;
 
   Future<void> postAuthLogin(String personalAccount) async {
     if (personalAccount.isEmpty) {
@@ -99,5 +104,11 @@ class MainInteractor {
 
   Future<void> getAccountDetail(int accountId) async {
     accountDetail = await _repository.getAccountDetail(accountId);
+  }
+
+  Future<void> getAccountChart(int accountId, int months) async {
+    accountChartData = await _repository.getAccountChart(accountId, months);
+    chartMonths = months;
+    log('data-unique: accountChartData: $accountChartData ');
   }
 }

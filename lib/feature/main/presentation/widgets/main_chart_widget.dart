@@ -2,10 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
+import 'package:manas_suu_app/feature/main/data/models/myaccount/account_chart_response_model.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
 class MainChartWidget extends StatefulWidget {
-  const MainChartWidget({super.key});
+  const MainChartWidget({
+    super.key,
+    required this.accountChartData,
+    this.initialMonths = 3,
+    this.onPeriodChanged,
+  });
+
+  final AccountChartData accountChartData;
+  final int initialMonths;
+  final void Function(int months)? onPeriodChanged;
 
   @override
   State<MainChartWidget> createState() => _MainChartWidgetState();
