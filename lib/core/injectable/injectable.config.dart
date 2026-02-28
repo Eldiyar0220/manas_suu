@@ -97,6 +97,21 @@ _i174.GetIt $initGetIt(
     registerFor: {_test},
   );
   gh.factory<String>(
+    () => registerModule.testCALLBACKURL,
+    instanceName: 'CALLBACKURL',
+    registerFor: {_test},
+  );
+  gh.factory<String>(
+    () => registerModule.testACCOUNTID,
+    instanceName: 'ACCOUNTID',
+    registerFor: {_test},
+  );
+  gh.factory<String>(
+    () => registerModule.testAPIKEY,
+    instanceName: 'APIKEY',
+    registerFor: {_test},
+  );
+  gh.factory<String>(
     () => registerModule.prodCALLBACKURL,
     instanceName: 'CALLBACKURL',
     registerFor: {_prod},

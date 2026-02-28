@@ -24,20 +24,19 @@ class FinikScreen extends StatelessWidget {
       child: Scaffold(
         body: FinikProvider(
           apiKey: _apiKey,
-
-          locale: FinikSdkLocale.EN,
+          isBeta: true,
+          locale: FinikSdkLocale.RU,
           textScenario: TextScenario.PAYMENT,
           paymentMethods: const [PaymentMethod.APP, PaymentMethod.QR, PaymentMethod.VISA],
           enableShimmer: true,
           enableShare: true,
-
           enableSupportButtons: true,
-
           tapableSupportButtons: true,
           onBackPressed: () => Navigator.of(context).pop(),
           onPayment: (data) => Navigator.of(context).pop(data),
           widget: CreateItemHandlerWidget(
             accountId: _accountId,
+
             callbackUrl: _callbackUrl,
             nameEn: 'Manas Tazalyk',
             amount: FixedAmount(extra.amount),

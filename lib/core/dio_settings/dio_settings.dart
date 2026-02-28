@@ -27,10 +27,17 @@ abstract class RegisterModule {
   @dev
   @Named('APIKEY')
   String get devAPIKEY => 'rOhkc0AoXC6zl03MxsKeqa5OP6PeIF2E4YWX1Ndq';
+  @test
+  @Named('APIKEY')
+  String get testAPIKEY => 'rOhkc0AoXC6zl03MxsKeqa5OP6PeIF2E4YWX1Ndq';
 
   @prod
   @Named('APIKEY')
   String get prodAPIKEY => 'CV5riylMpjE933ebSPfS45LbDEhO61z5BbtHUK80';
+
+  @test
+  @Named('ACCOUNTID')
+  String get testACCOUNTID => 'a79d2a0a-3ce2-46dc-9332-8c4da9b8f209';
   @dev
   @Named('ACCOUNTID')
   String get devACCOUNTID => 'a79d2a0a-3ce2-46dc-9332-8c4da9b8f209';
@@ -38,15 +45,17 @@ abstract class RegisterModule {
   @prod
   @Named('ACCOUNTID')
   String get prodACCOUNTID => '4f88cdfb-9546-4b58-a0e7-661328ec7efc';
+
   @dev
   @Named('CALLBACKURL')
-  String get devCALLBACKURL =>
-      'https://beta.api.paymentsgateway.averspay.kg/v1/graphql';
+  String get devCALLBACKURL => 'https://beta.api.paymentsgateway.averspay.kg/v1/graphql';
+  @test
+  @Named('CALLBACKURL')
+  String get testCALLBACKURL => 'https://31.3.216.40/tazalyk/payments/callback';
 
   @prod
   @Named('CALLBACKURL')
-  String get prodCALLBACKURL =>
-      'https://api.paymentsgateway.averspay.kg/v1/graphql';
+  String get prodCALLBACKURL => 'https://api.paymentsgateway.averspay.kg/v1/graphql';
 
   @lazySingleton
   Dio dio(@Named('BaseUrl') String baseUrl) {
@@ -69,7 +78,7 @@ abstract class RegisterModule {
       dio.httpClientAdapter = IOHttpClientAdapter(
         createHttpClient: () {
           final client = HttpClient();
-          client.badCertificateCallback = (_, __, ___) => true;
+          client.badCertificateCallback = (_, _, _) => true;
           return client;
         },
       );

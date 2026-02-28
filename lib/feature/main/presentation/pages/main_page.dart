@@ -11,6 +11,7 @@ import 'package:manas_suu_app/app/extensions/datetime_extension.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/core/auto_router/app_router.gr.dart';
+import 'package:manas_suu_app/feature/finik/presentation/finik_sdk.dart';
 import 'package:manas_suu_app/feature/history/presentation/bloc/history_bloc.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
 import 'package:manas_suu_app/feature/main/presentation/bloc/main_cubit.dart';
