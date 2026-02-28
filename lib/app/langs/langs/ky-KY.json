@@ -88,5 +88,13 @@
     "historyTax": "НСП",
     "currencySom": "сом",
     "unitPeople": "адам",
-    "unitCubicMeters": "м³"
+    "unitCubicMeters": "м³",
+    "detailPageTitle": "Эсептин маалыматы",
+    "detailPersonalAccount": "Жеке эсеп",
+    "serviceTypeCommercial": "Коммерция",
+    "overpayment": "Ашыкча төлөм",
+    "detailAtPeriodStart": "Мезгилдин башына",
+    "taxes": "Салыктар",
+    "lastPayment": "Акыркы төлөм",
+    "controller": "Контролёр"
 }

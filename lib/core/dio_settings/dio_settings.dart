@@ -7,6 +7,8 @@ import 'package:injectable/injectable.dart';
 import 'package:manas_suu_app/app/components/app_error_flushbar.dart';
 import 'package:manas_suu_app/core/dio_settings/app_exception.dart';
 import 'package:manas_suu_app/core/dio_settings/app_exception_interceptor.dart';
+import 'package:manas_suu_app/core/dio_settings/device_data/device_data_helper.dart';
+import 'package:manas_suu_app/main.dart';
 
 @module
 abstract class RegisterModule {
@@ -38,11 +40,13 @@ abstract class RegisterModule {
   String get prodACCOUNTID => '4f88cdfb-9546-4b58-a0e7-661328ec7efc';
   @dev
   @Named('CALLBACKURL')
-  String get devCALLBACKURL => 'https://beta.api.paymentsgateway.averspay.kg/v1/graphql';
+  String get devCALLBACKURL =>
+      'https://beta.api.paymentsgateway.averspay.kg/v1/graphql';
 
   @prod
   @Named('CALLBACKURL')
-  String get prodCALLBACKURL => 'https://api.paymentsgateway.averspay.kg/v1/graphql';
+  String get prodCALLBACKURL =>
+      'https://api.paymentsgateway.averspay.kg/v1/graphql';
 
   @lazySingleton
   Dio dio(@Named('BaseUrl') String baseUrl) {
@@ -54,7 +58,10 @@ abstract class RegisterModule {
         contentType: 'application/json',
         connectTimeout: duration,
         receiveTimeout: duration,
-        headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
       ),
     );
 
@@ -79,15 +86,26 @@ abstract class RegisterModule {
       responseHeader: true,
     );
 
-    final headerInterceptors = QueuedInterceptorsWrapper(
-      onRequest: (options, handler) => handler.next(options),
+    final headerInterceptors = InterceptorsWrapper(
+      onRequest: (options, handler) async {
+        options.headers.addAll(
+          (await DeviceDataHelper.deviceData).toCamelCaseJson(),
+        );
+        String fcmToken = '';
+        try {
+          fcmToken = await messaging.getToken() ?? '';
+        } catch (_) {
+          // APNS token may not be ready yet on iOS; use empty and retry on next request
+        }
+        options.headers.addAll({'fcmToken': fcmToken});
+        handler.next(options);
+      },
       onError: (err, handler) {
         handler.next(err);
         showAppExceptionFlushbar(AppException.fromDioException(err));
       },
       onResponse: (response, handler) => handler.next(response),
     );
-
     interceptors.addAll([
       if (kDebugMode) logInterceptor,
       headerInterceptors,

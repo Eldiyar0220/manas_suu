@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:manas_suu_app/feature/main/data/models/auth_login/auth_login_response_model.dart';
+import 'package:manas_suu_app/feature/main/data/models/myaccount/account_detail_response_model.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
 import 'package:manas_suu_app/feature/main/domain/repository/main_repository.dart';
 
@@ -16,7 +17,10 @@ class MainRepositoryImpl implements MainRepository {
 
   @override
   Future<AuthLoginResponseModel> postAuthLogin(String personalAccount) async {
-    final response = await _dio.post(_authLogin, data: {'personalAccount': personalAccount});
+    final response = await _dio.post(
+      _authLogin,
+      data: {'personalAccount': personalAccount},
+    );
 
     return AuthLoginResponseModel.fromJson(response.data);
   }
@@ -34,5 +38,17 @@ class MainRepositoryImpl implements MainRepository {
   }
 
   @override
-  Future<void> deleteAccount(int id) async => await _dio.delete('$_accountsDelete/$id');
+  Future<void> deleteAccount(int id) async =>
+      await _dio.delete('$_accountsDelete/$id');
+
+  @override
+  Future<void> savePushTokenRepo(String pushToken) async {
+    await _dio.put('auth/fcm-token', data: {'fcmToken': pushToken});
+  }
+
+  @override
+  Future<AccountDetailData> getAccountDetail(int accountId) async {
+    final response = await _dio.get('accounts/$accountId/detail');
+    return AccountDetailResponse.fromJson(response.data).data;
+  }
 }

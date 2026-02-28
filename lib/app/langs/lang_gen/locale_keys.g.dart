@@ -93,5 +93,13 @@ abstract class  LocaleKeys {
   static const currencySom = 'currencySom';
   static const unitPeople = 'unitPeople';
   static const unitCubicMeters = 'unitCubicMeters';
+  static const detailPageTitle = 'detailPageTitle';
+  static const detailPersonalAccount = 'detailPersonalAccount';
+  static const serviceTypeCommercial = 'serviceTypeCommercial';
+  static const overpayment = 'overpayment';
+  static const detailAtPeriodStart = 'detailAtPeriodStart';
+  static const taxes = 'taxes';
+  static const lastPayment = 'lastPayment';
+  static const controller = 'controller';
 
 }

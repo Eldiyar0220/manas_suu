@@ -88,5 +88,13 @@
   "historyTax": "НСП",
   "currencySom": "сом",
   "unitPeople": "адам/чел.",
-  "unitCubicMeters": "м³"
+  "unitCubicMeters": "м³",
+  "detailPageTitle": "Детали счета",
+  "detailPersonalAccount": "Лицевой счет",
+  "serviceTypeCommercial": "Ком",
+  "overpayment": "Переплата",
+  "detailAtPeriodStart": "На начало периода",
+  "taxes": "Налоги",
+  "lastPayment": "Последний платеж",
+  "controller": "Контролер"
 }

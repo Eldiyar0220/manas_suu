@@ -104,7 +104,15 @@ class CodegenLoader extends AssetLoader{
   "historyTax": "НСП",
   "currencySom": "сом",
   "unitPeople": "адам",
-  "unitCubicMeters": "м³"
+  "unitCubicMeters": "м³",
+  "detailPageTitle": "Эсептин маалыматы",
+  "detailPersonalAccount": "Жеке эсеп",
+  "serviceTypeCommercial": "Коммерция",
+  "overpayment": "Ашыкча төлөм",
+  "detailAtPeriodStart": "Мезгилдин башына",
+  "taxes": "Салыктар",
+  "lastPayment": "Акыркы төлөм",
+  "controller": "Контролёр"
 };
 static const Map<String,dynamic> _en_US = {
   "bottomNavText1": "Home",
@@ -196,7 +204,15 @@ static const Map<String,dynamic> _en_US = {
   "historyTax": "Tax",
   "currencySom": "som",
   "unitPeople": "people",
-  "unitCubicMeters": "m³"
+  "unitCubicMeters": "m³",
+  "detailPageTitle": "Account details",
+  "detailPersonalAccount": "Personal account",
+  "serviceTypeCommercial": "Commercial",
+  "overpayment": "Overpayment",
+  "detailAtPeriodStart": "At period start",
+  "taxes": "Taxes",
+  "lastPayment": "Last payment",
+  "controller": "Controller"
 };
 static const Map<String,dynamic> _ru_RU = {
   "bottomNavText1": "Главная",
@@ -288,7 +304,15 @@ static const Map<String,dynamic> _ru_RU = {
   "historyTax": "НСП",
   "currencySom": "сом",
   "unitPeople": "адам/чел.",
-  "unitCubicMeters": "м³"
+  "unitCubicMeters": "м³",
+  "detailPageTitle": "Детали счета",
+  "detailPersonalAccount": "Лицевой счет",
+  "serviceTypeCommercial": "Ком",
+  "overpayment": "Переплата",
+  "detailAtPeriodStart": "На начало периода",
+  "taxes": "Налоги",
+  "lastPayment": "Последний платеж",
+  "controller": "Контролер"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ky_KY": _ky_KY, "en_US": _en_US, "ru_RU": _ru_RU};
 }

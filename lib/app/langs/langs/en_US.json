@@ -88,5 +88,13 @@
   "historyTax": "Tax",
   "currencySom": "som",
   "unitPeople": "people",
-  "unitCubicMeters": "m³"
+  "unitCubicMeters": "m³",
+  "detailPageTitle": "Account details",
+  "detailPersonalAccount": "Personal account",
+  "serviceTypeCommercial": "Commercial",
+  "overpayment": "Overpayment",
+  "detailAtPeriodStart": "At period start",
+  "taxes": "Taxes",
+  "lastPayment": "Last payment",
+  "controller": "Controller"
 }
