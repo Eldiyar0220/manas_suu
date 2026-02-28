@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
@@ -42,7 +43,7 @@ class DetailFinalResultWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              Text(
+              CustomText(
                 context.tr(LocaleKeys.historyCharges),
                 style: TextStyle(
                   fontSize: 16,
@@ -61,7 +62,7 @@ class DetailFinalResultWidget extends StatelessWidget {
                 color: AppColors.mainColor,
               ),
               const SizedBox(width: 6),
-              Text(
+              CustomText(
                 context.tr(LocaleKeys.historyServices),
                 style: TextStyle(
                   fontSize: 14,
@@ -77,7 +78,7 @@ class DetailFinalResultWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  CustomText(
                     s.name,
                     style: TextStyle(
                       fontSize: 14,

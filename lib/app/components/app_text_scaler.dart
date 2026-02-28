@@ -37,7 +37,8 @@ class CustomText extends StatelessWidget {
     this.overflow,
     super.key,
   }) : isSelectableText = false,
-       isLocale = false;
+       isLocale = false,
+       textSpan = null;
 
   const CustomText.tr(
     this.data, {
@@ -47,7 +48,8 @@ class CustomText extends StatelessWidget {
     this.overflow,
     super.key,
   }) : isSelectableText = false,
-       isLocale = true;
+       isLocale = true,
+       textSpan = null;
 
   const CustomText.selectable(
     this.data, {
@@ -57,9 +59,22 @@ class CustomText extends StatelessWidget {
     this.textAlign,
   }) : overflow = null,
        isSelectableText = true,
+       isLocale = false,
+       textSpan = null;
+
+  const CustomText.rich(
+    this.textSpan, {
+    this.style,
+    this.maxLines,
+    this.textAlign,
+    this.overflow,
+    super.key,
+  }) : data = '',
+       isSelectableText = false,
        isLocale = false;
 
   final String data;
+  final InlineSpan? textSpan;
   final int? maxLines;
   final TextStyle? style;
   final TextAlign? textAlign;
@@ -69,14 +84,23 @@ class CustomText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final getWidget = Text(
-      data,
-      style: style,
-      textAlign: textAlign,
-      overflow: overflow,
-      maxLines: maxLines,
-      textScaler: MegaScaler.freezed(context),
-    );
+    final getWidget = textSpan != null
+        ? Text.rich(
+            textSpan!,
+            style: style,
+            textAlign: textAlign,
+            overflow: overflow,
+            maxLines: maxLines,
+            textScaler: MegaScaler.freezed(context),
+          )
+        : Text(
+            data,
+            style: style,
+            textAlign: textAlign,
+            overflow: overflow,
+            maxLines: maxLines,
+            textScaler: MegaScaler.freezed(context),
+          );
 
     if (isSelectableText) {
       return SelectableText(

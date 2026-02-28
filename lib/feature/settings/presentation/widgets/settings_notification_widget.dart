@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 
@@ -26,12 +27,12 @@ class SettingsNotificationAndVersionWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                CustomText(
                   title,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: context.theme.textWhiteBlackColor),
                 ),
                 if (subtitle != null) const SizedBox(height: 4),
-                if (subtitle != null) Text(subtitle!, style: TextStyle(color: context.theme.textWhiteBlackColor)),
+                if (subtitle != null) CustomText(subtitle!, style: TextStyle(color: context.theme.textWhiteBlackColor)),
               ],
             ),
           ),

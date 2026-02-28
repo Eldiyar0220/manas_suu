@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
@@ -50,7 +51,7 @@ class MainPaymentCardWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              Text(
+              CustomText(
                 'К оплате',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
@@ -59,7 +60,7 @@ class MainPaymentCardWidget extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              const Text(
+              const CustomText(
                 '-0.80 сом',
                 style: TextStyle(
                   fontSize: 17,
@@ -128,12 +129,12 @@ class MainPaymentCardWidget extends StatelessWidget {
             children: [
               Icon(Icons.access_time, size: 14, color: AppColors.mainColor),
               const SizedBox(width: 6),
-              Text(
+              CustomText(
                 'Дата обновления',
                 style: TextStyle(fontSize: 12, color: subTextColor),
               ),
               const Spacer(),
-              Text(
+              CustomText(
                 '20.02.2026 17:06:04',
                 style: TextStyle(
                   fontSize: 12,
@@ -153,7 +154,7 @@ class MainPaymentCardWidget extends StatelessWidget {
           const SizedBox(height: 12),
 
           Center(
-            child: Text(
+            child: CustomText(
               'Нажмите для деталей',
               style: TextStyle(fontSize: 12, color: subTextColor),
             ),
@@ -189,10 +190,10 @@ class _InfoRow extends StatelessWidget {
       children: [
         Icon(icon, size: 16, color: subTextColor),
         const SizedBox(width: 8),
-        Text(label, style: TextStyle(color: subTextColor, fontSize: 13)),
+        CustomText(label, style: TextStyle(color: subTextColor, fontSize: 13)),
         const SizedBox(width: 4),
         Expanded(
-          child: Text(
+          child: CustomText(
             value,
             style: TextStyle(
               color: textColor,
@@ -222,7 +223,7 @@ class _InfoRow extends StatelessWidget {
                   color: AppColors.mainColor,
                 ),
                 const SizedBox(width: 3),
-                Text(
+                CustomText(
                   badgeText!,
                   style: const TextStyle(
                     fontSize: 11,
@@ -256,7 +257,7 @@ class _PillInfo extends StatelessWidget {
       children: [
         Icon(icon, size: 14, color: AppColors.mainColor),
         const SizedBox(width: 4),
-        Text(
+        CustomText(
           text,
           style: TextStyle(
             fontSize: 12,

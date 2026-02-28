@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
@@ -100,7 +101,7 @@ class _MainChartWidgetState extends State<MainChartWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    CustomText(
                       'Начисления и оплаты',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -108,7 +109,7 @@ class _MainChartWidgetState extends State<MainChartWidget> {
                         color: textColor,
                       ),
                     ),
-                    Text(
+                    CustomText(
                       'За последние ${_periods[_selectedPeriod]}',
                       style: TextStyle(fontSize: 12, color: subTextColor),
                     ),
@@ -126,7 +127,7 @@ class _MainChartWidgetState extends State<MainChartWidget> {
                 padding: EdgeInsets.only(
                   right: i < _periods.length - 1 ? 8 : 0,
                 ),
-                child: GestureDetector(
+                child: InkWell(
                   onTap: () => setState(() => _selectedPeriod = i),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
@@ -140,7 +141,7 @@ class _MainChartWidgetState extends State<MainChartWidget> {
                           ? AppColors.mainColor
                           : (isDark ? Colors.white10 : Colors.grey.shade100),
                     ),
-                    child: Text(
+                    child: CustomText(
                       _periods[i],
                       style: TextStyle(
                         fontSize: 13,
@@ -197,7 +198,7 @@ class _LegendItem extends StatelessWidget {
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 6),
-        Text(label, style: const TextStyle(fontSize: 12)),
+        CustomText(label, style: const TextStyle(fontSize: 12)),
       ],
     );
   }

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/feature/history/data/models/history_response.dart';
 
@@ -59,7 +60,7 @@ class ChargesCardWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 14),
-              Text(
+              CustomText(
                 context.tr(LocaleKeys.historyCharges),
                 style: TextStyle(
                   fontSize: 17,
@@ -74,7 +75,7 @@ class ChargesCardWidget extends StatelessWidget {
             children: [
               Icon(Icons.settings, size: 16, color: accentGreen),
               const SizedBox(width: 6),
-              Text(
+              CustomText(
                 context.tr(LocaleKeys.historyServices),
                 style: TextStyle(
                   fontSize: 14,
@@ -86,7 +87,7 @@ class ChargesCardWidget extends StatelessWidget {
           ),
           if (services.isEmpty) ...[
             const SizedBox(height: 12),
-            Text(
+            CustomText(
               context.tr(LocaleKeys.historyNoServicesData),
               style: TextStyle(fontSize: 14, color: subTextColor),
             ),
@@ -104,7 +105,7 @@ class ChargesCardWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                CustomText(
                   context.tr(LocaleKeys.historyTotal),
                   style: TextStyle(
                     fontSize: 15,
@@ -112,7 +113,7 @@ class ChargesCardWidget extends StatelessWidget {
                     color: textColor,
                   ),
                 ),
-                Text(
+                CustomText(
                   '${periodAccrued.toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
                   style: TextStyle(
                     fontSize: 16,
@@ -149,7 +150,7 @@ class _ServiceItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          CustomText(
             service.name,
             style: TextStyle(
               fontSize: 15,
@@ -200,7 +201,7 @@ class _ServiceItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              CustomText(
                 context.tr(LocaleKeys.historyTotal),
                 style: TextStyle(
                   fontSize: 14,
@@ -208,7 +209,7 @@ class _ServiceItem extends StatelessWidget {
                   color: textColor,
                 ),
               ),
-              Text(
+              CustomText(
                 '${service.total.toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
                 style: TextStyle(
                   fontSize: 15,
@@ -242,8 +243,8 @@ class _RowLabelValue extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: TextStyle(fontSize: 13, color: subTextColor)),
-        Text(
+        CustomText(label, style: TextStyle(fontSize: 13, color: subTextColor)),
+        CustomText(
           value,
           style: TextStyle(
             fontSize: 13,

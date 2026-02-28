@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
@@ -49,7 +50,7 @@ class DetailControllerCardWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              Text(
+              CustomText(
                 context.tr(LocaleKeys.controller),
                 style: TextStyle(
                   fontSize: 16,
@@ -63,7 +64,7 @@ class DetailControllerCardWidget extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Text(
+                child: CustomText(
                   name,
                   style: TextStyle(
                     fontSize: 14,
@@ -72,7 +73,7 @@ class DetailControllerCardWidget extends StatelessWidget {
                 ),
               ),
               if (phone != null && phone!.isNotEmpty) ...[
-                Text(
+                CustomText(
                   phone!,
                   style: TextStyle(
                     fontSize: 14,

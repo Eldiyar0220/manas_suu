@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
@@ -36,7 +37,7 @@ class UserAccountInfoWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                CustomText(
                   context.tr(LocaleKeys.mainPageWhereToFind),
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
@@ -46,7 +47,7 @@ class UserAccountInfoWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
+                CustomText(
                   context.tr(LocaleKeys.mainPageShowed),
                   style: TextStyle(
                     color: context.watch<ThemeCubit>().state.isDarkMode

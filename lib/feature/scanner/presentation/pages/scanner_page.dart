@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -62,7 +63,8 @@ class _ScannerPageState extends State<ScannerPage> {
       }
     } catch (_) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.tr(LocaleKeys.scannerNoCodeFound))));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: CustomText(context.tr(LocaleKeys.scannerNoCodeFound))));
       }
     }
   }
@@ -87,7 +89,7 @@ class _ScannerPageState extends State<ScannerPage> {
             icon: const Icon(Icons.close, color: Colors.white),
             onPressed: () => context.router.maybePop(),
           ),
-          title: Text(
+          title: CustomText(
             context.tr(LocaleKeys.scannerTitle),
             style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
           ),
@@ -109,7 +111,7 @@ class _ScannerPageState extends State<ScannerPage> {
                     color: Colors.black.withValues(alpha: 0.6),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Text(
+                  child: CustomText(
                     context.tr(LocaleKeys.scannerInstruction),
                     style: const TextStyle(color: Colors.white, fontSize: 15),
                     textAlign: TextAlign.center,
@@ -159,7 +161,7 @@ class _ScannerPageState extends State<ScannerPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                CustomText(
                                   context.tr(LocaleKeys.scannerAccountSearch),
                                   style: const TextStyle(
                                     color: Colors.white,
@@ -168,7 +170,7 @@ class _ScannerPageState extends State<ScannerPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 4),
-                                Text(
+                                CustomText(
                                   context.tr(LocaleKeys.scannerAccountSearchDesc),
                                   style: TextStyle(color: Colors.white.withValues(alpha: 0.6), fontSize: 13),
                                 ),
@@ -186,7 +188,7 @@ class _ScannerPageState extends State<ScannerPage> {
                       child: ElevatedButton.icon(
                         onPressed: _pickFromGallery,
                         icon: const Icon(Icons.photo_library_outlined, color: Colors.white, size: 22),
-                        label: Text(
+                        label: CustomText(
                           context.tr(LocaleKeys.scannerSelectFromGallery),
                           style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
                         ),

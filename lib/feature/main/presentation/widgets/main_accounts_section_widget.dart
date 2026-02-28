@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
@@ -34,7 +35,7 @@ class MainAccountsSectionWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Text(
+                CustomText(
                   'Счета',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
@@ -50,7 +51,7 @@ class MainAccountsSectionWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 color: AppColors.mainColor.withValues(alpha: 0.12),
               ),
-              child: const Text(
+              child: const CustomText(
                 '1 счет',
                 style: TextStyle(
                   fontSize: 12,
@@ -110,7 +111,7 @@ class _AccountCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              CustomText(
                 accountNumber,
                 style: const TextStyle(
                   fontSize: 20,
@@ -130,12 +131,12 @@ class _AccountCard extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          const Text(
+          const CustomText(
             'Султанова Д',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 4),
-          const Text(
+          const CustomText(
             'ул. С.Ибраимова 11-1, дом 8-под, кв. 048',
             style: TextStyle(color: Colors.white70, fontSize: 11),
             maxLines: 1,
@@ -173,7 +174,7 @@ class _AddAccountCard extends StatelessWidget {
             child: const Icon(Icons.add, color: AppColors.mainColor, size: 22),
           ),
           const SizedBox(height: 8),
-          const Text(
+          const CustomText(
             'Добавит',
             style: TextStyle(
               fontSize: 11,

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/core/auto_router/app_router.gr.dart';
@@ -36,7 +37,7 @@ class MainButtonWidget extends StatelessWidget {
               child: Icon(Icons.add, color: Colors.white),
             ),
             SizedBox(width: 12),
-            Text(
+            CustomText(
               context.tr(LocaleKeys.mainPageAddCheck),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
             ),

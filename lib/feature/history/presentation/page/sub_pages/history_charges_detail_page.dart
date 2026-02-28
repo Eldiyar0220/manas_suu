@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
@@ -24,7 +25,7 @@ class HistoryChargesDetailPage extends StatelessWidget {
           onPressed: () => context.router.maybePop(),
         ),
         centerTitle: true,
-        title: Text(
+        title: CustomText(
           context.tr(LocaleKeys.historyChargesForPeriod),
           style: TextStyle(
             fontSize: 18,

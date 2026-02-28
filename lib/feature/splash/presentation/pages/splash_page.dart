@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/constants/app_images.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
@@ -94,7 +95,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                   const SizedBox(height: 24),
 
                   /// TITLE
-                  Text(
+                  CustomText(
                     context.tr(LocaleKeys.splashTitle),
                     style: TextStyle(
                       fontSize: 28,
@@ -103,7 +104,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Text(
+                  CustomText(
                     context.tr(LocaleKeys.splashSubTitle),
                     style: TextStyle(fontSize: 14, color: context.theme.textWhiteBlackColor),
                   ),
@@ -124,12 +125,12 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                           ),
                         ),
                         const SizedBox(height: 12),
-                        Text(
+                        CustomText(
                           context.tr(LocaleKeys.configurationLoading),
                           style: TextStyle(color: context.theme.textWhiteBlackColor, fontSize: 13),
                         ),
                         const SizedBox(height: 8),
-                        Text(
+                        CustomText(
                           '$percent%',
                           style: const TextStyle(color: Color(0xFF4CAF50), fontSize: 20, fontWeight: FontWeight.w600),
                         ),

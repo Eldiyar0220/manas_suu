@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/feature/notifications/data/models/notifications_model.dart';
@@ -51,7 +52,7 @@ class NotificationDetailPage extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      CustomText(
                         'Получено',
                         style: TextStyle(
                           fontSize: 13,
@@ -59,7 +60,7 @@ class NotificationDetailPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Text(
+                      CustomText(
                         item.creationDate,
                         style: TextStyle(
                           fontSize: 14,
@@ -73,7 +74,7 @@ class NotificationDetailPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            Text(
+            CustomText(
               item.title,
               style: TextStyle(
                 fontSize: 22,
@@ -104,7 +105,7 @@ class NotificationDetailPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Text(
+                      CustomText(
                         'Сообщение',
                         style: TextStyle(
                           fontSize: 14,
@@ -115,7 +116,7 @@ class NotificationDetailPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  Text(
+                  CustomText(
                     item.body,
                     style: TextStyle(
                       fontSize: 15,

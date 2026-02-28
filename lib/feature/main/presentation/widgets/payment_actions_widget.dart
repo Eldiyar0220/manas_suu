@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
@@ -64,7 +65,7 @@ class PaymentActionsWidget extends StatelessWidget {
                     ),
                     const SizedBox(width: 14),
                     Expanded(
-                      child: Text(
+                    child: CustomText(
                         context.tr(LocaleKeys.payButton),
                         style: const TextStyle(
                           color: Colors.white,
@@ -145,7 +146,7 @@ class _SecondaryActionButton extends StatelessWidget {
               Icon(icon, color: AppColors.mainColor, size: 22),
               const SizedBox(width: 10),
               Expanded(
-                child: Text(
+                child: CustomText(
                   label,
                   style: TextStyle(
                     color: textColor,

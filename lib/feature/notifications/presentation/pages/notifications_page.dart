@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
@@ -25,7 +26,7 @@ class NotificationsPage extends StatelessWidget {
           icon: Icon(Icons.chevron_left, color: textColor),
           onPressed: () => context.router.maybePop(),
         ),
-        title: Text(
+        title: CustomText(
           context.tr(LocaleKeys.notifications),
           style: TextStyle(
             fontSize: 20,
@@ -42,7 +43,7 @@ class NotificationsPage extends StatelessWidget {
 
           if (state is NotificationsErrorState) {
             return Center(
-              child: Text(state.message, style: TextStyle(color: subTextColor)),
+              child: CustomText(state.message, style: TextStyle(color: subTextColor)),
             );
           }
 
@@ -72,7 +73,7 @@ class NotificationsPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 24),
-                    Text(
+                    CustomText(
                       context.tr(LocaleKeys.noNotifications),
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -82,7 +83,7 @@ class NotificationsPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    Text(
+                    CustomText(
                       context.tr(LocaleKeys.noNotificationsDesc),
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -179,7 +180,7 @@ class _NotificationCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  CustomText(
                     item.title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -190,7 +191,7 @@ class _NotificationCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 6),
-                  Text(
+                  CustomText(
                     item.body,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -205,7 +206,7 @@ class _NotificationCard extends StatelessWidget {
                         color: AppColors.textPrimary,
                       ),
                       const SizedBox(width: 6),
-                      Text(
+                      CustomText(
                         item.creationDate,
                         style: TextStyle(fontSize: 12, color: subTextColor),
                       ),

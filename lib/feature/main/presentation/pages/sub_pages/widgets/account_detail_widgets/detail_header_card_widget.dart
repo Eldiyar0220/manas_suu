@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/account_detail_response_model.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
@@ -28,7 +29,7 @@ class DetailHeaderCardWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(
+              CustomText(
                 context.tr(LocaleKeys.detailPersonalAccount),
                 style: TextStyle(
                   fontSize: 12,
@@ -45,7 +46,7 @@ class DetailHeaderCardWidget extends StatelessWidget {
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Text(
+                child: CustomText(
                   detail.periodLabel,
                   style: const TextStyle(fontSize: 12, color: cardTextColor),
                 ),
@@ -68,7 +69,7 @@ class DetailHeaderCardWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
-              Text(
+              CustomText(
                 detail.personalAccount,
                 style: const TextStyle(
                   fontSize: 20,
@@ -85,7 +86,7 @@ class DetailHeaderCardWidget extends StatelessWidget {
               const Icon(Icons.person_outline, size: 18, color: cardTextColor),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(
+                child: CustomText(
                   detail.fullName,
                   style: const TextStyle(fontSize: 14, color: cardTextColor),
                 ),
@@ -103,7 +104,7 @@ class DetailHeaderCardWidget extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(
+                child: CustomText(
                   detail.address,
                   style: const TextStyle(fontSize: 14, color: cardTextColor),
                 ),
@@ -124,7 +125,7 @@ class DetailHeaderCardWidget extends StatelessWidget {
                       color: cardTextColor,
                     ),
                     const SizedBox(width: 4),
-                    Text(
+                    CustomText(
                       detail.accountType == AccountType.RESIDENTIAL
                           ? context.tr(LocaleKeys.serviceTypeHousehold)
                           : context.tr(LocaleKeys.serviceTypeCommercial),

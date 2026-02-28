@@ -91,7 +91,7 @@ class _MainAddUserAccountPageState extends State<MainAddUserAccountPage>
               padding: const EdgeInsets.only(right: 16, left: 16, top: 10),
               child: ListView(
                 children: [
-                  GestureDetector(
+                  InkWell(
                     onTap: context.router.pop,
                     child: Align(
                       alignment: Alignment.centerLeft,

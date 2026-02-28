@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 
 class DetailRowWidget extends StatelessWidget {
@@ -21,8 +22,8 @@ class DetailRowWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: TextStyle(fontSize: 14, color: textColor)),
-        Text(
+        CustomText(label, style: TextStyle(fontSize: 14, color: textColor)),
+        CustomText(
           value,
           style: TextStyle(
             fontSize: 14,

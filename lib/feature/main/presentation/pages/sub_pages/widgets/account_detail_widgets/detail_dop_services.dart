@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
@@ -37,7 +38,7 @@ class DetailDopServicesWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              Text(
+              CustomText(
                 context.tr(LocaleKeys.historyServices),
                 style: TextStyle(
                   fontSize: 16,
@@ -63,7 +64,7 @@ class DetailDopServicesWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: Text(
+                    child: CustomText(
                       s.name,
                       style: TextStyle(
                         fontSize: 14,
@@ -81,7 +82,7 @@ class DetailDopServicesWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: AppColors.mainColor),
                     ),
-                    child: Text(
+                    child: CustomText(
                       '${s.volume} ${context.tr(LocaleKeys.unitPeople)}',
                       style: TextStyle(
                         fontSize: 12,

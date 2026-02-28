@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 
 class ChargesHeaderCardWidget extends StatelessWidget {
@@ -55,12 +56,12 @@ class ChargesHeaderCardWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                CustomText(
                   context.tr(LocaleKeys.historyPeriod),
                   style: TextStyle(fontSize: 12, color: subTextColor),
                 ),
                 const SizedBox(height: 2),
-                Text(
+                CustomText(
                   periodLabel,
                   style: TextStyle(
                     fontSize: 17,

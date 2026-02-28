@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
@@ -23,7 +24,7 @@ class HistoryPeriodsWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 32),
             child: Center(
-              child: Text(
+              child: CustomText(
                 context.tr(LocaleKeys.historyNoData),
                 style: TextStyle(
                   color: context.theme.textSecondaryWhiteBlackColor,
@@ -125,7 +126,7 @@ class _HistoryMonthCardState extends State<_HistoryMonthCard> {
                   : AppColors.mainColor,
             ),
           ),
-          title: Text(
+          title: CustomText(
             widget.item.periodLabel,
             style: TextStyle(
               color: context.theme.textWhiteBlackColor!,
@@ -135,7 +136,7 @@ class _HistoryMonthCardState extends State<_HistoryMonthCard> {
           ),
           subtitle: Padding(
             padding: const EdgeInsets.only(top: 4),
-            child: Text(
+            child: CustomText(
               '${widget.item.closingBalance.toStringAsFixed(2)} сом',
               style: TextStyle(
                 color: AppColors.mainColor,
@@ -235,12 +236,12 @@ class _HistoryDetailRow extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Text(
+          child: CustomText(
             label,
             style: TextStyle(color: baseLabelColor, fontSize: 13),
           ),
         ),
-        Text(
+        CustomText(
           value,
           style: TextStyle(
             color: valueColor ?? baseValueColor,
@@ -281,7 +282,7 @@ class _HistoryActionButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
         alignment: Alignment.center,
-        child: Text(
+        child: CustomText(
           label,
           style: const TextStyle(
             color: Colors.white,

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
@@ -141,12 +142,12 @@ class _AccountHeader extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              CustomText(
                 account.personalAccount,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: textColor),
               ),
               const SizedBox(height: 2),
-              Text(account.fullName, style: TextStyle(fontSize: 13, color: subTextColor)),
+              CustomText(account.fullName, style: TextStyle(fontSize: 13, color: subTextColor)),
             ],
           ),
         ],
@@ -200,7 +201,7 @@ class _ActionTile extends StatelessWidget {
               ),
               const SizedBox(width: 14),
               Expanded(
-                child: Text(
+                child: CustomText(
                   label,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: textColor),
                 ),

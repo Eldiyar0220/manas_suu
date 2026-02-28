@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/core/auto_router/app_router.gr.dart';
@@ -17,13 +18,16 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(context.tr(LocaleKeys.bottomNavText4), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+        title: CustomText(
+          context.tr(LocaleKeys.bottomNavText4),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
-            Text(context.tr(LocaleKeys.settingApp), style: TextStyle(color: context.theme.textWhiteBlackColor)),
+            CustomText(context.tr(LocaleKeys.settingApp), style: TextStyle(color: context.theme.textWhiteBlackColor)),
             const SizedBox(height: 24),
             InkWell(
               highlightColor: Colors.transparent,

@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -56,7 +57,7 @@ class _AppPdfviewerPageState extends State<AppPdfviewerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Квитанция'),
+        title: const CustomText('Квитанция'),
         actions: [
           IconButton(icon: const Icon(Icons.share), onPressed: _sharePdf),
         ],
@@ -72,7 +73,7 @@ class _AppPdfviewerPageState extends State<AppPdfviewerPage> {
                 children: [
                   const Icon(Icons.picture_as_pdf, color: Colors.green),
                   const SizedBox(width: 8),
-                  Text(
+                  CustomText(
                     'Страница $_currentPage из $_totalPages',
                     style: const TextStyle(color: Colors.green),
                   ),

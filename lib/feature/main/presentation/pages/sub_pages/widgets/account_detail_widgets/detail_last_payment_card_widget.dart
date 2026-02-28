@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
@@ -38,7 +39,7 @@ class DetailLastPaymentCardWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              Text(
+              CustomText(
                 context.tr(LocaleKeys.lastPayment),
                 style: TextStyle(
                   fontSize: 16,
@@ -57,7 +58,7 @@ class DetailLastPaymentCardWidget extends StatelessWidget {
                 color: context.theme.cardBackgroundWhiteBlackColor,
               ),
               const SizedBox(width: 8),
-              Text(
+              CustomText(
                 date ?? '—',
                 style: TextStyle(
                   fontSize: 14,
@@ -66,7 +67,7 @@ class DetailLastPaymentCardWidget extends StatelessWidget {
               ),
               const Spacer(),
               if (amount != null)
-                Text(
+                CustomText(
                   '${amount!.toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
                   style: const TextStyle(
                     fontSize: 15,

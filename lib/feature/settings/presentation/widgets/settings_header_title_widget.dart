@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 
 class SettingsHeaderTitleWidget extends StatelessWidget {
@@ -16,7 +17,7 @@ class SettingsHeaderTitleWidget extends StatelessWidget {
             child: Icon(icon, color: AppColors.mainColor),
           ),
         Flexible(
-          child: Text(
+          child: CustomText(
             title,
             style: const TextStyle(color: AppColors.mainColor, fontSize: 16, fontWeight: FontWeight.w600),
           ),

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 
@@ -13,7 +14,7 @@ class MainHeaderWidget extends StatelessWidget {
 
         const SizedBox(height: 24),
 
-        Text(
+        CustomText(
           context.tr(LocaleKeys.mainPageNoCheck),
           style: TextStyle(
             fontSize: 22,
@@ -24,7 +25,7 @@ class MainHeaderWidget extends StatelessWidget {
 
         const SizedBox(height: 12),
 
-        Text(
+        CustomText(
           context.tr(LocaleKeys.mainPageNoCheckDesc),
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 14, height: 1.5),

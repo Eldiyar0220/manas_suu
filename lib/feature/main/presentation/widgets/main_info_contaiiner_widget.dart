@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 
@@ -23,7 +24,7 @@ class MainInfoContainerWidget extends StatelessWidget {
             child: Icon(Icons.help_outline, color: Colors.white),
           ),
           SizedBox(height: 16),
-          Text(
+          CustomText(
             context.tr(LocaleKeys.mainPageWhereToFind),
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -33,7 +34,7 @@ class MainInfoContainerWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: 8),
-          Text(
+          CustomText(
             context.tr(LocaleKeys.mainPageShowed),
             textAlign: TextAlign.center,
           ),

@@ -1,16 +1,16 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manas_suu_app/app/components/app_bouncing_animation_wrapper.dart';
 import 'package:manas_suu_app/app/components/app_slide_animations_wirapper.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/app/extensions/datetime_extension.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/core/auto_router/app_router.gr.dart';
+import 'package:manas_suu_app/feature/finik/presentation/finik_sdk.dart';
 import 'package:manas_suu_app/feature/history/presentation/bloc/history_bloc.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
 import 'package:manas_suu_app/feature/main/presentation/bloc/main_cubit.dart';
@@ -79,7 +79,7 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          title: Text(
+          title: CustomText(
             context.tr(LocaleKeys.mainPageTitle),
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
           ),
@@ -99,7 +99,6 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
               children: [
                 BlocBuilder<MainCubit, MainState>(
                   builder: (context, state) {
-                    log('data-unique: state: $state ');
                     if (state.selectedAccount != null) {
                       context.read<NotificationsBloc>().add(LoadNotificationsEvent(id: state.selectedAccount?.id ?? 0));
                     }
@@ -180,7 +179,7 @@ class _IsAddedAccountState extends StatelessWidget {
         children: [
           const SizedBox(height: 20),
           // Секция "Счета" с количеством
-          Text(
+          CustomText(
             context.tr(LocaleKeys.accountsSection),
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: textColor),
           ),
@@ -222,7 +221,7 @@ class _IsAddedAccountState extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // К оплате
-                GestureDetector(
+                InkWell(
                   onTap: () => context.read<MainCubit>().getAccountDetail(state.selectedAccount?.id),
                   child: Row(
                     children: [
@@ -242,12 +241,12 @@ class _IsAddedAccountState extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      Text(
+                      CustomText(
                         context.tr(LocaleKeys.toPay),
                         style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15, color: textColor),
                       ),
                       const Spacer(),
-                      Text(
+                      CustomText(
                         '${state.selectedAccount?.balance.toString() ?? 0} сом',
                         style: TextStyle(
                           fontSize: 17,
@@ -317,9 +316,9 @@ class _IsAddedAccountState extends StatelessWidget {
                   children: [
                     Icon(Icons.access_time, size: 14, color: AppColors.textPrimary),
                     const SizedBox(width: 6),
-                    Text(context.tr(LocaleKeys.updateDate), style: TextStyle(fontSize: 12, color: subTextColor)),
+                    CustomText(context.tr(LocaleKeys.updateDate), style: TextStyle(fontSize: 12, color: subTextColor)),
                     const Spacer(),
-                    Text(
+                    CustomText(
                       DateTime.now().formattedLastUpdate,
                       style: const TextStyle(fontSize: 12, color: AppColors.textPrimary, fontWeight: FontWeight.w500),
                     ),
@@ -334,7 +333,14 @@ class _IsAddedAccountState extends StatelessWidget {
 
           const SizedBox(height: 20),
           PaymentActionsWidget(
-            onPay: () {},
+            onPay: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FinikScreen(extra: FinikExtra(amount: state.selectedAccount?.balance ?? 0)),
+                ),
+              );
+            },
             onPrintInvoice: () {
               final accountId = context.read<MainCubit>().state.selectedAccount?.id;
               if (accountId == null) return;
@@ -416,6 +422,14 @@ class _ActiveAccountCard extends StatelessWidget {
                   onTap: () => showAccountActionsBottomSheet(
                     context,
                     account: account,
+                    onDetails: () {
+                      context.read<MainCubit>().getAccountDetail(context.read<MainCubit>().state.selectedAccount?.id);
+                    },
+                    onHistory: () {
+                      context.read<HistoryBloc>().add(
+                        LoadHistoryEvent(personalAccount: context.read<MainCubit>().state.selectedAccount!.id),
+                      );
+                    },
                     onDelete: () => context.read<MainCubit>().deleteAccount(account.id),
                   ),
                   borderRadius: BorderRadius.circular(12),
@@ -441,7 +455,7 @@ class _ActiveAccountCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                CustomText(
                   account.personalAccount,
                   style: TextStyle(
                     fontSize: 22,
@@ -450,7 +464,7 @@ class _ActiveAccountCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
+                CustomText(
                   account.fullName,
                   style: TextStyle(
                     fontSize: 15,
@@ -459,7 +473,7 @@ class _ActiveAccountCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 6),
-                Text(
+                CustomText(
                   account.address,
                   style: TextStyle(
                     fontSize: 12,
@@ -485,7 +499,7 @@ class _AddAccountCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () => context.router.push(MainAddUserAccountRoute(isAddedAccount: isAddedAccount)),
       child: Container(
         width: 120,
@@ -499,7 +513,7 @@ class _AddAccountCard extends StatelessWidget {
           children: [
             Icon(Icons.add, size: 40, color: AppColors.textPrimary),
             const SizedBox(height: 8),
-            Text(
+            CustomText(
               context.tr(LocaleKeys.addButton),
               style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
             ),
@@ -533,10 +547,10 @@ class _DetailRow extends StatelessWidget {
       children: [
         Icon(icon, size: 16, color: subTextColor),
         const SizedBox(width: 8),
-        Text(label, style: TextStyle(color: subTextColor, fontSize: 13)),
+        CustomText(label, style: TextStyle(color: subTextColor, fontSize: 13)),
         const SizedBox(width: 4),
         Expanded(
-          child: Text(
+          child: CustomText(
             value,
             style: TextStyle(color: textColor, fontSize: 13, fontWeight: FontWeight.w500),
             overflow: TextOverflow.ellipsis,
@@ -556,7 +570,7 @@ class _DetailRow extends StatelessWidget {
               children: [
                 const Icon(Icons.home_outlined, size: 12, color: AppColors.textPrimary),
                 const SizedBox(width: 3),
-                Text(
+                CustomText(
                   accountType == AccountType.RESIDENTIAL ? 'Быт' : 'Ком',
                   style: const TextStyle(fontSize: 11, color: AppColors.textPrimary, fontWeight: FontWeight.w500),
                 ),
@@ -592,7 +606,7 @@ class _PillInfo extends StatelessWidget {
       children: [
         Icon(icon, size: 14, color: valueColor),
         const SizedBox(width: 4),
-        Text.rich(
+        CustomText.rich(
           TextSpan(
             text: '$label ',
             style: TextStyle(fontSize: 12, color: subColor),

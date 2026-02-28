@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 
@@ -24,7 +25,7 @@ class SettingsSelectItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final isSelected = value == groupValue;
 
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
       child: Container(
         height: 60,
@@ -37,7 +38,7 @@ class SettingsSelectItemWidget extends StatelessWidget {
         child: Row(
           children: [
             if (stringIcon != null && icon == null)
-              Padding(padding: const EdgeInsets.only(right: 8.0), child: Text(stringIcon!)),
+              Padding(padding: const EdgeInsets.only(right: 8.0), child: CustomText(stringIcon!)),
             if (stringIcon == null && icon != null)
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
@@ -45,7 +46,7 @@ class SettingsSelectItemWidget extends StatelessWidget {
               ),
 
             Expanded(
-              child: Text(
+              child: CustomText(
                 title,
                 style: TextStyle(color: isSelected ? AppColors.mainColor : context.theme.textWhiteBlackColor),
               ),

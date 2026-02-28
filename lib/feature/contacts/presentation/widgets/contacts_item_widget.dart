@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manas_suu_app/app/components/app_text_scaler.dart';
 import 'package:manas_suu_app/app/extensions/context_extensions.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
@@ -59,12 +60,12 @@ class ContactItemWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                CustomText(
                   title,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: context.theme.textWhiteBlackColor),
                 ),
                 const SizedBox(height: 6),
-                Text(subtitle, style: TextStyle(color: context.theme.textWhiteBlackColor)),
+                CustomText(subtitle, style: TextStyle(color: context.theme.textWhiteBlackColor)),
               ],
             ),
           ),
