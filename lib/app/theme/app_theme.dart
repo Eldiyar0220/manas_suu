@@ -31,6 +31,8 @@ abstract class AppThemes {
     scaffoldBackgroundColor: AppColors.backgroundBlack,
     appBarTheme: AppBarTheme(
       centerTitle: true,
+      foregroundColor: AppColors.backgroundBlack,
+      surfaceTintColor: AppColors.backgroundBlack,
       titleTextStyle: TextStyle(color: AppColors.backgroundWhite),
       iconTheme: const IconThemeData(color: Colors.white),
       backgroundColor: AppColors.backgroundBlack,
@@ -67,6 +69,8 @@ abstract class AppThemes {
     scaffoldBackgroundColor: AppColors.backgroundWhite,
     appBarTheme: AppBarTheme(
       centerTitle: true,
+      foregroundColor: AppColors.backgroundWhite,
+      surfaceTintColor: AppColors.backgroundWhite,
       titleTextStyle: TextStyle(color: AppColors.backgroundBlack),
       iconTheme: const IconThemeData(color: Colors.black),
       backgroundColor: AppColors.backgroundWhite,
@@ -103,10 +107,7 @@ abstract class AppThemes {
         textSecondaryWhiteBlackColor: Colors.black54,
         iconSecondaryWhiteBlackColor: Colors.black45,
         historyIconContainerBackground: const Color(0xFFE8F5E9),
-        userAccountBackground: [
-          const Color.fromARGB(255, 231, 233, 232),
-          const Color.fromARGB(255, 236, 238, 237),
-        ],
+        userAccountBackground: [const Color.fromARGB(255, 231, 233, 232), const Color.fromARGB(255, 236, 238, 237)],
         dayAndNight: Colors.white,
         nightAndDay: Colors.black,
         containerIconColor: Color(0xfffafafa),
@@ -154,16 +155,11 @@ class MyColors extends ThemeExtension<MyColors> {
   }) {
     return MyColors(
       textWhiteBlackColor: textWhiteBlackColor ?? this.textWhiteBlackColor,
-      cardBackgroundWhiteBlackColor:
-          cardBackgroundWhiteBlackColor ?? this.cardBackgroundWhiteBlackColor,
-      historyBackgroundColor:
-          historyBackgroundColor ?? this.historyBackgroundColor,
-      textSecondaryWhiteBlackColor:
-          textSecondaryWhiteBlackColor ?? this.textSecondaryWhiteBlackColor,
-      iconSecondaryWhiteBlackColor:
-          iconSecondaryWhiteBlackColor ?? this.iconSecondaryWhiteBlackColor,
-      historyIconContainerBackground:
-          historyIconContainerBackground ?? this.historyIconContainerBackground,
+      cardBackgroundWhiteBlackColor: cardBackgroundWhiteBlackColor ?? this.cardBackgroundWhiteBlackColor,
+      historyBackgroundColor: historyBackgroundColor ?? this.historyBackgroundColor,
+      textSecondaryWhiteBlackColor: textSecondaryWhiteBlackColor ?? this.textSecondaryWhiteBlackColor,
+      iconSecondaryWhiteBlackColor: iconSecondaryWhiteBlackColor ?? this.iconSecondaryWhiteBlackColor,
+      historyIconContainerBackground: historyIconContainerBackground ?? this.historyIconContainerBackground,
       userAccountBackground: userAccountBackground ?? userAccountBackground,
       dayAndNight: dayAndNight ?? dayAndNight,
       nightAndDay: nightAndDay ?? nightAndDay,
@@ -177,31 +173,11 @@ class MyColors extends ThemeExtension<MyColors> {
       return this;
     }
     return MyColors(
-      textWhiteBlackColor: Color.lerp(
-        textWhiteBlackColor,
-        other.textWhiteBlackColor,
-        t,
-      ),
-      cardBackgroundWhiteBlackColor: Color.lerp(
-        cardBackgroundWhiteBlackColor,
-        other.cardBackgroundWhiteBlackColor,
-        t,
-      ),
-      historyBackgroundColor: Color.lerp(
-        historyBackgroundColor,
-        other.historyBackgroundColor,
-        t,
-      ),
-      textSecondaryWhiteBlackColor: Color.lerp(
-        textSecondaryWhiteBlackColor,
-        other.textSecondaryWhiteBlackColor,
-        t,
-      ),
-      iconSecondaryWhiteBlackColor: Color.lerp(
-        iconSecondaryWhiteBlackColor,
-        other.iconSecondaryWhiteBlackColor,
-        t,
-      ),
+      textWhiteBlackColor: Color.lerp(textWhiteBlackColor, other.textWhiteBlackColor, t),
+      cardBackgroundWhiteBlackColor: Color.lerp(cardBackgroundWhiteBlackColor, other.cardBackgroundWhiteBlackColor, t),
+      historyBackgroundColor: Color.lerp(historyBackgroundColor, other.historyBackgroundColor, t),
+      textSecondaryWhiteBlackColor: Color.lerp(textSecondaryWhiteBlackColor, other.textSecondaryWhiteBlackColor, t),
+      iconSecondaryWhiteBlackColor: Color.lerp(iconSecondaryWhiteBlackColor, other.iconSecondaryWhiteBlackColor, t),
       historyIconContainerBackground: Color.lerp(
         historyIconContainerBackground,
         other.historyIconContainerBackground,

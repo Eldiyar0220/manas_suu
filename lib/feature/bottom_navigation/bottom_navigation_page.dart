@@ -23,8 +23,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
         ContactsRoute(),
         SettingsRoute(),
       ],
-      bottomNavigationBuilder: (_, tabsRouter) =>
-          BottomNavigatorItem(tabsRouter: tabsRouter, initialIndex: 0),
+      bottomNavigationBuilder: (_, tabsRouter) => BottomNavigatorItem(tabsRouter: tabsRouter),
     );
   }
 }

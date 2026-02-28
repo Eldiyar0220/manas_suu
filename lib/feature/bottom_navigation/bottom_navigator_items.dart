@@ -6,27 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 
-class BottomNavigatorItem extends StatefulWidget {
+class BottomNavigatorItem extends StatelessWidget {
   const BottomNavigatorItem({
     super.key,
     required this.tabsRouter,
-    required this.initialIndex,
   });
   final TabsRouter tabsRouter;
-  final int initialIndex;
-
-  @override
-  State<BottomNavigatorItem> createState() => _BottomNavigatorItemState();
-}
-
-class _BottomNavigatorItemState extends State<BottomNavigatorItem> {
-  int? _initialIndex;
-
-  @override
-  void initState() {
-    super.initState();
-    _initialIndex = widget.initialIndex;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +21,11 @@ class _BottomNavigatorItemState extends State<BottomNavigatorItem> {
         highlightColor: Colors.transparent,
       ),
       child: BottomNavigationBar(
-        currentIndex: _initialIndex ?? widget.tabsRouter.activeIndex,
+        currentIndex: tabsRouter.activeIndex,
         selectedItemColor: AppColors.bottomNavigationColor,
         unselectedItemColor: AppColors.grey,
         type: BottomNavigationBarType.fixed,
-        onTap: (index) => widget.tabsRouter.setActiveIndex(index),
+        onTap: (index) => tabsRouter.setActiveIndex(index),
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

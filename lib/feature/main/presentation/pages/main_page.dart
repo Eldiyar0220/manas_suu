@@ -101,9 +101,7 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
                 BlocBuilder<MainCubit, MainState>(
                   builder: (context, state) {
                     if (state.selectedAccount != null) {
-                      context.read<NotificationsBloc>().add(
-                        LoadNotificationsEvent(),
-                      );
+                      context.read<NotificationsBloc>().add(LoadNotificationsEvent());
                     }
                     if (state.status == MainStateStatus.INITIAL) {
                       return _NoAccountState(header: header, button: button, info: info);
@@ -116,10 +114,7 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
                       );
                     }
 
-                    return _EnsureChartLoaded(
-                      state: state,
-                      child: _IsAddedAccountState(state),
-                    );
+                    return _EnsureChartLoaded(state: state, child: _IsAddedAccountState(state));
                   },
                 ),
               ],
@@ -186,9 +181,7 @@ class _EnsureChartLoadedState extends State<_EnsureChartLoaded> {
   void _maybeLoadChart() {
     final state = widget.state;
     final id = state.selectedAccount?.id;
-    if (id == null ||
-        state.accountChartData != null ||
-        _requestedAccountId == id) {
+    if (id == null || state.accountChartData != null || _requestedAccountId == id) {
       return;
     }
     _requestedAccountId = id;
@@ -380,29 +373,22 @@ class _IsAddedAccountState extends StatelessWidget {
               ],
             ),
           ),
-            const SizedBox(height: 28),
-            AnimatedSwitcher(
-              duration: Duration(milliseconds: 300),
-              child: state.accountChartData != null
-                  ? MainChartWidget(
-                      accountChartData: state.accountChartData!,
-                      initialMonths: state.chartMonths,
-                      onPeriodChanged: (months) {
-                        final id = context
-                            .read<MainCubit>()
-                            .state
-                            .selectedAccount
-                            ?.id;
-                        if (id != null) {
-                          context.read<MainCubit>().getAccountChart(
-                            id,
-                            months: months,
-                          );
-                        }
-                      },
-                    )
-                  : const SizedBox.shrink(),
-            ),
+          const SizedBox(height: 28),
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 300),
+            child: state.accountChartData != null
+                ? MainChartWidget(
+                    accountChartData: state.accountChartData!,
+                    initialMonths: state.chartMonths,
+                    onPeriodChanged: (months) {
+                      final id = context.read<MainCubit>().state.selectedAccount?.id;
+                      if (id != null) {
+                        context.read<MainCubit>().getAccountChart(id, months: months);
+                      }
+                    },
+                  )
+                : const SizedBox.shrink(),
+          ),
 
           const SizedBox(height: 20),
           PaymentActionsWidget(
@@ -475,17 +461,6 @@ class _ActiveAccountCard extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            if (isSelectedCard)
-              Positioned(
-                top: 0,
-                left: 0,
-                child: Container(
-                  width: 24,
-                  height: 24,
-                  decoration: BoxDecoration(color: Colors.green, shape: BoxShape.circle),
-                  child: const Icon(Icons.check, size: 14, color: Colors.white),
-                ),
-              ),
             Positioned(
               top: -2,
               right: -2,
