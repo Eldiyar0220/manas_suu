@@ -1,8 +1,10 @@
 import 'package:injectable/injectable.dart';
 import 'package:manas_suu_app/app/components/app_error_flushbar.dart';
 import 'package:manas_suu_app/app/constants/preference_helper.dart';
+import 'package:manas_suu_app/feature/main/data/models/myaccount/account_detail_response_model.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
 import 'package:manas_suu_app/feature/main/domain/repository/main_repository.dart';
+import 'package:manas_suu_app/main.dart';
 
 @injectable
 class MainInteractor {
@@ -12,6 +14,7 @@ class MainInteractor {
 
   List<AccountItemModel> myAccounts = [];
   AccountItemModel? selectedAccount;
+  AccountDetailData? accountDetail;
 
   Future<void> postAuthLogin(String personalAccount) async {
     if (personalAccount.isEmpty) {
@@ -20,7 +23,15 @@ class MainInteractor {
     }
     final result = await _repository.postAuthLogin(personalAccount);
     final prefs = _preferenceHelper.preferences;
-    await prefs?.setString(PreferenceHelper.accessToken, result.data.refreshToken);
+    await prefs?.setString(
+      PreferenceHelper.accessToken,
+      result.data.refreshToken,
+    );
+    String fcmToken = '';
+    try {
+      fcmToken = await messaging.getToken() ?? '';
+      _repository.savePushTokenRepo(await messaging.getToken() ?? '');
+    } catch (_) {}
   }
 
   Future<void> getMyAccounts() async {
@@ -39,25 +50,39 @@ class MainInteractor {
 
   Future<void> selectAccount(String personalAccount) async {
     final prefs = _preferenceHelper.preferences;
-    final cachedPersonalAcc = _preferenceHelper.preferences?.getString(PreferenceHelper.personalAccount);
-    if ((cachedPersonalAcc == null || cachedPersonalAcc.isEmpty) && personalAccount.isEmpty && myAccounts.isNotEmpty) {
+    final cachedPersonalAcc = _preferenceHelper.preferences?.getString(
+      PreferenceHelper.personalAccount,
+    );
+    if ((cachedPersonalAcc == null || cachedPersonalAcc.isEmpty) &&
+        personalAccount.isEmpty &&
+        myAccounts.isNotEmpty) {
       selectedAccount = myAccounts.first;
-      await prefs?.setString(PreferenceHelper.personalAccount, selectedAccount!.personalAccount);
+      await prefs?.setString(
+        PreferenceHelper.personalAccount,
+        selectedAccount!.personalAccount,
+      );
       return;
     }
     if (cachedPersonalAcc != null &&
         cachedPersonalAcc.isNotEmpty &&
         personalAccount.isEmpty &&
         myAccounts.any((v) => v.personalAccount == cachedPersonalAcc)) {
-      selectedAccount = myAccounts.firstWhere((v) => v.personalAccount == cachedPersonalAcc);
+      selectedAccount = myAccounts.firstWhere(
+        (v) => v.personalAccount == cachedPersonalAcc,
+      );
       return;
     }
     if (myAccounts.any((v) => v.personalAccount == personalAccount)) {
-      selectedAccount = myAccounts.firstWhere((v) => v.personalAccount == personalAccount);
+      selectedAccount = myAccounts.firstWhere(
+        (v) => v.personalAccount == personalAccount,
+      );
       await prefs?.setString(PreferenceHelper.personalAccount, personalAccount);
     } else if (myAccounts.isNotEmpty && personalAccount.isEmpty) {
       selectedAccount = myAccounts.first;
-      await prefs?.setString(PreferenceHelper.personalAccount, selectedAccount!.personalAccount);
+      await prefs?.setString(
+        PreferenceHelper.personalAccount,
+        selectedAccount!.personalAccount,
+      );
     }
   }
 
@@ -69,5 +94,10 @@ class MainInteractor {
     await _repository.addAccount(personalAccount);
   }
 
-  Future<void> deleteAccount(int id) async => await _repository.deleteAccount(id);
+  Future<void> deleteAccount(int id) async =>
+      await _repository.deleteAccount(id);
+
+  Future<void> getAccountDetail(int accountId) async {
+    accountDetail = await _repository.getAccountDetail(accountId);
+  }
 }

@@ -56,9 +56,9 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
         month: event.month,
       );
       emit(HistoryCheckSuccessState(filePath));
-      EasyLoading.dismiss();
     } catch (e) {
       emit(HistoryErrorState(e.toString()));
+    } finally {
       EasyLoading.dismiss();
     }
   }

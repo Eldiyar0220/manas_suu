@@ -16,8 +16,10 @@ import 'package:manas_suu_app/core/injectable/injectable.dart';
 import 'package:manas_suu_app/core/notifications/local_notifications_service.dart';
 import 'package:manas_suu_app/feature/history/presentation/bloc/history_bloc.dart';
 import 'package:manas_suu_app/feature/main/presentation/bloc/main_cubit.dart';
+import 'package:manas_suu_app/feature/notifications/presentation/bloc/notifications_bloc.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
+final messaging = FirebaseMessaging.instance;
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -92,7 +94,6 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
 
   Future<void> _initializeFirebaseMessaging() async {
     try {
-      final messaging = FirebaseMessaging.instance;
       await messaging.getInitialMessage();
 
       final settings = await messaging.requestPermission(
@@ -107,6 +108,8 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
       log('FCM Token: $token');
 
       FirebaseMessaging.onMessage.listen((message) {
+        log('data-unique: message: $message ');
+
         ///TODO soon add  message.notification == null
         // if (message.notification == null) {
         widget.localNotifications.showNotificationFromRemoteMessage(message);
@@ -115,6 +118,7 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
 
       FirebaseMessaging.onMessageOpenedApp.listen((message) {
         //deeplinke kerek
+        log('data-unique: 1 ');
       });
     } catch (e, st) {
       log('$st');
@@ -128,6 +132,7 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
         BlocProvider(create: (context) => GetIt.I<ThemeCubit>()..init()),
         BlocProvider(create: (context) => GetIt.I<HistoryBloc>()),
         BlocProvider(create: (context) => GetIt.I<MainCubit>()),
+        BlocProvider(create: (context) => GetIt.I<NotificationsBloc>()),
       ],
       child: Builder(
         builder: (context) => MaterialApp.router(

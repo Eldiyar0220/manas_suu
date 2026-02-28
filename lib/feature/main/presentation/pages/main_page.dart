@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ import 'package:manas_suu_app/feature/main/presentation/widgets/main_button_widg
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_header_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_info_contaiiner_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/payment_actions_widget.dart';
+import 'package:manas_suu_app/feature/notifications/presentation/bloc/notifications_bloc.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
 @RoutePage()
@@ -70,52 +73,68 @@ class _MainPageState extends State<MainPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          context.tr(LocaleKeys.mainPageTitle),
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications_none),
-            onPressed: () => context.router.push(const NotificationsRoute()),
+    return BlocListener<MainCubit, MainState>(
+      listener: (context, state) {
+        if (state.status == MainStateStatus.ACCOUNTDETAILSUCCESS &&
+            state.accountDetail != null) {
+          context.router.push(AccountDetailRoute(detail: state.accountDetail!));
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          centerTitle: true,
+          title: Text(
+            context.tr(LocaleKeys.mainPageTitle),
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
           ),
-        ],
-      ),
-      body: RefreshIndicator.adaptive(
-        onRefresh: () async => _getMyAccounts(),
-        color: AppColors.mainColor,
-        child: SafeArea(
-          child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            children: [
-              BlocBuilder<MainCubit, MainState>(
-                builder: (context, state) {
-                  if (state.status == MainStateStatus.INITIAL) {
-                    return _NoAccountState(
-                      header: header,
-                      button: button,
-                      info: info,
-                    );
-                  }
-                  if (state.status == MainStateStatus.LOADING &&
-                      state.myAccounts.isEmpty) {
-                    return SizedBox(
-                      height: MediaQuery.sizeOf(context).height / 1.3,
-                      width: MediaQuery.sizeOf(context).width,
-                      child: Center(
-                        child: CircularProgressIndicator.adaptive(),
-                      ),
-                    );
-                  }
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.notifications_none),
+              onPressed: () => context.router.push(const NotificationsRoute()),
+            ),
+          ],
+        ),
+        body: RefreshIndicator.adaptive(
+          onRefresh: () async => _getMyAccounts(),
+          color: AppColors.mainColor,
+          child: SafeArea(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              children: [
+                BlocBuilder<MainCubit, MainState>(
+                  builder: (context, state) {
+                    log('data-unique: state: $state ');
+                    if (state.selectedAccount != null) {
+                      context.read<NotificationsBloc>().add(
+                        LoadNotificationsEvent(
+                          id: state.selectedAccount?.id ?? 0,
+                        ),
+                      );
+                    }
+                    if (state.status == MainStateStatus.INITIAL) {
+                      return _NoAccountState(
+                        header: header,
+                        button: button,
+                        info: info,
+                      );
+                    }
+                    if (state.status == MainStateStatus.LOADING &&
+                        state.myAccounts.isEmpty) {
+                      return SizedBox(
+                        height: MediaQuery.sizeOf(context).height / 1.3,
+                        width: MediaQuery.sizeOf(context).width,
+                        child: Center(
+                          child: CircularProgressIndicator.adaptive(),
+                        ),
+                      );
+                    }
 
-                  return _IsAddedAccountState(state);
-                },
-              ),
-            ],
+                    return _IsAddedAccountState(state);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -174,210 +193,248 @@ class _IsAddedAccountState extends StatelessWidget {
         if (state is HistorySuccessState) {
           context.router.push(MainHistoryRoute(model: state.model));
         }
+        if (state is HistoryCheckSuccessState && state.filePath.isNotEmpty) {
+          context.router.push(AppPdfviewerRoute(filePath: state.filePath));
+        }
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 20),
-          // Секция "Счета" с количеством
-          Text(
-            context.tr(LocaleKeys.accountsSection),
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: textColor,
+      child: BlocListener<MainCubit, MainState>(
+        listener: (context, state) {
+          if (state.status == MainStateStatus.ACCOUNTDETAILSUCCESS &&
+              state.accountDetail != null) {
+            log('data-unique: state.accountDetail: ${state.accountDetail} ');
+            context.router.push(
+              AccountDetailRoute(detail: state.accountDetail!),
+            );
+          }
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            // Секция "Счета" с количеством
+            Text(
+              context.tr(LocaleKeys.accountsSection),
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: textColor,
+              ),
             ),
-          ),
-          const SizedBox(height: 16),
-          // Горизонтальный скролл карточек: активный счёт + добавить
-          SizedBox(
-            height: 140,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                ...List.generate(
-                  state.myAccounts.length,
-                  (index) => _ActiveAccountCard(
-                    account: state.myAccounts[index],
-                    isSelectedCard:
-                        state.myAccounts[index].id == state.selectedAccount?.id,
+            const SizedBox(height: 16),
+            // Горизонтальный скролл карточек: активный счёт + добавить
+            SizedBox(
+              height: 140,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  ...List.generate(
+                    state.myAccounts.length,
+                    (index) => _ActiveAccountCard(
+                      account: state.myAccounts[index],
+                      isSelectedCard:
+                          state.myAccounts[index].id ==
+                          state.selectedAccount?.id,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                _AddAccountCard(
-                  backgroundColor: addCardBg,
-                  isAddedAccount: true,
-                ),
-              ],
+                  const SizedBox(width: 12),
+                  _AddAccountCard(
+                    backgroundColor: addCardBg,
+                    isAddedAccount: true,
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 24),
-          // Блок оплаты и деталей
-          Container(
-            padding: const EdgeInsets.all(18),
-            decoration: BoxDecoration(
-              color: isDark ? const Color(0xFF1C1C1E) : Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: isDark
-                      ? Colors.black38
-                      : Colors.black.withValues(alpha: 0.06),
-                  blurRadius: 12,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // К оплате
-                Row(
-                  children: [
-                    Container(
-                      width: 36,
-                      height: 36,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: (state.selectedAccount?.balance ?? 0) > 0
-                            ? Colors.red.withValues(alpha: 0.12)
-                            : AppColors.mainColor.withValues(alpha: 0.12),
-                      ),
-                      child: Icon(
-                        Icons.arrow_downward,
-                        color: (state.selectedAccount?.balance ?? 0) > 0
-                            ? Colors.red
-                            : AppColors.mainColor,
-                        size: 20,
-                      ),
+            const SizedBox(height: 24),
+            // Блок оплаты и деталей
+            Container(
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                color: isDark ? const Color(0xFF1C1C1E) : Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: isDark
+                        ? Colors.black38
+                        : Colors.black.withValues(alpha: 0.06),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // К оплате
+                  GestureDetector(
+                    onTap: () => context.read<MainCubit>().getAccountDetail(
+                      state.selectedAccount?.id,
                     ),
-                    const SizedBox(width: 12),
-                    Text(
-                      context.tr(LocaleKeys.toPay),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15,
-                        color: textColor,
-                      ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 36,
+                          height: 36,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: (state.selectedAccount?.balance ?? 0) > 0
+                                ? Colors.red.withValues(alpha: 0.12)
+                                : AppColors.mainColor.withValues(alpha: 0.12),
+                          ),
+                          child: Icon(
+                            Icons.arrow_downward,
+                            color: (state.selectedAccount?.balance ?? 0) > 0
+                                ? Colors.red
+                                : AppColors.mainColor,
+                            size: 20,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          context.tr(LocaleKeys.toPay),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                            color: textColor,
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          '${state.selectedAccount?.balance.toString() ?? 0} сом',
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w700,
+                            color: (state.selectedAccount?.balance ?? 0) > 0
+                                ? Colors.red
+                                : AppColors.mainColor,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Icon(
+                          Icons.chevron_right,
+                          color: subTextColor,
+                          size: 18,
+                        ),
+                      ],
                     ),
-                    const Spacer(),
-                    Text(
-                      '${state.selectedAccount?.balance.toString() ?? 0} сом',
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                        color: (state.selectedAccount?.balance ?? 0) > 0
-                            ? Colors.red
-                            : AppColors.mainColor,
-                      ),
-                    ),
-                    const SizedBox(width: 6),
-                    Icon(Icons.chevron_right, color: subTextColor, size: 18),
-                  ],
-                ),
-                Divider(height: 24, color: dividerColor),
-                // ЛС
-                _DetailRow(
-                  icon: Icons.credit_card,
-                  label: '${context.tr(LocaleKeys.accountLabel)}:',
-                  value: state.selectedAccount?.personalAccount ?? '',
+                  ),
+                  Divider(height: 24, color: dividerColor),
+                  // ЛС
+                  _DetailRow(
+                    icon: Icons.credit_card,
+                    label: '${context.tr(LocaleKeys.accountLabel)}:',
+                    value: state.selectedAccount?.personalAccount ?? '',
 
-                  accountType: state.selectedAccount?.accountType,
+                    accountType: state.selectedAccount?.accountType,
 
-                  textColor: textColor,
-                  subTextColor: subTextColor,
-                ),
-                const SizedBox(height: 10),
-                _DetailRow(
-                  icon: Icons.person_outline,
-                  label: '${context.tr(LocaleKeys.fullNameLabel)}:',
-                  value: state.selectedAccount?.fullName ?? '',
-                  textColor: textColor,
-                  subTextColor: subTextColor,
-                ),
-                const SizedBox(height: 10),
-                _DetailRow(
-                  icon: Icons.location_on_outlined,
-                  label: '${context.tr(LocaleKeys.addressLabel)}:',
-                  value: state.selectedAccount?.address ?? '',
-                  textColor: textColor,
-                  subTextColor: subTextColor,
-                ),
-                Divider(height: 20, color: dividerColor),
-                Row(
-                  children: [
-                    Expanded(
-                      child: _PillInfo(
-                        icon: Icons.people_outline,
-                        label: context.tr(LocaleKeys.registered),
-                        value: (state.selectedAccount?.registeredCount ?? 0)
-                            .toString(),
-                        valueColor: AppColors.textPrimary,
-                        isDark: isDark,
+                    textColor: textColor,
+                    subTextColor: subTextColor,
+                  ),
+                  const SizedBox(height: 10),
+                  _DetailRow(
+                    icon: Icons.person_outline,
+                    label: '${context.tr(LocaleKeys.fullNameLabel)}:',
+                    value: state.selectedAccount?.fullName ?? '',
+                    textColor: textColor,
+                    subTextColor: subTextColor,
+                  ),
+                  const SizedBox(height: 10),
+                  _DetailRow(
+                    icon: Icons.location_on_outlined,
+                    label: '${context.tr(LocaleKeys.addressLabel)}:',
+                    value: state.selectedAccount?.address ?? '',
+                    textColor: textColor,
+                    subTextColor: subTextColor,
+                  ),
+                  Divider(height: 20, color: dividerColor),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _PillInfo(
+                          icon: Icons.people_outline,
+                          label: context.tr(LocaleKeys.registered),
+                          value: (state.selectedAccount?.registeredCount ?? 0)
+                              .toString(),
+                          valueColor: AppColors.textPrimary,
+                          isDark: isDark,
+                        ),
                       ),
-                    ),
-                    Container(width: 1, height: 30, color: dividerColor),
-                    Expanded(
-                      child: _PillInfo(
-                        icon: Icons.people,
-                        label: context.tr(LocaleKeys.residing),
-                        value: (state.selectedAccount?.residingCount ?? 0)
-                            .toString(),
-                        valueColor: Colors.blue,
-                        isDark: isDark,
+                      Container(width: 1, height: 30, color: dividerColor),
+                      Expanded(
+                        child: _PillInfo(
+                          icon: Icons.people,
+                          label: context.tr(LocaleKeys.residing),
+                          value: (state.selectedAccount?.residingCount ?? 0)
+                              .toString(),
+                          valueColor: Colors.blue,
+                          isDark: isDark,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Divider(height: 20, color: dividerColor),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.access_time,
-                      size: 14,
-                      color: AppColors.textPrimary,
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      context.tr(LocaleKeys.updateDate),
-                      style: TextStyle(fontSize: 12, color: subTextColor),
-                    ),
-                    const Spacer(),
-                    Text(
-                      DateTime.now().formattedLastUpdate,
-                      style: const TextStyle(
-                        fontSize: 12,
+                    ],
+                  ),
+                  Divider(height: 20, color: dividerColor),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.access_time,
+                        size: 14,
                         color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w500,
                       ),
-                    ),
-                    const SizedBox(width: 4),
-                    const Icon(
-                      Icons.check_circle,
-                      size: 14,
-                      color: AppColors.textPrimary,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-              ],
+                      const SizedBox(width: 6),
+                      Text(
+                        context.tr(LocaleKeys.updateDate),
+                        style: TextStyle(fontSize: 12, color: subTextColor),
+                      ),
+                      const Spacer(),
+                      Text(
+                        DateTime.now().formattedLastUpdate,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: AppColors.textPrimary,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      const Icon(
+                        Icons.check_circle,
+                        size: 14,
+                        color: AppColors.textPrimary,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                ],
+              ),
             ),
-          ),
 
-          const SizedBox(height: 20),
-          PaymentActionsWidget(
-            onPay: () {},
-            onPrintInvoice: () {},
-            onHistory: () {
-              context.read<HistoryBloc>().add(
-                LoadHistoryEvent(
-                  personalAccount: state.selectedAccount?.id ?? 0,
-                ),
-              );
-            },
-          ),
-          const SizedBox(height: 24),
-        ],
+            const SizedBox(height: 20),
+            PaymentActionsWidget(
+              onPay: () {},
+              onPrintInvoice: () {
+                final accountId = context
+                    .read<MainCubit>()
+                    .state
+                    .selectedAccount
+                    ?.id;
+                if (accountId == null) return;
+                context.read<HistoryBloc>().add(
+                  GetHistoryCheckEvent(
+                    accountId: accountId,
+                    year: DateTime.now().year,
+                    month: DateTime.now().month,
+                  ),
+                );
+              },
+              onHistory: () {
+                context.read<HistoryBloc>().add(
+                  LoadHistoryEvent(
+                    personalAccount: state.selectedAccount?.id ?? 0,
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 24),
+          ],
+        ),
       ),
     );
   }

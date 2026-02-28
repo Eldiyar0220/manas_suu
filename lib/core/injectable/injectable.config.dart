@@ -31,6 +31,14 @@ import '../../feature/main/data/repository/main_repository_impl.dart' as _i268;
 import '../../feature/main/domain/interactor/main_interactor.dart' as _i332;
 import '../../feature/main/domain/repository/main_repository.dart' as _i234;
 import '../../feature/main/presentation/bloc/main_cubit.dart' as _i503;
+import '../../feature/notifications/data/repository/notifications_repository_impl.dart'
+    as _i459;
+import '../../feature/notifications/domain/interactor/notifications_interactor.dart'
+    as _i704;
+import '../../feature/notifications/domain/repository/notifications_repository.dart'
+    as _i138;
+import '../../feature/notifications/presentation/bloc/notifications_bloc.dart'
+    as _i143;
 import '../../feature/settings/data/repository/settings_repository_impl.dart'
     as _i993;
 import '../../feature/settings/domain/interactor/settings_interactor.dart'
@@ -117,11 +125,17 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i361.Dio>(
     () => registerModule.dio(gh<String>(instanceName: 'BaseUrl')),
   );
+  gh.singleton<_i138.NotificationsRepository>(
+    () => _i459.NotificationsRepositoryImpl(gh<_i361.Dio>()),
+  );
   gh.factory<_i234.MainRepository>(
     () => _i268.MainRepositoryImpl(gh<_i361.Dio>()),
   );
   gh.singleton<_i384.ContactsRepository>(
     () => _i773.ContactsRepositoryImpl(gh<_i361.Dio>()),
+  );
+  gh.singleton<_i704.NotificationsInteractor>(
+    () => _i704.NotificationsInteractor(gh<_i138.NotificationsRepository>()),
   );
   gh.singleton<_i103.SettingsRepository>(
     () => _i993.SettingsRepositoryImpl(gh<_i361.Dio>()),
@@ -134,6 +148,9 @@ _i174.GetIt $initGetIt(
   );
   gh.singleton<_i985.HistoryInteractor>(
     () => _i985.HistoryInteractor(gh<_i700.HistoryRepository>()),
+  );
+  gh.factory<_i143.NotificationsBloc>(
+    () => _i143.NotificationsBloc(gh<_i704.NotificationsInteractor>()),
   );
   gh.factory<_i332.MainInteractor>(
     () => _i332.MainInteractor(

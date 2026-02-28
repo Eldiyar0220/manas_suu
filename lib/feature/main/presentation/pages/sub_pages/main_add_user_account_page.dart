@@ -21,7 +21,8 @@ class MainAddUserAccountPage extends StatefulWidget {
   State<MainAddUserAccountPage> createState() => _MainAddUserAccountPageState();
 }
 
-class _MainAddUserAccountPageState extends State<MainAddUserAccountPage> with SingleTickerProviderStateMixin {
+class _MainAddUserAccountPageState extends State<MainAddUserAccountPage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   final controller = TextEditingController();
   late Animation<double> header;
@@ -33,7 +34,10 @@ class _MainAddUserAccountPageState extends State<MainAddUserAccountPage> with Si
   void initState() {
     super.initState();
 
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 1500));
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    );
 
     header = CurvedAnimation(
       parent: _animationController,
@@ -95,7 +99,9 @@ class _MainAddUserAccountPageState extends State<MainAddUserAccountPage> with Si
                         width: 44,
                         height: 44,
                         decoration: BoxDecoration(
-                          color: context.watch<ThemeCubit>().state.isDarkMode ? Colors.white10 : Colors.white,
+                          color: context.watch<ThemeCubit>().state.isDarkMode
+                              ? Colors.white10
+                              : Colors.white,
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
@@ -107,14 +113,19 @@ class _MainAddUserAccountPageState extends State<MainAddUserAccountPage> with Si
                       ),
                     ),
                   ),
-                  AppSlideAnimationWrapper(header, const UserAccountHeaderWidget()),
+                  AppSlideAnimationWrapper(
+                    header,
+                    const UserAccountHeaderWidget(),
+                  ),
                   const SizedBox(height: 16),
                   AppSlideAnimationWrapper(
                     textField,
                     AppTextFieldWidget(
                       controller: controller,
                       onQrTap: () async {
-                        final result = await context.router.push<String>(const ScannerRoute());
+                        final result = await context.router.push<String>(
+                          const ScannerRoute(),
+                        );
                         if (result != null && mounted) {
                           controller.text = result;
                         }
@@ -122,7 +133,13 @@ class _MainAddUserAccountPageState extends State<MainAddUserAccountPage> with Si
                     ),
                   ),
                   const SizedBox(height: 24),
-                  AppSlideAnimationWrapper(button, AppButtonGreenWidget(controller: controller, isAddedAccount: widget.isAddedAccount)),
+                  AppSlideAnimationWrapper(
+                    button,
+                    AppButtonGreenWidget(
+                      controller: controller,
+                      isAddedAccount: widget.isAddedAccount,
+                    ),
+                  ),
                   const SizedBox(height: 24),
                   AppSlideAnimationWrapper(info, const UserAccountInfoWidget()),
                   const Spacer(),

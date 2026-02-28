@@ -4,19 +4,33 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:manas_suu_app/app/constants/preference_helper.dart';
+import 'package:manas_suu_app/feature/main/data/models/myaccount/account_detail_response_model.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
 import 'package:manas_suu_app/feature/main/domain/interactor/main_interactor.dart';
 
-enum MainStateStatus { AUTHSUCCESS, MYACCOUNTSUCCESS, ERROR, LOADING, INITIAL }
+enum MainStateStatus {
+  AUTHSUCCESS,
+  MYACCOUNTSUCCESS,
+  ERROR,
+  LOADING,
+  INITIAL,
+  ACCOUNTDETAILSUCCESS,
+}
 
 @singleton
 class MainCubit extends Cubit<MainState> {
-  MainCubit(this._interactor) : super(MainState(status: MainStateStatus.LOADING));
+  MainCubit(this._interactor)
+    : super(MainState(status: MainStateStatus.LOADING));
 
   final MainInteractor _interactor;
 
   MainState _mainState(MainStateStatus status) {
-    return MainState(status: status, myAccounts: _interactor.myAccounts, selectedAccount: _interactor.selectedAccount);
+    return MainState(
+      status: status,
+      myAccounts: _interactor.myAccounts,
+      selectedAccount: _interactor.selectedAccount,
+      accountDetail: _interactor.accountDetail,
+    );
   }
 
   Future<void> postAuthLogin(String personalAccount) async {
@@ -33,7 +47,9 @@ class MainCubit extends Cubit<MainState> {
   }
 
   Future<void> getMyAccounts({bool isAddedAccount = false}) async {
-    final accessToken = GetIt.I<PreferenceHelper>().preferences?.getString(PreferenceHelper.accessToken);
+    final accessToken = GetIt.I<PreferenceHelper>().preferences?.getString(
+      PreferenceHelper.accessToken,
+    );
     if (accessToken != null) {
       emit(_mainState(MainStateStatus.LOADING));
 
@@ -86,14 +102,35 @@ class MainCubit extends Cubit<MainState> {
       emit(_mainState(MainStateStatus.ERROR));
     }
   }
+
+  Future<void> getAccountDetail(int? accountId) async {
+    if (accountId == null) return;
+    EasyLoading.show();
+    emit(_mainState(MainStateStatus.LOADING));
+    try {
+      await _interactor.getAccountDetail(accountId);
+      emit(_mainState(MainStateStatus.ACCOUNTDETAILSUCCESS));
+    } catch (e) {
+      emit(_mainState(MainStateStatus.ERROR));
+    } finally {
+      EasyLoading.dismiss();
+    }
+  }
 }
 
 class MainState extends Equatable {
   final MainStateStatus status;
   final List<AccountItemModel> myAccounts;
   final AccountItemModel? selectedAccount;
+  final AccountDetailData? accountDetail;
 
-  const MainState({this.status = MainStateStatus.INITIAL, this.myAccounts = const [], this.selectedAccount});
+  const MainState({
+    this.status = MainStateStatus.INITIAL,
+    this.myAccounts = const [],
+    this.selectedAccount,
+    this.accountDetail,
+  });
+
   @override
   List<Object?> get props => [status];
 }
