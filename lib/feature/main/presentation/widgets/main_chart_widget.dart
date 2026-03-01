@@ -25,46 +25,14 @@ class _MainChartWidgetState extends State<MainChartWidget> {
   int _selectedPeriod = 0;
 
   static const _periods = ['3 мес', '6 мес', '12 мес'];
+  static const _periodMonths = [3, 6, 12];
 
-  static const _chartData = [
-    [114.0, 114.0, 114.0],
-
-    [80.0, 95.0, 114.0, 100.0, 110.0, 114.0],
-
-    [
-      60.0,
-      70.0,
-      80.0,
-      95.0,
-      100.0,
-      110.0,
-      114.0,
-      108.0,
-      112.0,
-      114.0,
-      114.0,
-      114.0,
-    ],
-  ];
-
-  static const _chartLabels = [
-    ['Дек', 'Янв', 'Фев'],
-    ['Сен', 'Окт', 'Ноя', 'Дек', 'Янв', 'Фев'],
-    [
-      'Мар',
-      'Апр',
-      'Май',
-      'Июн',
-      'Июл',
-      'Авг',
-      'Сен',
-      'Окт',
-      'Ноя',
-      'Дек',
-      'Янв',
-      'Фев',
-    ],
-  ];
+  @override
+  void initState() {
+    super.initState();
+    final initialIndex = _periodMonths.indexOf(widget.initialMonths);
+    _selectedPeriod = initialIndex == -1 ? 0 : initialIndex;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +106,11 @@ class _MainChartWidgetState extends State<MainChartWidget> {
                   right: i < _periods.length - 1 ? 8 : 0,
                 ),
                 child: InkWell(
-                  onTap: () => setState(() => _selectedPeriod = i),
+                  onTap: () {
+                    if (_selectedPeriod == i) return;
+                    setState(() => _selectedPeriod = i);
+                    widget.onPeriodChanged?.call(_periodMonths[i]);
+                  },
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
                     padding: const EdgeInsets.symmetric(
@@ -171,8 +143,9 @@ class _MainChartWidgetState extends State<MainChartWidget> {
           SizedBox(
             height: 140,
             child: _SimpleLineChart(
-              data: _chartData[_selectedPeriod],
-              labels: _chartLabels[_selectedPeriod],
+              accruedData: widget.accountChartData.points.map((p) => p.accrued).toList(),
+              paidData: widget.accountChartData.points.map((p) => p.paid).toList(),
+              labels: widget.accountChartData.points.map((p) => p.label).toList(),
               isDark: isDark,
             ),
           ),
@@ -216,19 +189,26 @@ class _LegendItem extends StatelessWidget {
 
 class _SimpleLineChart extends StatelessWidget {
   const _SimpleLineChart({
-    required this.data,
+    required this.accruedData,
+    required this.paidData,
     required this.labels,
     required this.isDark,
   });
 
-  final List<double> data;
+  final List<double> accruedData;
+  final List<double> paidData;
   final List<String> labels;
   final bool isDark;
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: _LineChartPainter(data: data, labels: labels, isDark: isDark),
+      painter: _LineChartPainter(
+        accruedData: accruedData,
+        paidData: paidData,
+        labels: labels,
+        isDark: isDark,
+      ),
       child: const SizedBox.expand(),
     );
   }
@@ -236,22 +216,29 @@ class _SimpleLineChart extends StatelessWidget {
 
 class _LineChartPainter extends CustomPainter {
   _LineChartPainter({
-    required this.data,
+    required this.accruedData,
+    required this.paidData,
     required this.labels,
     required this.isDark,
   });
 
-  final List<double> data;
+  final List<double> accruedData;
+  final List<double> paidData;
   final List<String> labels;
   final bool isDark;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final double maxVal = data.reduce((a, b) => a > b ? a : b);
+    if (accruedData.isEmpty || paidData.isEmpty || labels.isEmpty) {
+      return;
+    }
+
+    final allValues = [...accruedData, ...paidData];
+    final double maxVal = allValues.reduce((a, b) => a > b ? a : b);
     final double minVal = 0;
     final double chartHeight = size.height - 24;
     final double chartWidth = size.width;
-    final int n = data.length;
+    final int n = labels.length;
 
     final gridPaint = Paint()
       ..color = (isDark ? Colors.white10 : Colors.grey.shade200)
@@ -270,65 +257,88 @@ class _LineChartPainter extends CustomPainter {
       tp.paint(canvas, Offset(0, y - 14));
     }
 
-    final fillPaint = Paint()
-      ..shader = LinearGradient(
-        colors: [
-          AppColors.mainColor.withValues(alpha: isDark ? 0.25 : 0.15),
-          AppColors.mainColor.withValues(alpha: 0.0),
-        ],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-      ).createShader(Rect.fromLTWH(0, 0, chartWidth, chartHeight))
-      ..style = PaintingStyle.fill;
-
-    final linePaint = Paint()
-      ..color = AppColors.mainColor
-      ..strokeWidth = 2.5
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round;
-
-    final dotPaint = Paint()
-      ..color = AppColors.mainColor
-      ..style = PaintingStyle.fill;
-
+    final accruedColor = Colors.blueAccent;
+    final paidColor = AppColors.mainColor;
     final dotBorderPaint = Paint()
       ..color = isDark ? const Color(0xFF1C1C1E) : Colors.white
       ..style = PaintingStyle.fill;
 
-    List<Offset> points = [];
-    for (int i = 0; i < n; i++) {
-      final x = n == 1 ? chartWidth / 2 : (i / (n - 1)) * chartWidth;
-      final normalized = maxVal == minVal
-          ? 0.5
-          : (data[i] - minVal) / (maxVal - minVal);
-      final y =
-          chartHeight - normalized * chartHeight * 0.85 - chartHeight * 0.05;
-      points.add(Offset(x, y));
+    List<Offset> buildPoints(List<double> series) {
+      final points = <Offset>[];
+      for (int i = 0; i < n; i++) {
+        final x = n == 1 ? chartWidth / 2 : (i / (n - 1)) * chartWidth;
+        final normalized = maxVal == minVal
+            ? 0.5
+            : (series[i] - minVal) / (maxVal - minVal);
+        final y = chartHeight - normalized * chartHeight * 0.85 - chartHeight * 0.05;
+        points.add(Offset(x, y));
+      }
+      return points;
     }
 
-    final areaPath = Path();
-    areaPath.moveTo(points.first.dx, chartHeight);
-    for (final p in points) {
-      areaPath.lineTo(p.dx, p.dy);
-    }
-    areaPath.lineTo(points.last.dx, chartHeight);
-    areaPath.close();
-    canvas.drawPath(areaPath, fillPaint);
+    void drawSeries(List<Offset> points, Color color, double fillOpacity) {
+      final fillPaint = Paint()
+        ..shader = LinearGradient(
+          colors: [
+            color.withValues(alpha: isDark ? fillOpacity : fillOpacity * 0.7),
+            color.withValues(alpha: 0.0),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ).createShader(Rect.fromLTWH(0, 0, chartWidth, chartHeight))
+        ..style = PaintingStyle.fill;
 
-    final linePath = Path();
-    linePath.moveTo(points.first.dx, points.first.dy);
-    for (int i = 1; i < points.length; i++) {
-      linePath.lineTo(points[i].dx, points[i].dy);
-    }
-    canvas.drawPath(linePath, linePaint);
+      final linePaint = Paint()
+        ..color = color
+        ..strokeWidth = 2.5
+        ..style = PaintingStyle.stroke
+        ..strokeCap = StrokeCap.round
+        ..strokeJoin = StrokeJoin.round;
 
-    for (int i = 0; i < n; i++) {
-      if (n <= 4 || i == 0 || i == n - 1 || i == n ~/ 2) {
-        canvas.drawCircle(points[i], 7, dotBorderPaint);
-        canvas.drawCircle(points[i], 5, dotPaint);
+      final dotPaint = Paint()
+        ..color = color
+        ..style = PaintingStyle.fill;
+
+      if (points.length == 1) {
+        final linePath = Path()
+          ..moveTo(0, points.first.dy)
+          ..lineTo(chartWidth, points.first.dy);
+        canvas.drawPath(linePath, linePaint);
+        canvas.drawCircle(points.first, 7, dotBorderPaint);
+        canvas.drawCircle(points.first, 5, dotPaint);
+        return;
       }
 
+      final areaPath = Path();
+      areaPath.moveTo(points.first.dx, chartHeight);
+      for (final p in points) {
+        areaPath.lineTo(p.dx, p.dy);
+      }
+      areaPath.lineTo(points.last.dx, chartHeight);
+      areaPath.close();
+      canvas.drawPath(areaPath, fillPaint);
+
+      final linePath = Path();
+      linePath.moveTo(points.first.dx, points.first.dy);
+      for (int i = 1; i < points.length; i++) {
+        linePath.lineTo(points[i].dx, points[i].dy);
+      }
+      canvas.drawPath(linePath, linePaint);
+
+      for (int i = 0; i < n; i++) {
+        if (n <= 4 || i == 0 || i == n - 1 || i == n ~/ 2) {
+          canvas.drawCircle(points[i], 7, dotBorderPaint);
+          canvas.drawCircle(points[i], 5, dotPaint);
+        }
+      }
+    }
+
+    final accruedPoints = buildPoints(accruedData);
+    final paidPoints = buildPoints(paidData);
+    drawSeries(accruedPoints, accruedColor, 0.22);
+    drawSeries(paidPoints, paidColor, 0.18);
+
+    for (int i = 0; i < n; i++) {
       if (n <= 6 || i == 0 || i == n - 1 || i % (n ~/ 3) == 0) {
         final ltp = _makeTextPainter(
           labels[i],
@@ -337,7 +347,7 @@ class _LineChartPainter extends CustomPainter {
         );
         ltp.paint(
           canvas,
-          Offset(points[i].dx - ltp.width / 2, chartHeight + 6),
+          Offset(accruedPoints[i].dx - ltp.width / 2, chartHeight + 6),
         );
       }
     }
@@ -357,5 +367,8 @@ class _LineChartPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _LineChartPainter old) =>
-      old.data != data || old.isDark != isDark;
+      old.accruedData != accruedData ||
+      old.paidData != paidData ||
+      old.labels != labels ||
+      old.isDark != isDark;
 }

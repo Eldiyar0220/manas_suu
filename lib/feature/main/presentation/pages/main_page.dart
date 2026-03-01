@@ -20,6 +20,7 @@ import 'package:manas_suu_app/feature/main/presentation/widgets/main_chart_widge
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_header_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/main_info_contaiiner_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/widgets/payment_actions_widget.dart';
+import 'package:manas_suu_app/feature/main/presentation/widgets/payment_dialogs.dart';
 import 'package:manas_suu_app/feature/notifications/presentation/bloc/notifications_bloc.dart';
 import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
 
@@ -36,6 +37,7 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
   late Animation<double> header;
   late Animation<double> button;
   late Animation<double> info;
+  bool _didRequestNotifications = false;
 
   @override
   void initState() {
@@ -72,6 +74,10 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return BlocListener<MainCubit, MainState>(
       listener: (context, state) {
+        if (!_didRequestNotifications && state.selectedAccount != null) {
+          _didRequestNotifications = true;
+          context.read<NotificationsBloc>().add(LoadNotificationsEvent());
+        }
         if (state.status == MainStateStatus.ACCOUNTDETAILSUCCESS && state.accountDetail != null) {
           context.router.push(AccountDetailRoute(detail: state.accountDetail!));
         }
@@ -100,9 +106,6 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
               children: [
                 BlocBuilder<MainCubit, MainState>(
                   builder: (context, state) {
-                    if (state.selectedAccount != null) {
-                      context.read<NotificationsBloc>().add(LoadNotificationsEvent());
-                    }
                     if (state.status == MainStateStatus.INITIAL) {
                       return _NoAccountState(header: header, button: button, info: info);
                     }
@@ -398,7 +401,14 @@ class _IsAddedAccountState extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => FinikScreen(extra: FinikExtra(amount: state.selectedAccount?.balance ?? 0)),
                 ),
-              );
+              ).then((e) {
+                if (e != null && e is Map<String, dynamic>) {
+                  if (e['status'] == 'SUCCEEDED') {
+                    if (!context.mounted) return;
+                    PaymentDialogs.showPaymentSuccess(context);
+                  }
+                }
+              });
             },
             onPrintInvoice: () {
               final accountId = context.read<MainCubit>().state.selectedAccount?.id;

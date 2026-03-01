@@ -60,6 +60,8 @@ abstract class RegisterModule {
   @lazySingleton
   Dio dio(@Named('BaseUrl') String baseUrl) {
     const duration = Duration(milliseconds: 55000);
+    final uri = Uri.tryParse(baseUrl);
+    final isIpHost = uri != null && RegExp(r'^\d{1,3}(\.\d{1,3}){3}$').hasMatch(uri.host);
 
     final dio = Dio(
       BaseOptions(
@@ -74,7 +76,7 @@ abstract class RegisterModule {
       ),
     );
 
-    if (kDebugMode) {
+    if (kDebugMode || (uri?.scheme == 'https' && isIpHost)) {
       dio.httpClientAdapter = IOHttpClientAdapter(
         createHttpClient: () {
           final client = HttpClient();

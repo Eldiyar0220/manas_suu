@@ -7,6 +7,7 @@ import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 import 'package:manas_suu_app/feature/finik/presentation/finik_sdk.dart';
 import 'package:manas_suu_app/feature/history/presentation/bloc/history_bloc.dart';
+import 'package:manas_suu_app/feature/main/presentation/widgets/payment_dialogs.dart';
 
 class DetailActionButtonsWidget extends StatelessWidget {
   const DetailActionButtonsWidget(this.accountId, this.balance, {super.key});
@@ -27,7 +28,14 @@ class DetailActionButtonsWidget extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => FinikScreen(extra: FinikExtra(amount: balance)),
                 ),
-              );
+              ).then((e) {
+                if (e != null && e is Map<String, dynamic>) {
+                  if (e['status'] == 'SUCCEEDED') {
+                    if (!context.mounted) return;
+                    PaymentDialogs.showPaymentSuccess(context);
+                  }
+                }
+              });
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.mainColor,

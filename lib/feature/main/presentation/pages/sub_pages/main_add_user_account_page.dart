@@ -87,10 +87,9 @@ class _MainAddUserAccountPageState extends State<MainAddUserAccountPage>
             ),
           ),
           child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 16, left: 16, top: 10),
-              child: ListView(
-                children: [
+            child: ListView(
+              padding: const EdgeInsets.fromLTRB(16, 10, 16, 24),
+              children: [
                   InkWell(
                     onTap: context.router.pop,
                     child: Align(
@@ -141,10 +140,9 @@ class _MainAddUserAccountPageState extends State<MainAddUserAccountPage>
                     ),
                   ),
                   const SizedBox(height: 24),
-                  AppSlideAnimationWrapper(info, const UserAccountInfoWidget()),
-                  const Spacer(),
-                ],
-              ),
+                AppSlideAnimationWrapper(info, const UserAccountInfoWidget()),
+                const SizedBox(height: 24),
+              ],
             ),
           ),
         ),
