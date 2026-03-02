@@ -96,5 +96,8 @@
     "detailAtPeriodStart": "Мезгилдин башына",
     "taxes": "Салыктар",
     "lastPayment": "Акыркы төлөм",
-    "controller": "Контролёр"
+    "controller": "Контролёр",
+    "paymentSuccessTitle": "Төлөм ийгиликтүү",
+    "paymentSuccessMessage": "Төлөм ийгиликтүү аткарылды.",
+    "okButton": "Ок"
 }

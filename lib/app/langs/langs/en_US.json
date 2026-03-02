@@ -96,5 +96,8 @@
   "detailAtPeriodStart": "At period start",
   "taxes": "Taxes",
   "lastPayment": "Last payment",
-  "controller": "Controller"
+  "controller": "Controller",
+  "paymentSuccessTitle": "Payment successful",
+  "paymentSuccessMessage": "The payment was completed successfully.",
+  "okButton": "OK"
 }

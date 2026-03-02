@@ -5,7 +5,7 @@
     
     
     <application
-        android:label="Manas Suu"
+        android:label="Manas Tazalyk"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:enableOnBackInvokedCallback="true">

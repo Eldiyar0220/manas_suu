@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:finik_sdk/finik_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,7 +35,10 @@ class FinikScreen extends StatelessWidget {
           enableSupportButtons: true,
           tapableSupportButtons: true,
           onBackPressed: () => Navigator.of(context).pop(),
-          onPayment: (data) => Navigator.of(context).pop(data),
+          onPayment: (data) {
+            log('data-unique: data: $data ');
+            Navigator.of(context).pop(data);
+          },
           widget: CreateItemHandlerWidget(
             accountId: _accountId,
 

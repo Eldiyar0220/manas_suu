@@ -101,5 +101,8 @@ abstract class  LocaleKeys {
   static const taxes = 'taxes';
   static const lastPayment = 'lastPayment';
   static const controller = 'controller';
+  static const paymentSuccessTitle = 'paymentSuccessTitle';
+  static const paymentSuccessMessage = 'paymentSuccessMessage';
+  static const okButton = 'okButton';
 
 }

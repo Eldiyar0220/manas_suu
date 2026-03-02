@@ -14,15 +14,15 @@ import 'package:manas_suu_app/main.dart';
 abstract class RegisterModule {
   @test
   @Named('BaseUrl')
-  String get testBaseUrl => 'https://31.3.216.40/tazalyk/';
+  String get testBaseUrl => 'https://api.gamegate.kg/tazalyk/';
 
   @dev
   @Named('BaseUrl')
-  String get devBaseUrl => 'http://10.244.47.127:8080/tazalyk/';
+  String get devBaseUrl => 'https://api.gamegate.kg/tazalyk/';
 
   @prod
   @Named('BaseUrl')
-  String get prodBaseUrl => 'http://10.244.47.127:8080/tazalyk/';
+  String get prodBaseUrl => 'https://api.gamegate.kg/tazalyk/';
 
   @dev
   @Named('APIKEY')
@@ -51,7 +51,7 @@ abstract class RegisterModule {
   String get devCALLBACKURL => 'https://beta.api.paymentsgateway.averspay.kg/v1/graphql';
   @test
   @Named('CALLBACKURL')
-  String get testCALLBACKURL => 'https://31.3.216.40/tazalyk/payments/callback';
+  String get testCALLBACKURL => 'https://api.gamegate.kg/tazalyk/payments/callback';
 
   @prod
   @Named('CALLBACKURL')
@@ -69,10 +69,7 @@ abstract class RegisterModule {
         contentType: 'application/json',
         connectTimeout: duration,
         receiveTimeout: duration,
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
+        headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
       ),
     );
 
@@ -99,9 +96,7 @@ abstract class RegisterModule {
 
     final headerInterceptors = InterceptorsWrapper(
       onRequest: (options, handler) async {
-        options.headers.addAll(
-          (await DeviceDataHelper.deviceData).toCamelCaseJson(),
-        );
+        options.headers.addAll((await DeviceDataHelper.deviceData).toCamelCaseJson());
         String fcmToken = '';
         try {
           fcmToken = await messaging.getToken() ?? '';
@@ -117,11 +112,7 @@ abstract class RegisterModule {
       },
       onResponse: (response, handler) => handler.next(response),
     );
-    interceptors.addAll([
-      if (kDebugMode) logInterceptor,
-      headerInterceptors,
-      AppExceptionInterceptor(),
-    ]);
+    interceptors.addAll([if (kDebugMode) logInterceptor, headerInterceptors, AppExceptionInterceptor()]);
 
     return dio;
   }

@@ -96,5 +96,8 @@
   "detailAtPeriodStart": "На начало периода",
   "taxes": "Налоги",
   "lastPayment": "Последний платеж",
-  "controller": "Контролер"
+  "controller": "Контролер",
+  "paymentSuccessTitle": "Оплата успешна",
+  "paymentSuccessMessage": "Платеж успешно выполнен.",
+  "okButton": "Ок"
 }

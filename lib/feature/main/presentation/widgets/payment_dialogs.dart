@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:manas_suu_app/app/components/app_text_scaler.dart';
+import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
 
 final class PaymentDialogs {
@@ -37,12 +39,12 @@ final class PaymentDialogs {
                 ),
                 const SizedBox(height: 16),
                 CustomText(
-                  'Оплата успешна',
+                  context.tr(LocaleKeys.paymentSuccessTitle),
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: textColor),
                 ),
                 const SizedBox(height: 6),
                 CustomText(
-                  'Платеж успешно выполнен.',
+                  context.tr(LocaleKeys.paymentSuccessMessage),
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 13, color: subTextColor, height: 1.4),
                 ),
@@ -57,10 +59,10 @@ final class PaymentDialogs {
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
-                    child: const CustomText(
-                      'Ок',
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-                    ),
+                                    child: CustomText(
+                                      context.tr(LocaleKeys.okButton),
+                                      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                                    ),
                   ),
                 ),
               ],
