@@ -25,36 +25,37 @@ class DetailActionButtonsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton.icon(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => FinikScreen(
-                    extra: FinikExtra(amount: balance, personalAccount: personalAccount),
+        if (balance > 0)
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FinikScreen(
+                      extra: FinikExtra(amount: balance, personalAccount: personalAccount),
+                    ),
                   ),
-                ),
-              ).then((e) {
-                if (e != null && e is Map<String, dynamic>) {
-                  if (e['status'] == 'SUCCEEDED') {
-                    if (!context.mounted) return;
-                    PaymentDialogs.showPaymentSuccess(context);
+                ).then((e) {
+                  if (e != null && e is Map<String, dynamic>) {
+                    if (e['status'] == 'SUCCEEDED') {
+                      if (!context.mounted) return;
+                      PaymentDialogs.showPaymentSuccess(context);
+                    }
                   }
-                }
-              });
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.mainColor,
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.mainColor,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+              icon: const Icon(Icons.account_balance_wallet_outlined, size: 20),
+              label: CustomText(context.tr(LocaleKeys.payButton)),
             ),
-            icon: const Icon(Icons.account_balance_wallet_outlined, size: 20),
-            label: CustomText(context.tr(LocaleKeys.payButton)),
           ),
-        ),
         const SizedBox(height: 12),
         Row(
           children: [

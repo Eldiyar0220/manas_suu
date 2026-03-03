@@ -50,6 +50,7 @@ class FinikScreen extends StatelessWidget {
             callbackUrl: _callbackUrl,
             nameEn: 'Manas Tazalyk',
             amount: FixedAmount(extra.amount),
+
             requiredFields: [
               RequiredField(
                 fieldId: 'personalAccount',

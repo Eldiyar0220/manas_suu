@@ -395,7 +395,7 @@ class _IsAddedAccountState extends StatelessWidget {
 
           const SizedBox(height: 20),
           PaymentActionsWidget(
-            onPay: () {
+            onPay:(state.selectedAccount?.balance != null && state.selectedAccount!.balance  > 0) ? () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -414,7 +414,7 @@ class _IsAddedAccountState extends StatelessWidget {
                   }
                 }
               });
-            },
+            } : null,
             onPrintInvoice: () {
               final accountId = context.read<MainCubit>().state.selectedAccount?.id;
               if (accountId == null) return;
