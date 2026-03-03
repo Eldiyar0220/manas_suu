@@ -10,10 +10,16 @@ import 'package:manas_suu_app/feature/history/presentation/bloc/history_bloc.dar
 import 'package:manas_suu_app/feature/main/presentation/widgets/payment_dialogs.dart';
 
 class DetailActionButtonsWidget extends StatelessWidget {
-  const DetailActionButtonsWidget(this.accountId, this.balance, {super.key});
+  const DetailActionButtonsWidget({
+    super.key,
+    required this.accountId,
+    required this.balance,
+    required this.personalAccount,
+  });
 
   final int accountId;
   final double balance;
+  final String personalAccount;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,9 @@ class DetailActionButtonsWidget extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => FinikScreen(extra: FinikExtra(amount: balance)),
+                  builder: (context) => FinikScreen(
+                    extra: FinikExtra(amount: balance, personalAccount: personalAccount),
+                  ),
                 ),
               ).then((e) {
                 if (e != null && e is Map<String, dynamic>) {

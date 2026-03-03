@@ -4,16 +4,20 @@ import 'package:finik_sdk/finik_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:manas_suu_app/core/injectable/injectable.dart';
 
 final class FinikExtra {
   final double amount;
+  final String personalAccount;
 
-  FinikExtra({required this.amount});
+  FinikExtra({required this.amount, required this.personalAccount});
 }
 
 final _apiKey = GetIt.I<String>(instanceName: 'APIKEY');
 final _accountId = GetIt.I<String>(instanceName: 'ACCOUNTID');
 final _callbackUrl = GetIt.I<String>(instanceName: 'CALLBACKURL');
+
+bool get _isBeta => GetIt.I<String>(instanceName: 'ENVIRONMENT') != AppEnv.prod;
 
 class FinikScreen extends StatelessWidget {
   const FinikScreen({super.key, required this.extra});
@@ -26,7 +30,7 @@ class FinikScreen extends StatelessWidget {
       child: Scaffold(
         body: FinikProvider(
           apiKey: _apiKey,
-          isBeta: true,
+          isBeta: _isBeta,
           locale: FinikSdkLocale.RU,
           textScenario: TextScenario.PAYMENT,
           paymentMethods: const [PaymentMethod.APP, PaymentMethod.QR, PaymentMethod.VISA],
@@ -39,12 +43,21 @@ class FinikScreen extends StatelessWidget {
             log('data-unique: data: $data ');
             Navigator.of(context).pop(data);
           },
+
           widget: CreateItemHandlerWidget(
             accountId: _accountId,
 
             callbackUrl: _callbackUrl,
             nameEn: 'Manas Tazalyk',
             amount: FixedAmount(extra.amount),
+            requiredFields: [
+              RequiredField(
+                fieldId: 'personalAccount',
+                label: 'personalAccount',
+                value: extra.personalAccount,
+                isHidden: false,
+              ),
+            ],
           ),
         ),
       ),

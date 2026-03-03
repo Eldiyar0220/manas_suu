@@ -51,7 +51,7 @@ Future<void> main() async {
   if (Firebase.apps.isEmpty) {
     await Firebase.initializeApp();
   }
-  await configureDependencies(environment: AppEnv.test);
+  await configureDependencies(environment: AppEnv.prod);
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 

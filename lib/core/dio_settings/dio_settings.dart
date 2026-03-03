@@ -55,7 +55,7 @@ abstract class RegisterModule {
 
   @prod
   @Named('CALLBACKURL')
-  String get prodCALLBACKURL => 'https://api.paymentsgateway.averspay.kg/v1/graphql';
+  String get prodCALLBACKURL => 'https://api.gamegate.kg/tazalyk/payments/callback';
 
   @lazySingleton
   Dio dio(@Named('BaseUrl') String baseUrl) {

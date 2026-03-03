@@ -16,7 +16,9 @@ final globalKey = GlobalKey<ScaffoldMessengerState>();
   asExtension: false, // default
 )
 Future<void> configureDependencies({String? environment}) async {
-  $initGetIt(getIt, environment: environment);
+  final env = environment ?? AppEnv.test;
+  $initGetIt(getIt, environment: env);
+  getIt.registerSingleton<String>(env, instanceName: 'ENVIRONMENT');
   await EasyLocalization.ensureInitialized();
   await getIt<PreferenceHelper>().init();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

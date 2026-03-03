@@ -399,7 +399,12 @@ class _IsAddedAccountState extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => FinikScreen(extra: FinikExtra(amount: 20)),
+                  builder: (context) => FinikScreen(
+                    extra: FinikExtra(
+                      amount: state.selectedAccount?.balance ?? 0,
+                      personalAccount: state.selectedAccount?.personalAccount ?? '',
+                    ),
+                  ),
                 ),
               ).then((e) {
                 if (e != null && e is Map<String, dynamic>) {

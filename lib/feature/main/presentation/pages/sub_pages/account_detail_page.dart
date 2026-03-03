@@ -53,7 +53,11 @@ class AccountDetailPage extends StatelessWidget {
             children: [
               DetailHeaderCardWidget(detail),
               const SizedBox(height: 16),
-              DetailActionButtonsWidget(detail.id,detail.balance),
+              DetailActionButtonsWidget(
+                accountId: detail.id,
+                balance: detail.balance,
+                personalAccount: detail.personalAccount,
+              ),
               const SizedBox(height: 16),
               DetailOverPayWidget(
                 detail.balance,
@@ -64,19 +68,12 @@ class AccountDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               DetailDopServicesWidget(detail.services),
-              if (detail.lastPaymentDate != null ||
-                  detail.lastPaymentAmount != null) ...[
+              if (detail.lastPaymentDate != null || detail.lastPaymentAmount != null) ...[
                 const SizedBox(height: 12),
-                DetailLastPaymentCardWidget(
-                  detail.lastPaymentDate,
-                  detail.lastPaymentAmount,
-                ),
+                DetailLastPaymentCardWidget(detail.lastPaymentDate, detail.lastPaymentAmount),
               ],
               const SizedBox(height: 12),
-              DetailControllerCardWidget(
-                detail.controllerFullName,
-                detail.controllerPhone,
-              ),
+              DetailControllerCardWidget(detail.controllerFullName, detail.controllerPhone),
               const SizedBox(height: 12),
               DetailFinalResultWidget(detail.services),
             ],
