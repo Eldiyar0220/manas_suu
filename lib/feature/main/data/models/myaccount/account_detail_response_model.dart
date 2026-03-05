@@ -27,7 +27,7 @@ class AccountDetailData {
     required this.balance,
     required this.registeredCount,
     required this.residentsCount,
-    required this.periodLabel,
+    this.periodLabel,
     required this.openingBalance,
     required this.currentPeriodAccrued,
     required this.currentPeriodTax,
@@ -48,7 +48,7 @@ class AccountDetailData {
   final int registeredCount;
   @JsonKey(name: 'residentsCount')
   final int residentsCount;
-  final String periodLabel;
+  final String? periodLabel;
   final double openingBalance;
   final double currentPeriodAccrued;
   final double currentPeriodTax;

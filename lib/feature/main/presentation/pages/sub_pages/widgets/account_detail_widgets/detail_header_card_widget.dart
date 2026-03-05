@@ -47,7 +47,7 @@ class DetailHeaderCardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: CustomText(
-                  detail.periodLabel,
+                  detail.periodLabel ?? '—',
                   style: const TextStyle(fontSize: 12, color: cardTextColor),
                 ),
               ),

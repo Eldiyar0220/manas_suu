@@ -27,7 +27,7 @@ AccountDetailData _$AccountDetailDataFromJson(Map<String, dynamic> json) =>
       balance: (json['balance'] as num).toDouble(),
       registeredCount: (json['registeredCount'] as num).toInt(),
       residentsCount: (json['residentsCount'] as num).toInt(),
-      periodLabel: json['periodLabel'] as String,
+      periodLabel: json['periodLabel'] as String?,
       openingBalance: (json['openingBalance'] as num).toDouble(),
       currentPeriodAccrued: (json['currentPeriodAccrued'] as num).toDouble(),
       currentPeriodTax: (json['currentPeriodTax'] as num).toDouble(),

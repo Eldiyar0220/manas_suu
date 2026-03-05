@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +80,7 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
           _didRequestNotifications = true;
           context.read<NotificationsBloc>().add(LoadNotificationsEvent());
         }
+        log('data-unique: state.status: ${state.status} ');
         if (state.status == MainStateStatus.ACCOUNTDETAILSUCCESS && state.accountDetail != null) {
           context.router.push(AccountDetailRoute(detail: state.accountDetail!));
         }
@@ -395,26 +398,28 @@ class _IsAddedAccountState extends StatelessWidget {
 
           const SizedBox(height: 20),
           PaymentActionsWidget(
-            onPay:(state.selectedAccount?.balance != null && state.selectedAccount!.balance  > 0) ? () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => FinikScreen(
-                    extra: FinikExtra(
-                      amount: state.selectedAccount?.balance ?? 0,
-                      personalAccount: state.selectedAccount?.personalAccount ?? '',
-                    ),
-                  ),
-                ),
-              ).then((e) {
-                if (e != null && e is Map<String, dynamic>) {
-                  if (e['status'] == 'SUCCEEDED') {
-                    if (!context.mounted) return;
-                    PaymentDialogs.showPaymentSuccess(context);
+            onPay: (state.selectedAccount?.balance != null && state.selectedAccount!.balance > 0)
+                ? () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FinikScreen(
+                          extra: FinikExtra(
+                            amount: state.selectedAccount?.balance ?? 0,
+                            personalAccount: state.selectedAccount?.personalAccount ?? '',
+                          ),
+                        ),
+                      ),
+                    ).then((e) {
+                      if (e != null && e is Map<String, dynamic>) {
+                        if (e['status'] == 'SUCCEEDED') {
+                          if (!context.mounted) return;
+                          PaymentDialogs.showPaymentSuccess(context);
+                        }
+                      }
+                    });
                   }
-                }
-              });
-            } : null,
+                : null,
             onPrintInvoice: () {
               final accountId = context.read<MainCubit>().state.selectedAccount?.id;
               if (accountId == null) return;

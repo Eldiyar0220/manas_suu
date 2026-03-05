@@ -16,7 +16,7 @@ class DetailLastPaymentCardWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: context.theme.textWhiteBlackColor,
+        color: context.theme.cardBackgroundWhiteBlackColor,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.mainColor),
       ),
@@ -32,48 +32,26 @@ class DetailLastPaymentCardWidget extends StatelessWidget {
                   color: context.theme.historyIconContainerBackground,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(
-                  Icons.receipt_long_outlined,
-                  color: AppColors.mainColor,
-                  size: 20,
-                ),
+                child: const Icon(Icons.receipt_long_outlined, color: AppColors.mainColor, size: 20),
               ),
               const SizedBox(width: 12),
               CustomText(
                 context.tr(LocaleKeys.lastPayment),
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: context.theme.cardBackgroundWhiteBlackColor,
-                ),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: context.theme.textWhiteBlackColor),
               ),
             ],
           ),
           const SizedBox(height: 12),
           Row(
             children: [
-              Icon(
-                Icons.calendar_today_outlined,
-                size: 18,
-                color: context.theme.cardBackgroundWhiteBlackColor,
-              ),
+              Icon(Icons.calendar_today_outlined, size: 18, color: context.theme.textWhiteBlackColor),
               const SizedBox(width: 8),
-              CustomText(
-                date ?? '—',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: context.theme.cardBackgroundWhiteBlackColor,
-                ),
-              ),
+              CustomText(date ?? '—', style: TextStyle(fontSize: 14, color: context.theme.textWhiteBlackColor)),
               const Spacer(),
               if (amount != null)
                 CustomText(
                   '${amount!.toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.mainColor,
-                  ),
+                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.mainColor),
                 ),
             ],
           ),
