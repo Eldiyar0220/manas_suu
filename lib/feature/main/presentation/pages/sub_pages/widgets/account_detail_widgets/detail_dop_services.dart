@@ -10,6 +10,7 @@ class DetailDopServicesWidget extends StatelessWidget {
   const DetailDopServicesWidget(this.services, {super.key});
   final List<AccountDetailServiceItem> services;
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,20 +32,12 @@ class DetailDopServicesWidget extends StatelessWidget {
                   color: context.theme.historyIconContainerBackground,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(
-                  Icons.settings_outlined,
-                  color: AppColors.mainColor,
-                  size: 20,
-                ),
+                child: const Icon(Icons.settings_outlined, color: AppColors.mainColor, size: 20),
               ),
               const SizedBox(width: 12),
               CustomText(
                 context.tr(LocaleKeys.historyServices),
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: context.theme.textWhiteBlackColor,
-                ),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: context.theme.textWhiteBlackColor),
               ),
             ],
           ),
@@ -57,26 +50,14 @@ class DetailDopServicesWidget extends StatelessWidget {
                   Container(
                     width: 8,
                     height: 8,
-                    decoration: const BoxDecoration(
-                      color: AppColors.mainColor,
-                      shape: BoxShape.circle,
-                    ),
+                    decoration: const BoxDecoration(color: AppColors.mainColor, shape: BoxShape.circle),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: CustomText(
-                      s.name,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: context.theme.textWhiteBlackColor,
-                      ),
-                    ),
+                    child: CustomText(s.name, style: TextStyle(fontSize: 14, color: context.theme.textWhiteBlackColor)),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 4,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
                       color: AppColors.mainColor.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(8),
@@ -84,10 +65,7 @@ class DetailDopServicesWidget extends StatelessWidget {
                     ),
                     child: CustomText(
                       '${s.volume} ${context.tr(LocaleKeys.unitPeople)}',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: context.theme.textWhiteBlackColor,
-                      ),
+                      style: TextStyle(fontSize: 12, color: context.theme.textWhiteBlackColor),
                     ),
                   ),
                 ],
