@@ -117,7 +117,7 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
       });
 
       FirebaseMessaging.onMessageOpenedApp.listen((message) {
-        //deeplinke kerek
+        //deeplinke kerek. asd
         log('data-unique: 1 ');
       });
     } catch (e, st) {
