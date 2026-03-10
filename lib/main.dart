@@ -123,7 +123,7 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
     } catch (e, st) {
       log('$st');
     }
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {
