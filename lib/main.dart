@@ -62,11 +62,7 @@ Future<void> main() async {
     EasyLocalization(
       path: 'lib/app/langs/lang_gen',
       ignorePluralRules: false,
-      supportedLocales: const [
-        Locale('ru', 'RU'),
-        Locale('ky', 'KY'),
-        Locale('en', 'US'),
-      ],
+      supportedLocales: const [Locale('ru', 'RU'), Locale('ky', 'KY'), Locale('en', 'US')],
       fallbackLocale: const Locale('ru', 'RU'),
       assetLoader: const CodegenLoader(),
       child: ManasSuuApp(localNotifications: localNotifications),
@@ -96,11 +92,7 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
     try {
       await messaging.getInitialMessage();
 
-      final settings = await messaging.requestPermission(
-        alert: true,
-        badge: true,
-        sound: true,
-      );
+      final settings = await messaging.requestPermission(alert: true, badge: true, sound: true);
 
       log('Permission: ${settings.authorizationStatus}');
 
@@ -123,12 +115,10 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
     } catch (e, st) {
       log('$st');
     }
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => GetIt.I<ThemeCubit>()..init()),
