@@ -20,9 +20,9 @@ class AccountChartResponse {
 
 @JsonSerializable()
 class AccountChartData {
-  AccountChartData({required this.points});
+  AccountChartData({this.points});
 
-  final List<ChartPoint> points;
+  final List<ChartPoint>? points;
 
   factory AccountChartData.fromJson(Map<String, dynamic> json) =>
       _$AccountChartDataFromJson(json);
@@ -36,14 +36,14 @@ class AccountChartData {
 @JsonSerializable()
 class ChartPoint {
   ChartPoint({
-    required this.label,
-    required this.accrued,
-    required this.paid,
+    this.label,
+    this.accrued,
+    this.paid,
   });
 
-  final String label;
-  final double accrued;
-  final double paid;
+  final String? label;
+  final double? accrued;
+  final double? paid;
 
   factory ChartPoint.fromJson(Map<String, dynamic> json) =>
       _$ChartPointFromJson(json);

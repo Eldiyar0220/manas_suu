@@ -8,10 +8,10 @@ part of 'settings_model.dart';
 
 SettingsModel _$SettingsModelFromJson(Map<String, dynamic> json) =>
     SettingsModel(
-      id: (json['id'] as num).toInt(),
-      name: json['name'] as String,
-      email: json['email'] as String,
-      isActive: json['isActive'] as bool,
+      id: (json['id'] as num?)?.toInt(),
+      name: json['name'] as String?,
+      email: json['email'] as String?,
+      isActive: json['isActive'] as bool?,
     );
 
 Map<String, dynamic> _$SettingsModelToJson(SettingsModel instance) =>

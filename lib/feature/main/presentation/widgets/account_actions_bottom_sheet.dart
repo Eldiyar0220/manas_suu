@@ -143,11 +143,11 @@ class _AccountHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
-                account.personalAccount,
+                account.personalAccount ?? '—',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: textColor),
               ),
               const SizedBox(height: 2),
-              CustomText(account.fullName, style: TextStyle(fontSize: 13, color: subTextColor)),
+              CustomText(account.fullName ?? '—', style: TextStyle(fontSize: 13, color: subTextColor)),
             ],
           ),
         ],

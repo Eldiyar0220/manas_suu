@@ -17,15 +17,15 @@ class DetailActionButtonsWidget extends StatelessWidget {
     required this.personalAccount,
   });
 
-  final int accountId;
-  final double balance;
-  final String personalAccount;
+  final int? accountId;
+  final double? balance;
+  final String? personalAccount;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (balance > 0)
+        if ((balance ?? 0) > 0)
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
@@ -34,7 +34,10 @@ class DetailActionButtonsWidget extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => FinikScreen(
-                      extra: FinikExtra(amount: balance, personalAccount: personalAccount),
+                      extra: FinikExtra(
+                        amount: balance ?? 0,
+                        personalAccount: personalAccount ?? '',
+                      ),
                     ),
                   ),
                 ).then((e) {
@@ -61,11 +64,17 @@ class DetailActionButtonsWidget extends StatelessWidget {
           children: [
             Expanded(
               child: OutlinedButton.icon(
-                onPressed: () {
-                  context.read<HistoryBloc>().add(
-                    GetHistoryCheckEvent(accountId: accountId, year: DateTime.now().year, month: DateTime.now().month),
-                  );
-                },
+                onPressed: accountId == null
+                    ? null
+                    : () {
+                        context.read<HistoryBloc>().add(
+                          GetHistoryCheckEvent(
+                            accountId: accountId!,
+                            year: DateTime.now().year,
+                            month: DateTime.now().month,
+                          ),
+                        );
+                      },
                 style: OutlinedButton.styleFrom(
                   foregroundColor: context.theme.textWhiteBlackColor,
                   side: BorderSide(color: AppColors.mainColor),
@@ -79,9 +88,13 @@ class DetailActionButtonsWidget extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: OutlinedButton.icon(
-                onPressed: () {
-                  context.read<HistoryBloc>().add(LoadHistoryEvent(personalAccount: accountId));
-                },
+                onPressed: accountId == null
+                    ? null
+                    : () {
+                        context.read<HistoryBloc>().add(
+                          LoadHistoryEvent(personalAccount: accountId!),
+                        );
+                      },
                 style: OutlinedButton.styleFrom(
                   foregroundColor: context.theme.textWhiteBlackColor,
                   side: BorderSide(color: AppColors.mainColor),

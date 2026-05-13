@@ -70,7 +70,7 @@ class DetailHeaderCardWidget extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               CustomText(
-                detail.personalAccount,
+                detail.personalAccount ?? '—',
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
@@ -87,7 +87,7 @@ class DetailHeaderCardWidget extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: CustomText(
-                  detail.fullName,
+                  detail.fullName ?? '—',
                   style: const TextStyle(fontSize: 14, color: cardTextColor),
                 ),
               ),
@@ -105,7 +105,7 @@ class DetailHeaderCardWidget extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: CustomText(
-                  detail.address,
+                  detail.address ?? '—',
                   style: const TextStyle(fontSize: 14, color: cardTextColor),
                 ),
               ),
@@ -126,7 +126,9 @@ class DetailHeaderCardWidget extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     CustomText(
-                      detail.accountType == AccountType.RESIDENTIAL
+                      detail.accountType == null
+                          ? '—'
+                          : detail.accountType == AccountType.RESIDENTIAL
                           ? context.tr(LocaleKeys.serviceTypeHousehold)
                           : context.tr(LocaleKeys.serviceTypeCommercial),
                       style: const TextStyle(

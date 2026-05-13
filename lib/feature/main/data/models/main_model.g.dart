@@ -8,8 +8,8 @@ part of 'main_model.dart';
 
 MainModel _$MainModelFromJson(Map<String, dynamic> json) => MainModel(
   id: (json['id'] as num).toInt(),
-  name: json['name'] as String,
-  email: json['email'] as String,
+  name: json['name'] as String?,
+  email: json['email'] as String?,
   isActive: json['isActive'] as bool,
 );
 

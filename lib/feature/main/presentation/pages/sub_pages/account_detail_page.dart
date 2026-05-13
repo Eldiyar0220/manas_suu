@@ -37,11 +37,12 @@ class AccountDetailPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.delete_outline),
-            onPressed: () {
-              // TODO сам чекни если че убери
-              context.read<MainCubit>().deleteAccount(detail.id);
-              context.router.maybePop();
-            },
+            onPressed: detail.id == null
+                ? null
+                : () {
+                    context.read<MainCubit>().deleteAccount(detail.id!);
+                    context.router.maybePop();
+                  },
           ),
         ],
       ),

@@ -61,7 +61,7 @@ class NotificationDetailPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       CustomText(
-                        item.creationDate,
+                        item.creationDate ?? '',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -75,7 +75,7 @@ class NotificationDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             CustomText(
-              item.title,
+              item.title ?? '',
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
@@ -117,7 +117,7 @@ class NotificationDetailPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   CustomText(
-                    item.body,
+                    item.body ?? '',
                     style: TextStyle(
                       fontSize: 15,
                       height: 1.4,

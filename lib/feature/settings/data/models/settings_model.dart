@@ -4,16 +4,16 @@ part 'settings_model.g.dart';
 
 @JsonSerializable()
 class SettingsModel {
-  final int id;
-  final String name;
-  final String email;
-  final bool isActive;
+  final int? id;
+  final String? name;
+  final String? email;
+  final bool? isActive;
 
   SettingsModel({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.isActive,
+    this.id,
+    this.name,
+    this.email,
+    this.isActive,
   });
 
   factory SettingsModel.fromJson(Map<String, dynamic> json) =>

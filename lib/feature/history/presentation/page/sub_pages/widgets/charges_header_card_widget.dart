@@ -6,7 +6,7 @@ import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart';
 class ChargesHeaderCardWidget extends StatelessWidget {
   const ChargesHeaderCardWidget({
     super.key,
-    required this.periodLabel,
+    this.periodLabel,
     required this.cardColor,
     required this.textColor,
     required this.subTextColor,
@@ -14,7 +14,7 @@ class ChargesHeaderCardWidget extends StatelessWidget {
     required this.accentGreen,
   });
 
-  final String periodLabel;
+  final String? periodLabel;
   final Color cardColor;
   final Color textColor;
   final Color subTextColor;
@@ -62,7 +62,7 @@ class ChargesHeaderCardWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 CustomText(
-                  periodLabel,
+                  periodLabel ?? '—',
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w700,

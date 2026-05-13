@@ -21,12 +21,15 @@ Map<String, dynamic> _$AccountsResponseModelToJson(
 
 AccountItemModel _$AccountItemModelFromJson(Map<String, dynamic> json) =>
     AccountItemModel(
-      id: (json['id'] as num).toInt(),
-      personalAccount: json['personalAccount'] as String,
-      fullName: json['fullName'] as String,
-      address: json['address'] as String,
-      accountType: $enumDecode(_$AccountTypeEnumMap, json['accountType']),
-      balance: (json['balance'] as num).toDouble(),
+      id: (json['id'] as num?)?.toInt(),
+      personalAccount: json['personalAccount'] as String?,
+      fullName: json['fullName'] as String?,
+      address: json['address'] as String?,
+      accountType: $enumDecodeNullable(
+        _$AccountTypeEnumMap,
+        json['accountType'],
+      ),
+      balance: (json['balance'] as num?)?.toDouble(),
       registeredCount: (json['registeredCount'] as num?)?.toInt(),
       residingCount: (json['residentsCount'] as num?)?.toInt(),
     );
@@ -37,7 +40,7 @@ Map<String, dynamic> _$AccountItemModelToJson(AccountItemModel instance) =>
       'personalAccount': instance.personalAccount,
       'fullName': instance.fullName,
       'address': instance.address,
-      'accountType': _$AccountTypeEnumMap[instance.accountType]!,
+      'accountType': _$AccountTypeEnumMap[instance.accountType],
       'balance': instance.balance,
       'registeredCount': instance.registeredCount,
       'residentsCount': instance.residingCount,

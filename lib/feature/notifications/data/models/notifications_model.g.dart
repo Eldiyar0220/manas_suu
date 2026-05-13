@@ -8,11 +8,11 @@ part of 'notifications_model.dart';
 
 NotificationsModel _$NotificationsModelFromJson(Map<String, dynamic> json) =>
     NotificationsModel(
-      id: (json['id'] as num).toInt(),
-      title: json['title'] as String,
-      body: json['body'] as String,
-      isRead: json['isRead'] as bool,
-      creationDate: json['creationDate'] as String,
+      id: (json['id'] as num?)?.toInt(),
+      title: json['title'] as String?,
+      body: json['body'] as String?,
+      isRead: json['isRead'] as bool?,
+      creationDate: json['creationDate'] as String?,
     );
 
 Map<String, dynamic> _$NotificationsModelToJson(NotificationsModel instance) =>

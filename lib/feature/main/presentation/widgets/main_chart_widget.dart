@@ -143,9 +143,15 @@ class _MainChartWidgetState extends State<MainChartWidget> {
           SizedBox(
             height: 140,
             child: _SimpleLineChart(
-              accruedData: widget.accountChartData.points.map((p) => p.accrued).toList(),
-              paidData: widget.accountChartData.points.map((p) => p.paid).toList(),
-              labels: widget.accountChartData.points.map((p) => p.label).toList(),
+              accruedData: (widget.accountChartData.points ?? const <ChartPoint>[])
+                  .map((p) => p.accrued ?? 0)
+                  .toList(),
+              paidData: (widget.accountChartData.points ?? const <ChartPoint>[])
+                  .map((p) => p.paid ?? 0)
+                  .toList(),
+              labels: (widget.accountChartData.points ?? const <ChartPoint>[])
+                  .map((p) => p.label ?? '')
+                  .toList(),
               isDark: isDark,
             ),
           ),

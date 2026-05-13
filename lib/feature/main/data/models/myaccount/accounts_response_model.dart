@@ -20,22 +20,22 @@ class AccountsResponseModel {
 @JsonSerializable()
 class AccountItemModel {
   const AccountItemModel({
-    required this.id,
-    required this.personalAccount,
-    required this.fullName,
-    required this.address,
-    required this.accountType,
-    required this.balance,
+    this.id,
+    this.personalAccount,
+    this.fullName,
+    this.address,
+    this.accountType,
+    this.balance,
     this.registeredCount,
     this.residingCount,
   });
 
-  final int id;
-  final String personalAccount;
-  final String fullName;
-  final String address;
-  final AccountType accountType;
-  final double balance;
+  final int? id;
+  final String? personalAccount;
+  final String? fullName;
+  final String? address;
+  final AccountType? accountType;
+  final double? balance;
   final int? registeredCount;
   @JsonKey(name: 'residentsCount')
   final int? residingCount;

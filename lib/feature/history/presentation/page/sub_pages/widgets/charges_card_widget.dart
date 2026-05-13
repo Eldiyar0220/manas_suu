@@ -7,8 +7,8 @@ import 'package:manas_suu_app/feature/history/data/models/history_response.dart'
 class ChargesCardWidget extends StatelessWidget {
   const ChargesCardWidget({
     super.key,
-    required this.services,
-    required this.periodAccrued,
+    this.services,
+    this.periodAccrued,
     required this.cardColor,
     required this.textColor,
     required this.subTextColor,
@@ -17,8 +17,8 @@ class ChargesCardWidget extends StatelessWidget {
     required this.accentGreen,
   });
 
-  final List<HistoryService> services;
-  final double periodAccrued;
+  final List<HistoryService>? services;
+  final double? periodAccrued;
   final Color cardColor;
   final Color textColor;
   final Color subTextColor;
@@ -28,6 +28,7 @@ class ChargesCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final list = services ?? [];
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -85,17 +86,17 @@ class ChargesCardWidget extends StatelessWidget {
               ),
             ],
           ),
-          if (services.isEmpty) ...[
+          if (list.isEmpty) ...[
             const SizedBox(height: 12),
             CustomText(
               context.tr(LocaleKeys.historyNoServicesData),
               style: TextStyle(fontSize: 14, color: subTextColor),
             ),
           ] else ...[
-            for (int i = 0; i < services.length; i++) ...[
+            for (int i = 0; i < list.length; i++) ...[
               if (i > 0) Divider(height: 20, color: dividerColor),
               _ServiceItem(
-                service: services[i],
+                service: list[i],
                 textColor: textColor,
                 subTextColor: subTextColor,
                 accentGreen: accentGreen,
@@ -114,7 +115,7 @@ class ChargesCardWidget extends StatelessWidget {
                   ),
                 ),
                 CustomText(
-                  '${periodAccrued.toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
+                  '${(periodAccrued ?? 0).toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
@@ -151,7 +152,7 @@ class _ServiceItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomText(
-            service.name,
+            service.name ?? '—',
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w700,
@@ -161,7 +162,7 @@ class _ServiceItem extends StatelessWidget {
           const SizedBox(height: 10),
           _RowLabelValue(
             label: context.tr(LocaleKeys.historyVolume),
-            value: '${service.volume} ${context.tr(LocaleKeys.unitPeople)}',
+            value: '${service.volume ?? 0} ${context.tr(LocaleKeys.unitPeople)}',
             textColor: textColor,
             subTextColor: subTextColor,
           ),
@@ -169,7 +170,7 @@ class _ServiceItem extends StatelessWidget {
           _RowLabelValue(
             label: context.tr(LocaleKeys.historyCubicMeters),
             value:
-                '${service.cubicMeters.toStringAsFixed(2)} ${context.tr(LocaleKeys.unitCubicMeters)}',
+                '${(service.cubicMeters ?? 0).toStringAsFixed(2)} ${context.tr(LocaleKeys.unitCubicMeters)}',
             textColor: textColor,
             subTextColor: subTextColor,
           ),
@@ -177,7 +178,7 @@ class _ServiceItem extends StatelessWidget {
           _RowLabelValue(
             label: context.tr(LocaleKeys.historyTariff),
             value:
-                '${service.tariff.toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
+                '${(service.tariff ?? 0).toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
             textColor: textColor,
             subTextColor: subTextColor,
           ),
@@ -185,7 +186,7 @@ class _ServiceItem extends StatelessWidget {
           _RowLabelValue(
             label: context.tr(LocaleKeys.historyAmount),
             value:
-                '${service.amount.toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
+                '${(service.amount ?? 0).toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
             textColor: textColor,
             subTextColor: subTextColor,
           ),
@@ -193,7 +194,7 @@ class _ServiceItem extends StatelessWidget {
           _RowLabelValue(
             label: context.tr(LocaleKeys.historyTax),
             value:
-                '${service.tax.toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
+                '${(service.tax ?? 0).toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
             textColor: textColor,
             subTextColor: subTextColor,
           ),
@@ -210,7 +211,7 @@ class _ServiceItem extends StatelessWidget {
                 ),
               ),
               CustomText(
-                '${service.total.toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
+                '${(service.total ?? 0).toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,

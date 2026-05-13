@@ -7,10 +7,10 @@ part of 'splash_model.dart';
 // **************************************************************************
 
 SplashModel _$SplashModelFromJson(Map<String, dynamic> json) => SplashModel(
-  id: (json['id'] as num).toInt(),
-  name: json['name'] as String,
-  email: json['email'] as String,
-  isActive: json['isActive'] as bool,
+  id: (json['id'] as num?)?.toInt(),
+  name: json['name'] as String?,
+  email: json['email'] as String?,
+  isActive: json['isActive'] as bool?,
 );
 
 Map<String, dynamic> _$SplashModelToJson(SplashModel instance) =>

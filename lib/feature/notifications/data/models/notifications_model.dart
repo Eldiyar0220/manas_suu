@@ -29,18 +29,18 @@ class NotificationsResponse {
 
 @JsonSerializable()
 class NotificationsModel {
-  final int id;
-  final String title;
-  final String body;
-  final bool isRead;
-  final String creationDate;
+  final int? id;
+  final String? title;
+  final String? body;
+  final bool? isRead;
+  final String? creationDate;
 
   NotificationsModel({
-    required this.id,
-    required this.title,
-    required this.body,
-    required this.isRead,
-    required this.creationDate,
+    this.id,
+    this.title,
+    this.body,
+    this.isRead,
+    this.creationDate,
   });
 
   factory NotificationsModel.fromJson(Map<String, dynamic> json) =>

@@ -127,14 +127,15 @@ class _NotificationCard extends StatelessWidget {
     final textColor = context.theme.textWhiteBlackColor!;
     final subTextColor = context.theme.textSecondaryWhiteBlackColor!;
 
-    final isUnread = !item.isRead;
+    final isUnread = !(item.isRead ?? false);
 
     return InkWell(
       borderRadius: BorderRadius.circular(20),
       onTap: () {
-        context.read<NotificationsBloc>().add(
-          MarkNotificationReadEvent(id: item.id),
-        );
+        final id = item.id;
+        if (id != null) {
+          context.read<NotificationsBloc>().add(MarkNotificationReadEvent(id: id));
+        }
         context.router.push(NotificationDetailRoute(item: item));
       },
       child: Container(
@@ -181,7 +182,7 @@ class _NotificationCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomText(
-                    item.title,
+                    item.title ?? '',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -192,7 +193,7 @@ class _NotificationCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 6),
                   CustomText(
-                    item.body,
+                    item.body ?? '',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 14, color: subTextColor),
@@ -207,7 +208,7 @@ class _NotificationCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 6),
                       CustomText(
-                        item.creationDate,
+                        item.creationDate ?? '',
                         style: TextStyle(fontSize: 12, color: subTextColor),
                       ),
                     ],

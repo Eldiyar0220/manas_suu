@@ -10,10 +10,10 @@ import 'package:manas_suu_app/feature/main/presentation/pages/sub_pages/widgets/
 class DetailFinalResultWidget extends StatelessWidget {
   const DetailFinalResultWidget(this.services, {super.key});
 
-  final List<AccountDetailServiceItem> services;
+  final List<AccountDetailServiceItem>? services;
 
-  static String _som(BuildContext context, double v) =>
-      '${v.toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}';
+  static String _som(BuildContext context, double? v) =>
+      '${(v ?? 0).toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}';
 
   @override
   Widget build(BuildContext context) {
@@ -72,14 +72,14 @@ class DetailFinalResultWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          ...services.map(
+          ...(services ?? const <AccountDetailServiceItem>[]).map(
             (s) => Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomText(
-                    s.name,
+                    s.name ?? '—',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -90,13 +90,13 @@ class DetailFinalResultWidget extends StatelessWidget {
                   DetailRowWidget(
                     label: context.tr(LocaleKeys.historyVolume),
                     value:
-                        '${s.cubicMeters.toStringAsFixed(2)} ${context.tr(LocaleKeys.unitPeople)}',
+                        '${(s.cubicMeters ?? 0).toStringAsFixed(2)} ${context.tr(LocaleKeys.unitPeople)}',
                   ),
                   const SizedBox(height: 4),
                   DetailRowWidget(
                     label: context.tr(LocaleKeys.historyCubicMeters),
                     value:
-                        '${s.cubicMeters.toStringAsFixed(2)} ${context.tr(LocaleKeys.unitCubicMeters)}',
+                        '${(s.cubicMeters ?? 0).toStringAsFixed(2)} ${context.tr(LocaleKeys.unitCubicMeters)}',
                   ),
                   const SizedBox(height: 4),
                   DetailRowWidget(

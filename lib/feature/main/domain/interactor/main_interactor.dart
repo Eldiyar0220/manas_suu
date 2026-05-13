@@ -40,7 +40,7 @@ class MainInteractor {
     myAccounts = await _repository.getMyAccounts();
 
     if (myAccounts.length == 1) {
-      selectAccount(myAccounts.first.personalAccount);
+      selectAccount(myAccounts.first.personalAccount ?? '');
     } else {
       selectAccount('');
     }
@@ -51,7 +51,7 @@ class MainInteractor {
     final cachedPersonalAcc = _preferenceHelper.preferences?.getString(PreferenceHelper.personalAccount);
     if ((cachedPersonalAcc == null || cachedPersonalAcc.isEmpty) && personalAccount.isEmpty && myAccounts.isNotEmpty) {
       selectedAccount = myAccounts.first;
-      await prefs?.setString(PreferenceHelper.personalAccount, selectedAccount!.personalAccount);
+      await prefs?.setString(PreferenceHelper.personalAccount, selectedAccount!.personalAccount ?? '');
       return;
     }
     if (cachedPersonalAcc != null &&
@@ -66,7 +66,7 @@ class MainInteractor {
       await prefs?.setString(PreferenceHelper.personalAccount, personalAccount);
     } else if (myAccounts.isNotEmpty && personalAccount.isEmpty) {
       selectedAccount = myAccounts.first;
-      await prefs?.setString(PreferenceHelper.personalAccount, selectedAccount!.personalAccount);
+      await prefs?.setString(PreferenceHelper.personalAccount, selectedAccount!.personalAccount ?? '');
     }
   }
 

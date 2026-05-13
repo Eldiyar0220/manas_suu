@@ -16,14 +16,14 @@ class DetailOverPayWidget extends StatelessWidget {
     super.key,
   });
 
-  final double balance;
-  final double openingBalance;
-  final double accrued;
-  final double tax;
-  final double paid;
+  final double? balance;
+  final double? openingBalance;
+  final double? accrued;
+  final double? tax;
+  final double? paid;
 
-  static String _som(BuildContext context, double v) =>
-      '${v.toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}';
+  static String _som(BuildContext context, double? v) =>
+      '${(v ?? 0).toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}';
 
   @override
   Widget build(BuildContext context) {

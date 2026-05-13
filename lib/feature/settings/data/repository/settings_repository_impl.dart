@@ -13,6 +13,6 @@ class SettingsRepositoryImpl implements SettingsRepository {
   @override
   Future<String> exampleFuncRepo() async {
     final response = await _dio.get(_getList);
-    return SettingsModel.fromJson(response.data).name;
+    return SettingsModel.fromJson(response.data).name ?? '';
   }
 }

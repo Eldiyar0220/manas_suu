@@ -19,45 +19,45 @@ class AccountDetailResponse {
 @JsonSerializable()
 class AccountDetailData {
   AccountDetailData({
-    required this.id,
-    required this.personalAccount,
-    required this.fullName,
-    required this.address,
-    required this.accountType,
-    required this.balance,
-    required this.registeredCount,
-    required this.residentsCount,
+    this.id,
+    this.personalAccount,
+    this.fullName,
+    this.address,
+    this.accountType,
+    this.balance,
+    this.registeredCount,
+    this.residentsCount,
     this.periodLabel,
-    required this.openingBalance,
-    required this.currentPeriodAccrued,
-    required this.currentPeriodTax,
-    required this.currentPeriodPaid,
-    required this.controllerFullName,
-    required this.services,
+    this.openingBalance,
+    this.currentPeriodAccrued,
+    this.currentPeriodTax,
+    this.currentPeriodPaid,
+    this.controllerFullName,
+    this.services,
     this.controllerPhone,
     this.lastPaymentAmount,
     this.lastPaymentDate,
   });
 
-  final int id;
-  final String personalAccount;
-  final String fullName;
-  final String address;
-  final AccountType accountType;
-  final double balance;
-  final int registeredCount;
+  final int? id;
+  final String? personalAccount;
+  final String? fullName;
+  final String? address;
+  final AccountType? accountType;
+  final double? balance;
+  final int? registeredCount;
   @JsonKey(name: 'residentsCount')
-  final int residentsCount;
+  final int? residentsCount;
   final String? periodLabel;
-  final double openingBalance;
-  final double currentPeriodAccrued;
-  final double currentPeriodTax;
-  final double currentPeriodPaid;
-  final String controllerFullName;
+  final double? openingBalance;
+  final double? currentPeriodAccrued;
+  final double? currentPeriodTax;
+  final double? currentPeriodPaid;
+  final String? controllerFullName;
   final String? controllerPhone;
   final double? lastPaymentAmount;
   final String? lastPaymentDate;
-  final List<AccountDetailServiceItem> services;
+  final List<AccountDetailServiceItem>? services;
 
   factory AccountDetailData.fromJson(Map<String, dynamic> json) =>
       _$AccountDetailDataFromJson(json);
@@ -68,22 +68,22 @@ class AccountDetailData {
 @JsonSerializable()
 class AccountDetailServiceItem {
   AccountDetailServiceItem({
-    required this.name,
-    required this.volume,
-    required this.cubicMeters,
-    required this.tariff,
-    required this.amount,
-    required this.tax,
-    required this.total,
+    this.name,
+    this.volume,
+    this.cubicMeters,
+    this.tariff,
+    this.amount,
+    this.tax,
+    this.total,
   });
 
-  final String name;
-  final int volume;
-  final double cubicMeters;
-  final double tariff;
-  final double amount;
-  final double tax;
-  final double total;
+  final String? name;
+  final int? volume;
+  final double? cubicMeters;
+  final double? tariff;
+  final double? amount;
+  final double? tax;
+  final double? total;
 
   factory AccountDetailServiceItem.fromJson(Map<String, dynamic> json) =>
       _$AccountDetailServiceItemFromJson(json);

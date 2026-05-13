@@ -18,29 +18,36 @@ class HistoryResponse {
 
 class HistoryData {
   HistoryData({
-    required this.personalAccount,
-    required this.fullName,
-    required this.address,
-    this.periods = const [],
+    this.personalAccount,
+    this.fullName,
+    this.address,
+    this.periods,
   });
 
-  final String personalAccount;
-  final String fullName;
-  final String address;
-  final List<HistoryModel> periods;
+  final String? personalAccount;
+  final String? fullName;
+  final String? address;
+  final List<HistoryModel>? periods;
 
   factory HistoryData.fromJson(Map<String, dynamic> json) {
     final rawPeriods = json['periods'];
-    final list = rawPeriods is List ? rawPeriods : const [];
-
-    return HistoryData(
-      personalAccount: json['personalAccount'] as String? ?? '',
-      fullName: json['fullName'] as String? ?? '',
-      address: json['address'] as String? ?? '',
-      periods: list
+    List<HistoryModel>? periods;
+    if (rawPeriods == null) {
+      periods = null;
+    } else if (rawPeriods is List) {
+      periods = rawPeriods
           .whereType<Map<String, dynamic>>()
           .map(HistoryModel.fromJson)
-          .toList(),
+          .toList();
+    } else {
+      periods = null;
+    }
+
+    return HistoryData(
+      personalAccount: json['personalAccount'] as String?,
+      fullName: json['fullName'] as String?,
+      address: json['address'] as String?,
+      periods: periods,
     );
   }
 
@@ -48,47 +55,54 @@ class HistoryData {
     'personalAccount': personalAccount,
     'fullName': fullName,
     'address': address,
-    'periods': periods.map((e) => e.toJson()).toList(),
+    'periods': periods?.map((e) => e.toJson()).toList(),
   };
 }
 
 class HistoryModel {
   HistoryModel({
-    required this.periodYear,
-    required this.periodMonth,
-    required this.periodLabel,
-    required this.openingBalance,
-    required this.accrued,
-    required this.paid,
-    required this.closingBalance,
-    this.services = const [],
+    this.periodYear,
+    this.periodMonth,
+    this.periodLabel,
+    this.openingBalance,
+    this.accrued,
+    this.paid,
+    this.closingBalance,
+    this.services,
   });
 
-  final int periodYear;
-  final int periodMonth;
-  final String periodLabel;
-  final double openingBalance;
-  final double accrued;
-  final double paid;
-  final double closingBalance;
-  final List<HistoryService> services;
+  final int? periodYear;
+  final int? periodMonth;
+  final String? periodLabel;
+  final double? openingBalance;
+  final double? accrued;
+  final double? paid;
+  final double? closingBalance;
+  final List<HistoryService>? services;
 
   factory HistoryModel.fromJson(Map<String, dynamic> json) {
     final rawServices = json['services'];
-    final list = rawServices is List ? rawServices : const [];
-
-    return HistoryModel(
-      periodYear: json['periodYear'] as int? ?? 0,
-      periodMonth: json['periodMonth'] as int? ?? 0,
-      periodLabel: json['periodLabel'] as String? ?? '',
-      openingBalance: (json['openingBalance'] as num?)?.toDouble() ?? 0.0,
-      accrued: (json['accrued'] as num?)?.toDouble() ?? 0.0,
-      paid: (json['paid'] as num?)?.toDouble() ?? 0.0,
-      closingBalance: (json['closingBalance'] as num?)?.toDouble() ?? 0.0,
-      services: list
+    List<HistoryService>? services;
+    if (rawServices == null) {
+      services = null;
+    } else if (rawServices is List) {
+      services = rawServices
           .whereType<Map<String, dynamic>>()
           .map(HistoryService.fromJson)
-          .toList(),
+          .toList();
+    } else {
+      services = null;
+    }
+
+    return HistoryModel(
+      periodYear: json['periodYear'] as int?,
+      periodMonth: json['periodMonth'] as int?,
+      periodLabel: json['periodLabel'] as String?,
+      openingBalance: (json['openingBalance'] as num?)?.toDouble(),
+      accrued: (json['accrued'] as num?)?.toDouble(),
+      paid: (json['paid'] as num?)?.toDouble(),
+      closingBalance: (json['closingBalance'] as num?)?.toDouble(),
+      services: services,
     );
   }
 
@@ -100,38 +114,38 @@ class HistoryModel {
     'accrued': accrued,
     'paid': paid,
     'closingBalance': closingBalance,
-    'services': services.map((e) => e.toJson()).toList(),
+    'services': services?.map((e) => e.toJson()).toList(),
   };
 }
 
 class HistoryService {
   HistoryService({
-    required this.name,
-    required this.volume,
-    required this.cubicMeters,
-    required this.tariff,
-    required this.amount,
-    required this.tax,
-    required this.total,
+    this.name,
+    this.volume,
+    this.cubicMeters,
+    this.tariff,
+    this.amount,
+    this.tax,
+    this.total,
   });
 
-  final String name;
-  final int volume;
-  final double cubicMeters;
-  final double tariff;
-  final double amount;
-  final double tax;
-  final double total;
+  final String? name;
+  final int? volume;
+  final double? cubicMeters;
+  final double? tariff;
+  final double? amount;
+  final double? tax;
+  final double? total;
 
   factory HistoryService.fromJson(Map<String, dynamic> json) {
     return HistoryService(
-      name: json['name'] as String? ?? '',
-      volume: json['volume'] as int? ?? 0,
-      cubicMeters: (json['cubicMeters'] as num?)?.toDouble() ?? 0.0,
-      tariff: (json['tariff'] as num?)?.toDouble() ?? 0.0,
-      amount: (json['amount'] as num?)?.toDouble() ?? 0.0,
-      tax: (json['tax'] as num?)?.toDouble() ?? 0.0,
-      total: (json['total'] as num?)?.toDouble() ?? 0.0,
+      name: json['name'] as String?,
+      volume: (json['volume'] as num?)?.toInt(),
+      cubicMeters: (json['cubicMeters'] as num?)?.toDouble(),
+      tariff: (json['tariff'] as num?)?.toDouble(),
+      amount: (json['amount'] as num?)?.toDouble(),
+      tax: (json['tax'] as num?)?.toDouble(),
+      total: (json['total'] as num?)?.toDouble(),
     );
   }
 

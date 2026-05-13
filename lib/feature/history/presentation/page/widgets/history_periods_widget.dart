@@ -18,9 +18,10 @@ class HistoryPeriodsWidget extends StatelessWidget {
   final HistoryData model;
   @override
   Widget build(BuildContext context) {
+    final periods = model.periods ?? [];
     return Column(
       children: [
-        if (model.periods.isEmpty)
+        if (periods.isEmpty)
           Padding(
             padding: const EdgeInsets.only(top: 32),
             child: Center(
@@ -36,8 +37,8 @@ class HistoryPeriodsWidget extends StatelessWidget {
         else
           AnimationLimiter(
             child: Column(
-              children: List.generate(model.periods.length, (index) {
-                final item = model.periods[index];
+              children: List.generate(periods.length, (index) {
+                final item = periods[index];
                 return AnimationConfiguration.staggeredList(
                   position: index,
                   delay: const Duration(milliseconds: 100),
@@ -127,7 +128,7 @@ class _HistoryMonthCardState extends State<_HistoryMonthCard> {
             ),
           ),
           title: CustomText(
-            widget.item.periodLabel,
+            widget.item.periodLabel ?? '—',
             style: TextStyle(
               color: context.theme.textWhiteBlackColor!,
               fontSize: 15,
@@ -137,7 +138,7 @@ class _HistoryMonthCardState extends State<_HistoryMonthCard> {
           subtitle: Padding(
             padding: const EdgeInsets.only(top: 4),
             child: CustomText(
-              '${widget.item.closingBalance.toStringAsFixed(2)} сом',
+              '${(widget.item.closingBalance ?? 0).toStringAsFixed(2)} сом',
               style: TextStyle(
                 color: AppColors.mainColor,
                 fontSize: 13,
@@ -150,27 +151,27 @@ class _HistoryMonthCardState extends State<_HistoryMonthCard> {
             _HistoryDetailRow(
               label: context.tr(LocaleKeys.historyPeriodStart),
               value:
-                  '${widget.item.openingBalance.toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
+                  '${(widget.item.openingBalance ?? 0).toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
             ),
             const SizedBox(height: 4),
             _HistoryDetailRow(
               label: context.tr(LocaleKeys.historyAccrued),
               value:
-                  '${widget.item.accrued.toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
+                  '${(widget.item.accrued ?? 0).toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
               valueColor: Colors.orangeAccent,
             ),
             const SizedBox(height: 4),
             _HistoryDetailRow(
               label: context.tr(LocaleKeys.historyPaid),
               value:
-                  '${widget.item.paid.toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
+                  '${(widget.item.paid ?? 0).toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
               valueColor: const Color(0xFF4CAF50),
             ),
             const SizedBox(height: 4),
             _HistoryDetailRow(
               label: context.tr(LocaleKeys.historyPeriodEnd),
               value:
-                  '${widget.item.closingBalance.toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
+                  '${(widget.item.closingBalance ?? 0).toStringAsFixed(2)} ${context.tr(LocaleKeys.currencySom)}',
             ),
             const SizedBox(height: 12),
             Row(
@@ -198,11 +199,13 @@ class _HistoryMonthCardState extends State<_HistoryMonthCard> {
                           .selectedAccount
                           ?.id;
                       if (accountId == null) return;
+                      final year = widget.item.periodYear ?? DateTime.now().year;
+                      final month = widget.item.periodMonth ?? DateTime.now().month;
                       context.read<HistoryBloc>().add(
                         GetHistoryCheckEvent(
                           accountId: accountId,
-                          year: widget.item.periodYear,
-                          month: widget.item.periodMonth,
+                          year: year,
+                          month: month,
                         ),
                       );
                     },

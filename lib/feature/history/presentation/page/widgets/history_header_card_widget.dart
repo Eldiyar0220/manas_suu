@@ -54,7 +54,7 @@ class HistoryHeaderCardWidget extends StatelessWidget {
                     const SizedBox(width: 6),
                     Expanded(
                       child: CustomText(
-                        model.fullName,
+                        model.fullName ?? '—',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 14,
@@ -77,7 +77,7 @@ class HistoryHeaderCardWidget extends StatelessWidget {
                     const SizedBox(width: 6),
                     Expanded(
                       child: CustomText(
-                        model.address,
+                        model.address ?? '—',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 13,

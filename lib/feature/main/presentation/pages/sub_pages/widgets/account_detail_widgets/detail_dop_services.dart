@@ -8,7 +8,7 @@ import 'package:manas_suu_app/feature/main/data/models/myaccount/account_detail_
 
 class DetailDopServicesWidget extends StatelessWidget {
   const DetailDopServicesWidget(this.services, {super.key});
-  final List<AccountDetailServiceItem> services;
+  final List<AccountDetailServiceItem>? services;
 
 
   @override
@@ -42,7 +42,7 @@ class DetailDopServicesWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          ...services.map(
+          ...(services ?? const <AccountDetailServiceItem>[]).map(
             (s) => Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Row(
@@ -54,7 +54,10 @@ class DetailDopServicesWidget extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: CustomText(s.name, style: TextStyle(fontSize: 14, color: context.theme.textWhiteBlackColor)),
+                    child: CustomText(
+                      s.name ?? '—',
+                      style: TextStyle(fontSize: 14, color: context.theme.textWhiteBlackColor),
+                    ),
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -64,7 +67,7 @@ class DetailDopServicesWidget extends StatelessWidget {
                       border: Border.all(color: AppColors.mainColor),
                     ),
                     child: CustomText(
-                      '${s.volume} ${context.tr(LocaleKeys.unitPeople)}',
+                      '${s.volume ?? 0} ${context.tr(LocaleKeys.unitPeople)}',
                       style: TextStyle(fontSize: 12, color: context.theme.textWhiteBlackColor),
                     ),
                   ),

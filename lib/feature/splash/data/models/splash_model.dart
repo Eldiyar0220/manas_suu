@@ -4,16 +4,16 @@ part 'splash_model.g.dart';
 
 @JsonSerializable()
 class SplashModel {
-  final int id;
-  final String name;
-  final String email;
-  final bool isActive;
+  final int? id;
+  final String? name;
+  final String? email;
+  final bool? isActive;
 
   SplashModel({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.isActive,
+    this.id,
+    this.name,
+    this.email,
+    this.isActive,
   });
 
   factory SplashModel.fromJson(Map<String, dynamic> json) =>

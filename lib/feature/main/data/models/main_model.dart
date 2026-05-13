@@ -5,14 +5,14 @@ part 'main_model.g.dart';
 @JsonSerializable()
 class MainModel {
   final int id;
-  final String name;
-  final String email;
+  final String ?name;
+  final String? email;
   final bool isActive;
 
   MainModel({
     required this.id,
-    required this.name,
-    required this.email,
+     this.name,
+     this.email,
     required this.isActive,
   });
 

@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart' as url_launcher;
 class DetailControllerCardWidget extends StatelessWidget {
   const DetailControllerCardWidget(this.name, this.phone, {super.key});
 
-  final String name;
+  final String? name;
   final String? phone;
 
   Future<void> _call(BuildContext context, String phoneNumber) async {
@@ -65,7 +65,7 @@ class DetailControllerCardWidget extends StatelessWidget {
             children: [
               Expanded(
                 child: CustomText(
-                  name,
+                  name ?? '—',
                   style: TextStyle(
                     fontSize: 14,
                     color: context.theme.textWhiteBlackColor,

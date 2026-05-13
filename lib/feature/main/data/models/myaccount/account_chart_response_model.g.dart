@@ -19,8 +19,8 @@ Map<String, dynamic> _$AccountChartResponseToJson(
 
 AccountChartData _$AccountChartDataFromJson(Map<String, dynamic> json) =>
     AccountChartData(
-      points: (json['points'] as List<dynamic>)
-          .map((e) => ChartPoint.fromJson(e as Map<String, dynamic>))
+      points: (json['points'] as List<dynamic>?)
+          ?.map((e) => ChartPoint.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -28,9 +28,9 @@ Map<String, dynamic> _$AccountChartDataToJson(AccountChartData instance) =>
     <String, dynamic>{'points': instance.points};
 
 ChartPoint _$ChartPointFromJson(Map<String, dynamic> json) => ChartPoint(
-  label: json['label'] as String,
-  accrued: (json['accrued'] as num).toDouble(),
-  paid: (json['paid'] as num).toDouble(),
+  label: json['label'] as String?,
+  accrued: (json['accrued'] as num?)?.toDouble(),
+  paid: (json['paid'] as num?)?.toDouble(),
 );
 
 Map<String, dynamic> _$ChartPointToJson(ChartPoint instance) =>

@@ -296,7 +296,7 @@ class _IsAddedAccountState extends StatelessWidget {
                       ),
                       const Spacer(),
                       CustomText(
-                        '${state.selectedAccount?.balance.toString() ?? 0} сом',
+                        '${(state.selectedAccount?.balance ?? 0)} сом',
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w700,
@@ -398,7 +398,7 @@ class _IsAddedAccountState extends StatelessWidget {
 
           const SizedBox(height: 20),
           PaymentActionsWidget(
-            onPay: (state.selectedAccount?.balance != null && state.selectedAccount!.balance > 0)
+            onPay: ((state.selectedAccount?.balance ?? 0) > 0)
                 ? () {
                     Navigator.push(
                       context,
@@ -450,7 +450,7 @@ class _ActiveAccountCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (!isSelectedCard) {
-          context.read<MainCubit>().selectAccount(account.personalAccount);
+          context.read<MainCubit>().selectAccount(account.personalAccount ?? '');
         }
       },
       borderRadius: BorderRadius.circular(16),
@@ -494,11 +494,13 @@ class _ActiveAccountCard extends StatelessWidget {
                       context.read<MainCubit>().getAccountDetail(context.read<MainCubit>().state.selectedAccount?.id);
                     },
                     onHistory: () {
-                      context.read<HistoryBloc>().add(
-                        LoadHistoryEvent(personalAccount: context.read<MainCubit>().state.selectedAccount!.id),
-                      );
+                      final id = context.read<MainCubit>().state.selectedAccount?.id ?? 0;
+                      context.read<HistoryBloc>().add(LoadHistoryEvent(personalAccount: id));
                     },
-                    onDelete: () => context.read<MainCubit>().deleteAccount(account.id),
+                    onDelete: () {
+                      final id = account.id;
+                      if (id != null) context.read<MainCubit>().deleteAccount(id);
+                    },
                   ),
                   borderRadius: BorderRadius.circular(12),
                   child: Container(
@@ -524,7 +526,7 @@ class _ActiveAccountCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomText(
-                  account.personalAccount,
+                  account.personalAccount ?? '—',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
@@ -533,7 +535,7 @@ class _ActiveAccountCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 CustomText(
-                  account.fullName,
+                  account.fullName ?? '—',
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
@@ -542,7 +544,7 @@ class _ActiveAccountCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 CustomText(
-                  account.address,
+                  account.address ?? '—',
                   style: TextStyle(
                     fontSize: 12,
                     color: isSelectedCard ? Colors.white : context.theme.textWhiteBlackColor,

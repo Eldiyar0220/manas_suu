@@ -20,8 +20,8 @@ AuthLoginDataModel _$AuthLoginDataModelFromJson(Map<String, dynamic> json) =>
     AuthLoginDataModel(
       accessToken: json['accessToken'] as String,
       refreshToken: json['refreshToken'] as String,
-      fullName: json['fullName'] as String,
-      personalAccount: json['personalAccount'] as String,
+      fullName: json['fullName'] as String?,
+      personalAccount: json['personalAccount'] as String?,
     );
 
 Map<String, dynamic> _$AuthLoginDataModelToJson(AuthLoginDataModel instance) =>
