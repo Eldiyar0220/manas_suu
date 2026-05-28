@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:manas_suu_app/feature/main/data/models/auth_login/auth_login_response_model.dart';
+import 'package:manas_suu_app/core/dio_settings/device_data/device_data_helper.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/account_chart_response_model.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/account_detail_response_model.dart';
 import 'package:manas_suu_app/feature/main/data/models/myaccount/accounts_response_model.dart';
@@ -18,9 +19,20 @@ class MainRepositoryImpl implements MainRepository {
 
   @override
   Future<AuthLoginResponseModel> postAuthLogin(String personalAccount) async {
+    final device = await DeviceDataHelper.deviceData;
+
     final response = await _dio.post(
       _authLogin,
       data: {'personalAccount': personalAccount},
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'deviceid': device.deviceId,
+          'devicename': device.deviceName,
+          'devicesystem': device.deviceSystem,
+          'appversion': device.appVersion,
+        },
+      ),
     );
 
     return AuthLoginResponseModel.fromJson(response.data);

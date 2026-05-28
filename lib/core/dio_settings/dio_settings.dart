@@ -14,15 +14,15 @@ import 'package:manas_suu_app/main.dart';
 abstract class RegisterModule {
   @test
   @Named('BaseUrl')
-  String get testBaseUrl => 'https://mp-tazalyk.softcraft.kg/tazalyk/';
+  String get testBaseUrl => 'https://api.mobi-manas-tazalyk.scs.kg/tazalyk/';
 
   @dev
   @Named('BaseUrl')
-  String get devBaseUrl => 'https://mp-tazalyk.softcraft.kg/tazalyk/';
+  String get devBaseUrl => 'https://api.mobi-manas-tazalyk.scs.kg/tazalyk/';
 
   @prod
   @Named('BaseUrl')
-  String get prodBaseUrl => 'https://mp-tazalyk.softcraft.kg/tazalyk/';
+  String get prodBaseUrl => 'https://api.mobi-manas-tazalyk.scs.kg/tazalyk/';
 
   @dev
   @Named('APIKEY')
@@ -51,11 +51,11 @@ abstract class RegisterModule {
   String get devCALLBACKURL => 'https://beta.api.paymentsgateway.averspay.kg/v1/graphql';
   @test
   @Named('CALLBACKURL')
-  String get testCALLBACKURL => 'https://mp-tazalyk.softcraft.kg/tazalyk/payments/callback';
+  String get testCALLBACKURL => 'https://api.mobi-manas-tazalyk.scs.kg/tazalyk/payments/callback';
 
   @prod
   @Named('CALLBACKURL')
-  String get prodCALLBACKURL => 'https://mp-tazalyk.softcraft.kg/tazalyk/payments/callback';
+  String get prodCALLBACKURL => 'https://api.mobi-manas-tazalyk.scs.kg/tazalyk/payments/callback';
 
   @lazySingleton
   Dio dio(@Named('BaseUrl') String baseUrl) {
