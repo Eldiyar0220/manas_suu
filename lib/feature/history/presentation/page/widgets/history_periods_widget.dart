@@ -199,8 +199,10 @@ class _HistoryMonthCardState extends State<_HistoryMonthCard> {
                           .selectedAccount
                           ?.id;
                       if (accountId == null) return;
-                      final year = widget.item.periodYear ?? DateTime.now().year;
-                      final month = widget.item.periodMonth ?? DateTime.now().month;
+                      final year =
+                          widget.item.periodYear ?? DateTime.now().year;
+                      final month =
+                          widget.item.periodMonth ?? DateTime.now().month;
                       context.read<HistoryBloc>().add(
                         GetHistoryCheckEvent(
                           accountId: accountId,
@@ -246,11 +248,7 @@ class _HistoryDetailRow extends StatelessWidget {
         ),
         CustomText(
           value,
-          style: TextStyle(
-            color: valueColor ?? baseValueColor,
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-          ),
+          style: TextStyle(color: valueColor ?? baseValueColor, fontSize: 13),
         ),
       ],
     );

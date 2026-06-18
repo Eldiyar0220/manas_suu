@@ -57,7 +57,7 @@ class DetailOverPayWidget extends StatelessWidget {
                 context.tr(LocaleKeys.overpayment),
                 style: TextStyle(
                   fontSize: 16,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w700,
                   color: context.theme.textWhiteBlackColor,
                 ),
               ),

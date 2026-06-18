@@ -8,8 +8,6 @@ import 'package:manas_suu_app/feature/main/data/models/myaccount/account_detail_
 import 'package:manas_suu_app/feature/main/presentation/bloc/main_cubit.dart';
 import 'package:manas_suu_app/feature/main/presentation/pages/sub_pages/widgets/account_detail_widgets/detail_action_buttons_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/pages/sub_pages/widgets/account_detail_widgets/detail_controller_card_widget.dart';
-import 'package:manas_suu_app/feature/main/presentation/pages/sub_pages/widgets/account_detail_widgets/detail_dop_services.dart';
-import 'package:manas_suu_app/feature/main/presentation/pages/sub_pages/widgets/account_detail_widgets/detail_final_result_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/pages/sub_pages/widgets/account_detail_widgets/detail_header_card_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/pages/sub_pages/widgets/account_detail_widgets/detail_last_payment_card_widget.dart';
 import 'package:manas_suu_app/feature/main/presentation/pages/sub_pages/widgets/account_detail_widgets/detail_over_pay_widget.dart';
@@ -68,15 +66,22 @@ class AccountDetailPage extends StatelessWidget {
                 detail.currentPeriodPaid,
               ),
               const SizedBox(height: 12),
-              DetailDopServicesWidget(detail.services),
-              if (detail.lastPaymentDate != null || detail.lastPaymentAmount != null) ...[
+              // DetailDopServicesWidget(detail.services),
+              if (detail.lastPaymentDate != null ||
+                  detail.lastPaymentAmount != null) ...[
                 const SizedBox(height: 12),
-                DetailLastPaymentCardWidget(detail.lastPaymentDate, detail.lastPaymentAmount),
+                DetailLastPaymentCardWidget(
+                  detail.lastPaymentDate,
+                  detail.lastPaymentAmount,
+                ),
               ],
               const SizedBox(height: 12),
-              DetailControllerCardWidget(detail.controllerFullName, detail.controllerPhone),
+              DetailControllerCardWidget(
+                detail.controllerFullName,
+                detail.controllerPhone,
+              ),
               const SizedBox(height: 12),
-              DetailFinalResultWidget(detail.services),
+              // DetailFinalResultWidget(detail.services),
             ],
           ),
         ),

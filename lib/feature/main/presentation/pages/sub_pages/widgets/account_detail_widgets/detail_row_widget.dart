@@ -22,7 +22,14 @@ class DetailRowWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        CustomText(label, style: TextStyle(fontSize: 14, color: textColor)),
+        CustomText(
+          label,
+          style: TextStyle(
+            fontSize: 14,
+            color: textColor,
+            fontWeight: valueBold ? FontWeight.w700 : FontWeight.normal,
+          ),
+        ),
         CustomText(
           value,
           style: TextStyle(

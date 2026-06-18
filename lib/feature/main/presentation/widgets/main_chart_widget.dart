@@ -143,9 +143,10 @@ class _MainChartWidgetState extends State<MainChartWidget> {
           SizedBox(
             height: 140,
             child: _SimpleLineChart(
-              accruedData: (widget.accountChartData.points ?? const <ChartPoint>[])
-                  .map((p) => p.accrued ?? 0)
-                  .toList(),
+              accruedData:
+                  (widget.accountChartData.points ?? const <ChartPoint>[])
+                      .map((p) => p.accrued ?? 0)
+                      .toList(),
               paidData: (widget.accountChartData.points ?? const <ChartPoint>[])
                   .map((p) => p.paid ?? 0)
                   .toList(),
@@ -187,7 +188,10 @@ class _LegendItem extends StatelessWidget {
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 6),
-        CustomText(label, style: const TextStyle(fontSize: 12)),
+        CustomText(
+          label,
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+        ),
       ],
     );
   }
@@ -276,7 +280,8 @@ class _LineChartPainter extends CustomPainter {
         final normalized = maxVal == minVal
             ? 0.5
             : (series[i] - minVal) / (maxVal - minVal);
-        final y = chartHeight - normalized * chartHeight * 0.85 - chartHeight * 0.05;
+        final y =
+            chartHeight - normalized * chartHeight * 0.85 - chartHeight * 0.05;
         points.add(Offset(x, y));
       }
       return points;
