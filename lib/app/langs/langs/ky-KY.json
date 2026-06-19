@@ -61,7 +61,7 @@
     "residing": "Жашайт",
     "updateDate": "Жаңыртуу датасы",
     "accountDetails": "Подробнее о счете",
-    "accrualHistory": "История начислений", 
+    "accrualHistory": "История начислений",
     "deleteAccount": "Удалить счет",
     "tapForDetails": "Толук маалымат үчүн басыңыз",
     "serviceTypeHousehold": "Үй",
@@ -99,5 +99,7 @@
     "controller": "Контролёр",
     "paymentSuccessTitle": "Төлөм ийгиликтүү",
     "paymentSuccessMessage": "Төлөм ийгиликтүү аткарылды.",
-    "okButton": "Ок"
+    "okButton": "Ок",
+    "chargesAndPayments": "Эсептөөлөр жана төлөмдөр",
+    "lastThreeMonths": "Акыркы үч ай үчүн "
 }

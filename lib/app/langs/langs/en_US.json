@@ -99,5 +99,7 @@
   "controller": "Controller",
   "paymentSuccessTitle": "Payment successful",
   "paymentSuccessMessage": "The payment was completed successfully.",
-  "okButton": "OK"
+  "okButton": "OK",
+  "chargesAndPayments": "Charges and Payments",
+  "lastThreeMonths": "For the last three months"
 }

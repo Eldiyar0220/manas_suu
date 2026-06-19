@@ -67,7 +67,7 @@
   "history": "История",
   "noNotifications": "Нет уведомлений",
   "accountDetails": "Подробнее о счете",
-  "accrualHistory": "История начислений", 
+  "accrualHistory": "История начислений",
   "deleteAccount": "Удалить счет",
   "noNotificationsDesc": "Здесь будут показаны важные уведомления и обновления",
   "historyNoData": "Нет данных по истории",
@@ -99,5 +99,7 @@
   "controller": "Контролер",
   "paymentSuccessTitle": "Оплата успешна",
   "paymentSuccessMessage": "Платеж успешно выполнен.",
-  "okButton": "Ок"
+  "okButton": "Ок",
+  "chargesAndPayments": "Начисления и оплаты",
+  "lastThreeMonths": "За последние "
 }

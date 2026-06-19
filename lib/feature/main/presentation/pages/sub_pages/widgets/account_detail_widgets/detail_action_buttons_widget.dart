@@ -53,7 +53,9 @@ class DetailActionButtonsWidget extends StatelessWidget {
                 backgroundColor: AppColors.mainColor,
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
               icon: const Icon(Icons.account_balance_wallet_outlined, size: 20),
               label: CustomText(context.tr(LocaleKeys.payButton)),
@@ -61,6 +63,7 @@ class DetailActionButtonsWidget extends StatelessWidget {
           ),
         const SizedBox(height: 12),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
               child: OutlinedButton.icon(
@@ -79,10 +82,20 @@ class DetailActionButtonsWidget extends StatelessWidget {
                   foregroundColor: context.theme.textWhiteBlackColor,
                   side: BorderSide(color: AppColors.mainColor),
                   padding: const EdgeInsets.symmetric(vertical: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
-                icon: Icon(Icons.print_outlined, size: 18, color: context.theme.textWhiteBlackColor),
-                label: CustomText(context.tr(LocaleKeys.printInvoice)),
+                icon: Icon(
+                  Icons.print_outlined,
+                  size: 18,
+                  color: context.theme.textWhiteBlackColor,
+                ),
+                label: CustomText(
+                  context.tr(LocaleKeys.printInvoice),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
               ),
             ),
             const SizedBox(width: 12),
@@ -99,9 +112,15 @@ class DetailActionButtonsWidget extends StatelessWidget {
                   foregroundColor: context.theme.textWhiteBlackColor,
                   side: BorderSide(color: AppColors.mainColor),
                   padding: const EdgeInsets.symmetric(vertical: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
-                icon: Icon(Icons.history, size: 18, color: context.theme.textWhiteBlackColor),
+                icon: Icon(
+                  Icons.history,
+                  size: 18,
+                  color: context.theme.textWhiteBlackColor,
+                ),
                 label: CustomText(context.tr(LocaleKeys.history)),
               ),
             ),

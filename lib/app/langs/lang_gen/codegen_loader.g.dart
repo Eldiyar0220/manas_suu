@@ -115,7 +115,9 @@ class CodegenLoader extends AssetLoader{
   "controller": "Контролёр",
   "paymentSuccessTitle": "Төлөм ийгиликтүү",
   "paymentSuccessMessage": "Төлөм ийгиликтүү аткарылды.",
-  "okButton": "Ок"
+  "okButton": "Ок",
+  "chargesAndPayments": "Эсептөөлөр жана төлөмдөр",
+  "lastThreeMonths": "Акыркы үч ай үчүн "
 };
 static const Map<String,dynamic> _en_US = {
   "bottomNavText1": "Home",
@@ -218,7 +220,9 @@ static const Map<String,dynamic> _en_US = {
   "controller": "Controller",
   "paymentSuccessTitle": "Payment successful",
   "paymentSuccessMessage": "The payment was completed successfully.",
-  "okButton": "OK"
+  "okButton": "OK",
+  "chargesAndPayments": "Charges and Payments",
+  "lastThreeMonths": "For the last three months"
 };
 static const Map<String,dynamic> _ru_RU = {
   "bottomNavText1": "Главная",
@@ -321,7 +325,9 @@ static const Map<String,dynamic> _ru_RU = {
   "controller": "Контролер",
   "paymentSuccessTitle": "Оплата успешна",
   "paymentSuccessMessage": "Платеж успешно выполнен.",
-  "okButton": "Ок"
+  "okButton": "Ок",
+  "chargesAndPayments": "Начисления и оплаты",
+  "lastThreeMonths": "За последние "
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ky_KY": _ky_KY, "en_US": _en_US, "ru_RU": _ru_RU};
 }

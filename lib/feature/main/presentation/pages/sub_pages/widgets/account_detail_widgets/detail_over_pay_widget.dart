@@ -84,11 +84,6 @@ class DetailOverPayWidget extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           DetailRowWidget(
-            label: context.tr(LocaleKeys.taxes),
-            value: _som(context, tax),
-          ),
-          const SizedBox(height: 8),
-          DetailRowWidget(
             label: context.tr(LocaleKeys.historyPaid),
             value: _som(context, paid),
             valueBold: true,

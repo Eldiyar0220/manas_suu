@@ -1,9 +1,15 @@
+import 'package:easy_localization/easy_localization.dart'
+    show BuildContextEasyLocalizationExtension;
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' show WatchContext;
 import 'package:manas_suu_app/app/components/app_text_scaler.dart';
+import 'package:manas_suu_app/app/langs/lang_gen/locale_keys.g.dart'
+    show LocaleKeys;
 import 'package:manas_suu_app/app/theme/app_colors/app_colors.dart';
-import 'package:manas_suu_app/feature/main/data/models/myaccount/account_chart_response_model.dart';
-import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart';
+import 'package:manas_suu_app/feature/main/data/models/myaccount/account_chart_response_model.dart'
+    show ChartPoint, AccountChartData;
+import 'package:manas_suu_app/feature/settings/presentation/bloc/theme/cubit/theme_cubit.dart'
+    show ThemeCubit;
 
 class MainChartWidget extends StatefulWidget {
   const MainChartWidget({
@@ -80,7 +86,7 @@ class _MainChartWidgetState extends State<MainChartWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
-                      'Начисления и оплаты',
+                      context.tr(LocaleKeys.chargesAndPayments),
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 15,
@@ -88,7 +94,8 @@ class _MainChartWidgetState extends State<MainChartWidget> {
                       ),
                     ),
                     CustomText(
-                      'За последние ${_periods[_selectedPeriod]}',
+                      context.tr(LocaleKeys.lastThreeMonths) +
+                          _periods[_selectedPeriod],
                       style: TextStyle(fontSize: 12, color: subTextColor),
                     ),
                   ],
@@ -162,9 +169,15 @@ class _MainChartWidgetState extends State<MainChartWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _LegendItem(color: Colors.blueAccent, label: 'Начислено'),
+              _LegendItem(
+                color: Colors.blueAccent,
+                label: context.tr(LocaleKeys.historyAccrued),
+              ),
               const SizedBox(width: 20),
-              _LegendItem(color: AppColors.mainColor, label: 'Оплачено'),
+              _LegendItem(
+                color: AppColors.mainColor,
+                label: context.tr(LocaleKeys.historyPaid),
+              ),
             ],
           ),
         ],

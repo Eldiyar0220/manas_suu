@@ -104,5 +104,7 @@ abstract class  LocaleKeys {
   static const paymentSuccessTitle = 'paymentSuccessTitle';
   static const paymentSuccessMessage = 'paymentSuccessMessage';
   static const okButton = 'okButton';
+  static const chargesAndPayments = 'chargesAndPayments';
+  static const lastThreeMonths = 'lastThreeMonths';
 
 }

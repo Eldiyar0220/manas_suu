@@ -380,32 +380,7 @@ class _IsAddedAccountState extends StatelessWidget {
                   subTextColor: subTextColor,
                 ),
                 Divider(height: 20, color: dividerColor),
-                Row(
-                  children: [
-                    Expanded(
-                      child: _PillInfo(
-                        icon: Icons.people_outline,
-                        label: context.tr(LocaleKeys.registered),
-                        value: (state.selectedAccount?.registeredCount ?? 0)
-                            .toString(),
-                        valueColor: AppColors.textPrimary,
-                        isDark: isDark,
-                      ),
-                    ),
-                    Container(width: 1, height: 30, color: dividerColor),
-                    Expanded(
-                      child: _PillInfo(
-                        icon: Icons.people,
-                        label: context.tr(LocaleKeys.residing),
-                        value: (state.selectedAccount?.residingCount ?? 0)
-                            .toString(),
-                        valueColor: Colors.blue,
-                        isDark: isDark,
-                      ),
-                    ),
-                  ],
-                ),
-                Divider(height: 20, color: dividerColor),
+
                 Row(
                   children: [
                     Icon(
@@ -435,7 +410,6 @@ class _IsAddedAccountState extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
               ],
             ),
           ),
