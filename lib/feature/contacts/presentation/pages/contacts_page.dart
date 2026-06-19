@@ -16,7 +16,11 @@ class ContactsPage extends StatelessWidget {
       appBar: AppBar(
         title: CustomText(
           context.tr(LocaleKeys.bottomNavText3),
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: context.theme.textWhiteBlackColor),
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: context.theme.textWhiteBlackColor,
+          ),
         ),
       ),
       body: ListView(
@@ -26,7 +30,13 @@ class ContactsPage extends StatelessWidget {
             title: context.tr(LocaleKeys.contactAddress),
             subtitle: context.tr(LocaleKeys.contactManasAddress),
             color: Colors.red,
-            launchUrl: Uri(scheme: 'geo', path: '0,0', queryParameters: {'q': context.tr(LocaleKeys.contactManasAddress)}).toString(),
+            launchUrl: Uri(
+              scheme: 'geo',
+              path: '0,0',
+              queryParameters: {
+                'q': context.tr(LocaleKeys.contactManasAddress),
+              },
+            ).toString(),
           ),
           ContactItemWidget(
             title: context.tr(LocaleKeys.contactAbonent),
@@ -38,7 +48,7 @@ class ContactsPage extends StatelessWidget {
             title: context.tr(LocaleKeys.contactDispatchers),
             subtitle: context.tr(LocaleKeys.contactManasDispatchersSubtitle),
             color: AppColors.mainColor,
-            launchUrl: 'tel:+996551616195',
+            launchUrl: 'tel:+996997303103',
           ),
           ContactItemWidget(
             title: context.tr(LocaleKeys.contactTechnical),

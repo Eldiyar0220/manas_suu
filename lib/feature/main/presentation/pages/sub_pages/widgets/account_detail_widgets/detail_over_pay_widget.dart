@@ -54,7 +54,11 @@ class DetailOverPayWidget extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               CustomText(
-                context.tr(LocaleKeys.overpayment),
+                context.tr(
+                  (balance ?? 0) < 0
+                      ? LocaleKeys.overpayment
+                      : LocaleKeys.toPay,
+                ),
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,

@@ -327,6 +327,7 @@ class _IsAddedAccountState extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 12),
+
                       CustomText(
                         context.tr(LocaleKeys.toPay),
                         style: TextStyle(
