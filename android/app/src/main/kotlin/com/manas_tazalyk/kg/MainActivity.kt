@@ -1,4 +1,4 @@
-package com.example.manas_suu_app
+package com.manas_tazalyk.kg
 
 import io.flutter.embedding.android.FlutterActivity
 

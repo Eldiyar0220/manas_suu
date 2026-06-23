@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "684392139831",
-    "project_id": "manassuuapp",
-    "storage_bucket": "manassuuapp.firebasestorage.app"
+    "project_number": "204170085379",
+    "project_id": "manassuu-27ca8",
+    "storage_bucket": "manassuu-27ca8.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:684392139831:android:71929a83690060834843b2",
+        "mobilesdk_app_id": "1:204170085379:android:50e4c6e6956f3158307a36",
         "android_client_info": {
-          "package_name": "com.example.manas_suu_app"
+          "package_name": "com.manas_tazalyk.kg"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDLPREWuoIL_d-kjVmkHc8VxaSlypwlRPo"
+          "current_key": "AIzaSyB5_RevYkJmahRvbLJu96SIqbV7h7F0F4g"
         }
       ],
       "services": {

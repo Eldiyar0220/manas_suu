@@ -56,7 +56,7 @@ class DetailOverPayWidget extends StatelessWidget {
               CustomText(
                 context.tr(
                   (balance ?? 0) < 0
-                      ? LocaleKeys.overpayment
+                      ? LocaleKeys.historyPaid
                       : LocaleKeys.toPay,
                 ),
                 style: TextStyle(
