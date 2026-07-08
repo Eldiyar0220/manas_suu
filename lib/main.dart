@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -53,16 +54,20 @@ Future<void> main() async {
   }
   await configureDependencies(environment: AppEnv.prod);
 
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
   final localNotifications = GetIt.I<LocalNotificationsService>();
   await localNotifications.initialize();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   _configEasyLoading();
   runApp(
     EasyLocalization(
       path: 'lib/app/langs/lang_gen',
       ignorePluralRules: false,
-      supportedLocales: const [Locale('ru', 'RU'), Locale('ky', 'KY'), Locale('en', 'US')],
+      supportedLocales: const [
+        Locale('ru', 'RU'),
+        Locale('ky', 'KY'),
+        Locale('en', 'US'),
+      ],
       fallbackLocale: const Locale('ru', 'RU'),
       assetLoader: const CodegenLoader(),
       child: ManasSuuApp(localNotifications: localNotifications),
@@ -92,9 +97,30 @@ class _ManasSuuAppState extends State<ManasSuuApp> {
     try {
       await messaging.getInitialMessage();
 
-      final settings = await messaging.requestPermission(alert: true, badge: true, sound: true);
+      final settings = await messaging.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
 
       log('Permission: ${settings.authorizationStatus}');
+
+      await messaging.setForegroundNotificationPresentationOptions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+
+      if (Platform.isIOS) {
+        for (var attempt = 0; attempt < 10; attempt++) {
+          final apnsToken = await messaging.getAPNSToken();
+          if (apnsToken != null) {
+            log('APNS Token received');
+            break;
+          }
+          await Future.delayed(const Duration(milliseconds: 500));
+        }
+      }
 
       final token = await messaging.getToken();
       log('FCM Token: $token');

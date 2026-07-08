@@ -9,28 +9,40 @@ class LocalNotificationsService {
   static const _channelId = 'high_importance_channel';
   static const _channelName = 'High Importance Notifications';
 
-  final FlutterLocalNotificationsPlugin _plugin = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin _plugin =
+      FlutterLocalNotificationsPlugin();
 
   FlutterLocalNotificationsPlugin get plugin => _plugin;
 
   Future<void> initialize() async {
-    const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
-    const iosSettings = DarwinInitializationSettings(requestAlertPermission: false, requestBadgePermission: false);
+    const androidSettings = AndroidInitializationSettings(
+      '@mipmap/ic_launcher',
+    );
+    const iosSettings = DarwinInitializationSettings(
+      requestAlertPermission: false,
+      requestBadgePermission: false,
+    );
 
-    const initSettings = InitializationSettings(android: androidSettings, iOS: iosSettings);
+    const initSettings = InitializationSettings(
+      android: androidSettings,
+      iOS: iosSettings,
+    );
 
-    await _plugin.initialize(initSettings, onDidReceiveNotificationResponse: _onNotificationTapped);
+    await _plugin.initialize(
+      settings: initSettings,
+      onDidReceiveNotificationResponse: _onNotificationTapped,
+    );
 
     if (Platform.isAndroid) {
       await _createAndroidNotificationChannel();
     }
 
     if (Platform.isIOS) {
-      await _plugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()?.requestPermissions(
-        alert: true,
-        badge: true,
-        sound: true,
-      );
+      await _plugin
+          .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin
+          >()
+          ?.requestPermissions(alert: true, badge: true, sound: true);
     }
   }
 
@@ -43,7 +55,9 @@ class LocalNotificationsService {
     );
 
     await _plugin
-        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >()
         ?.createNotificationChannel(channel);
   }
 
@@ -61,12 +75,20 @@ class LocalNotificationsService {
     String? payload,
   }) async {
     await _plugin.show(
-      id,
-      title,
-      body,
-      NotificationDetails(
-        android: AndroidNotificationDetails(_channelId, _channelName, channelDescription: 'Уведомления приложения'),
-        iOS: const DarwinNotificationDetails(presentAlert: true, presentBadge: true, presentSound: true),
+      id: id,
+      title: title,
+      body: body,
+      notificationDetails: NotificationDetails(
+        android: AndroidNotificationDetails(
+          _channelId,
+          _channelName,
+          channelDescription: 'Уведомления приложения',
+        ),
+        iOS: const DarwinNotificationDetails(
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+        ),
       ),
       payload: payload,
     );
@@ -75,21 +97,30 @@ class LocalNotificationsService {
   Future<void> showNotificationFromRemoteMessage(RemoteMessage message) async {
     final notification = message.notification;
     final android = message.notification?.android;
-    final title = notification?.title ?? message.data['title'] ?? 'Новое уведомление';
-    final body = notification?.body ?? message.data['body'] ?? message.data['text'] ?? '';
+    final title =
+        notification?.title ?? message.data['title'] ?? 'Новое уведомление';
+    final body =
+        notification?.body ??
+        message.data['body'] ??
+        message.data['text'] ??
+        '';
 
     await _plugin.show(
-      message.hashCode.abs().clamp(1, 2147483647),
-      title,
-      body,
-      NotificationDetails(
+      id: message.hashCode.abs().clamp(1, 2147483647),
+      title: title,
+      body: body,
+      notificationDetails: NotificationDetails(
         android: AndroidNotificationDetails(
           _channelId,
           _channelName,
           channelDescription: 'Уведомления приложения',
           icon: android?.smallIcon ?? '@mipmap/ic_launcher',
         ),
-        iOS: const DarwinNotificationDetails(presentAlert: true, presentBadge: true, presentSound: true),
+        iOS: const DarwinNotificationDetails(
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+        ),
       ),
       payload: message.data.toString(),
     );

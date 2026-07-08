@@ -222,11 +222,16 @@ class _EnsureChartLoadedState extends State<_EnsureChartLoaded> {
   Widget build(BuildContext context) => widget.child;
 }
 
-class _IsAddedAccountState extends StatelessWidget {
+class _IsAddedAccountState extends StatefulWidget {
   const _IsAddedAccountState(this.state);
 
   final MainState state;
 
+  @override
+  State<_IsAddedAccountState> createState() => _IsAddedAccountStateState();
+}
+
+class _IsAddedAccountStateState extends State<_IsAddedAccountState> {
   @override
   Widget build(BuildContext context) {
     final isDark = context.watch<ThemeCubit>().state.isDarkMode;
@@ -260,6 +265,7 @@ class _IsAddedAccountState extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
+
           // Горизонтальный скролл карточек: активный счёт + добавить
           SizedBox(
             height: 140,
@@ -267,11 +273,12 @@ class _IsAddedAccountState extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               children: [
                 ...List.generate(
-                  state.myAccounts.length,
+                  widget.state.myAccounts.length,
                   (index) => _ActiveAccountCard(
-                    account: state.myAccounts[index],
+                    account: widget.state.myAccounts[index],
                     isSelectedCard:
-                        state.myAccounts[index].id == state.selectedAccount?.id,
+                        widget.state.myAccounts[index].id ==
+                        widget.state.selectedAccount?.id,
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -305,7 +312,7 @@ class _IsAddedAccountState extends StatelessWidget {
                 // К оплате
                 InkWell(
                   onTap: () => context.read<MainCubit>().getAccountDetail(
-                    state.selectedAccount?.id,
+                    widget.state.selectedAccount?.id,
                   ),
                   child: Row(
                     children: [
@@ -314,13 +321,15 @@ class _IsAddedAccountState extends StatelessWidget {
                         height: 36,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: (state.selectedAccount?.balance ?? 0) > 0
+                          color:
+                              (widget.state.selectedAccount?.balance ?? 0) > 0
                               ? Colors.red.withValues(alpha: 0.12)
                               : AppColors.mainColor.withValues(alpha: 0.12),
                         ),
                         child: Icon(
                           Icons.arrow_downward,
-                          color: (state.selectedAccount?.balance ?? 0) > 0
+                          color:
+                              (widget.state.selectedAccount?.balance ?? 0) > 0
                               ? Colors.red
                               : AppColors.mainColor,
                           size: 20,
@@ -338,11 +347,12 @@ class _IsAddedAccountState extends StatelessWidget {
                       ),
                       const Spacer(),
                       CustomText(
-                        '${(state.selectedAccount?.balance ?? 0)} сом',
+                        '${(widget.state.selectedAccount?.balance ?? 0)} сом',
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w700,
-                          color: (state.selectedAccount?.balance ?? 0) > 0
+                          color:
+                              (widget.state.selectedAccount?.balance ?? 0) > 0
                               ? Colors.red
                               : AppColors.mainColor,
                         ),
@@ -357,9 +367,9 @@ class _IsAddedAccountState extends StatelessWidget {
                 _DetailRow(
                   icon: Icons.credit_card,
                   label: '${context.tr(LocaleKeys.accountLabel)}:',
-                  value: state.selectedAccount?.personalAccount ?? '',
+                  value: widget.state.selectedAccount?.personalAccount ?? '',
 
-                  accountType: state.selectedAccount?.accountType,
+                  accountType: widget.state.selectedAccount?.accountType,
 
                   textColor: textColor,
                   subTextColor: subTextColor,
@@ -368,7 +378,7 @@ class _IsAddedAccountState extends StatelessWidget {
                 _DetailRow(
                   icon: Icons.person_outline,
                   label: '${context.tr(LocaleKeys.fullNameLabel)}:',
-                  value: state.selectedAccount?.fullName ?? '',
+                  value: widget.state.selectedAccount?.fullName ?? '',
                   textColor: textColor,
                   subTextColor: subTextColor,
                 ),
@@ -376,7 +386,7 @@ class _IsAddedAccountState extends StatelessWidget {
                 _DetailRow(
                   icon: Icons.location_on_outlined,
                   label: '${context.tr(LocaleKeys.addressLabel)}:',
-                  value: state.selectedAccount?.address ?? '',
+                  value: widget.state.selectedAccount?.address ?? '',
                   textColor: textColor,
                   subTextColor: subTextColor,
                 ),
@@ -417,10 +427,10 @@ class _IsAddedAccountState extends StatelessWidget {
           const SizedBox(height: 28),
           AnimatedSwitcher(
             duration: Duration(milliseconds: 300),
-            child: state.accountChartData != null
+            child: widget.state.accountChartData != null
                 ? MainChartWidget(
-                    accountChartData: state.accountChartData!,
-                    initialMonths: state.chartMonths,
+                    accountChartData: widget.state.accountChartData!,
+                    initialMonths: widget.state.chartMonths,
                     onPeriodChanged: (months) {
                       final id = context
                           .read<MainCubit>()
@@ -440,16 +450,17 @@ class _IsAddedAccountState extends StatelessWidget {
 
           const SizedBox(height: 20),
           PaymentActionsWidget(
-            onPay: ((state.selectedAccount?.balance ?? 0) > 0)
+            onPay: ((widget.state.selectedAccount?.balance ?? 0) > 0)
                 ? () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => FinikScreen(
                           extra: FinikExtra(
-                            amount: state.selectedAccount?.balance ?? 0,
+                            amount: widget.state.selectedAccount?.balance ?? 0,
                             personalAccount:
-                                state.selectedAccount?.personalAccount ?? '',
+                                widget.state.selectedAccount?.personalAccount ??
+                                '',
                           ),
                         ),
                       ),
@@ -481,7 +492,7 @@ class _IsAddedAccountState extends StatelessWidget {
             onHistory: () {
               context.read<HistoryBloc>().add(
                 LoadHistoryEvent(
-                  personalAccount: state.selectedAccount?.id ?? 0,
+                  personalAccount: widget.state.selectedAccount?.id ?? 0,
                 ),
               );
             },

@@ -71,8 +71,6 @@
 		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
 	<key>NSCameraUsageDescription</key>
 	<string>Приложению нужен доступ к камере для сканирования QR-кодов и штрих-кодов</string>
 	<key>NSPhotoLibraryUsageDescription</key>

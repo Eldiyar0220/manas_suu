@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -20,6 +21,7 @@ class FirebasePushNotifications {
         );
       }
       final token = await _firebaseMessage.getToken();
+      log('data-unique: token: $token ');
       if (token != null) {
         await _pref?.setString(PreferenceHelper.messageToken, token);
       }

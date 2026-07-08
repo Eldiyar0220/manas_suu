@@ -63,6 +63,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '204170085379',
     projectId: 'manassuu-27ca8',
     storageBucket: 'manassuu-27ca8.firebasestorage.app',
-    iosBundleId: 'com.example.manasSuuApp',
+    iosBundleId: 'kg.manastazalyk.app',
   );
 }
